@@ -1,13 +1,14 @@
 {
-  "name": "crowd-funding",
+  "name": "babelbox",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js",
-    "seed": "node seeds/seed.js"
-  },
+    "lint": "./node_modules/.bin/eslint **/*.js",
+    "build": "...",
+    "test": "...",
+    "start": "node server.js"
+   },
   "keywords": [],
   "author": "",
   "license": "ISC",
