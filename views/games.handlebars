@@ -1,5 +1,7 @@
 {{#each games as |game| }}
-<div class="bg-{{game.color}} w-full text-gray-700 p-8 text-4xl text-center rounded-xl tracking-widest my-8" style="font-family: {{game.font}};">
+<a href="/{{game.title}}/lobby">
+<button class="bg-{{game.color}} w-full text-gray-700 p-8 text-4xl text-center rounded-xl tracking-widest my-8" style="font-family: {{game.font}};">
   {{game.title}}
-</div>
+</button>
+</a>
 {{/each}}

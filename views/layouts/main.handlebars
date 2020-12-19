@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +10,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Nerko+One&display=swap" rel="stylesheet">
   <title>Fibbage</title>
 </head>
+
 <body class="bg-gray-300">
-  <div class="flex flex-col h-screen w-full p-12 items-center">
-    <a href="/" class="text-6xl text-center text-gray-700 font-semibold" style="font-family: 'Bungee Outline', cursive;">
+  {{!-- this is our Barba wrapper containing content that stays the same --}}
+  <div class="flex flex-col h-screen w-full p-12 items-center barba-wrapper">
+    <a href="/" class="text-6xl text-center text-gray-700 font-semibold"
+      style="font-family: 'Bungee Outline', cursive;">
       <span class="text-yellow-500">B</span>
       <span class="text-green-500">A</span>
       <span class="text-indigo-500">B</span>
@@ -21,9 +25,20 @@
       <span class="text-yellow-600">O</span>
       <span class="text-indigo-800">X</span>
     </a>
-    <div class="bg-blue-400 h-full w-1/3 mt-12 rounded-xl shadow-lg p-4">
+    {{!-- this is our Barba-Container which contains content that changes between pages --}}
+    <div class="bg-blue-400 h-full w-1/3 mt-12 rounded-xl shadow-lg p-4 barba-container">
+      <ul class="transition">
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
       {{{body}}}
     </div>
   </div>
+  {{!-- jQuery library --}}
+  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+
 </body>
+
 </html>
