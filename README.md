@@ -18,6 +18,8 @@ __Frontend__
 - HTML
 - JavaScript
 - [TailWind CSS Framework](https://tailwindcss.com/)
+- [Barba](https://barba.js.org/)
+- [GSAP](https://greensock.com/gsap/)
 
 __Backend__
 - [NodeJS](https://nodejs.org/)
@@ -26,12 +28,17 @@ __Backend__
 - MVC Paradigm
 - SQL Database
 - [Sequelize](http://sequelize.org/)
+- [DotEnv](https://www.npmjs.com/package/dotenv)
 
 __Development__
 - [Prettier](https://prettier.io/)
 - [ESLint](https://eslint.org/)
 - [Git](https://git-scm.com/)
 - [Node Package Manager](https://www.npmjs.com/)
+- TravisCI
+
+__Deployment__
+- [Heroku](https://www.heroku.com/)
 
 
 ## User Story
