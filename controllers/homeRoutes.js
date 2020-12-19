@@ -39,35 +39,9 @@ router.get('/fibbage', async (req, res) => {
   }
 })
 
-router.get('/fibbage/:code', async (req, res) => {
-  try {
-    const portalData = await Project.findOne({
-      include: [
-        { model: Round },
-        { model: User }
-      ],
-      attributes: ['id', 'code', 'round'],
-      where: { code: req.params.code }
-    })
-
-    if(!portalData) {
-      res.render('')
-    }
-
-    res.render('fibbage', {
-      portalData
-    })
-
-  } catch (err) {
-
-    res.status(500).json(err)
-
-  }
-})
-
 router.get('/liarliar/lobby/:code', async (req, res) => {
   try {
-    const portal = await Portal.findOne({
+    const portalData = await Portal.findOne({
       include: [
         { model: Round },
         { model: User }
@@ -76,7 +50,11 @@ router.get('/liarliar/lobby/:code', async (req, res) => {
       where: { code: req.params.code }
     })
 
-    res.render("lobby", {portal})
+    const portal = portalData.get({ plain: true })
+
+    res.render("lobby", {
+      portal
+    })
   } catch (err) {
 
     console.log(err)
