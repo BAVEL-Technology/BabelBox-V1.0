@@ -1,6 +1,7 @@
 language: node_js
+//use latest version of node
 node_js:
-  - "6"
+  - node
 script:
   - npm run lint
   - npm run build
