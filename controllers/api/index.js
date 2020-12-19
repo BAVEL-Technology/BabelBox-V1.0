@@ -1,8 +1,13 @@
 const router = require('express').Router();
 const userRoutes = require('./userRoutes');
-const projectRoutes = require('./projectRoutes');
+const portalRoutes = require('./portalRoutes');
+const answerRoutes = require('./answerRoutes');
+const roundRoutes = require('./roundRoutes');
 
 router.use('/users', userRoutes);
-router.use('/projects', projectRoutes);
+router.use('/portals', portalRoutes);
+router.use('/answers', answerRoutes);
+router.use('/rounds', roundRoutes);
+
 
 module.exports = router;

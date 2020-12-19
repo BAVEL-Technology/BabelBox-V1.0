@@ -1,61 +1,161 @@
-const router = require('express').Router();
-const { User } = require('../../models');
+const router = require('express').Router()
+const { User, Portal } = require('../../models')
 
+/**
+* Find all users inside given portal
+* @param  {body: portal_id}
+* @return {id, name, points, portal_id}
+*/
+router.get('/', async (req, res) => {
+  try {
+    const portal = await Portal.findOne({
+      include: [
+        { model: Portal }
+      ],
+      attributes: ['id', 'name', 'points'],
+      where: { id: req.body.portal_id }
+    })
+
+    if(!portal) {
+        res.json({ message: 'Could not find that portal!' })
+    }
+
+    const userData = await portal.getUsers()
+
+    res.json({ users: userData })
+
+  } catch (err) {
+
+    res.status(400).json(err)
+
+  }
+})
+
+/**
+* Create a user inside given portal
+* @param  {body: name, portal_id}
+* @return {id, name, points, portal_id}
+*/
 router.post('/', async (req, res) => {
   try {
-    const userData = await User.create(req.body);
+    const portalData = await Portal.findOne({
+      where: { id: req.body.portal_id }
+    })
 
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
+    if(!portalData) {
+        res.json({ message: 'Could not find that portal!' })
+    }
 
-      res.status(200).json(userData);
-    });
+    const userData = await User.create(req.body, {
+      include: [
+        { model: Portal }
+      ],
+      attributes: ['id', 'name', 'points'],
+    })
+
+    res.json(userData)
+
   } catch (err) {
-    res.status(400).json(err);
-  }
-});
 
-router.post('/login', async (req, res) => {
+    res.status(400).json(err)
+
+  }
+})
+
+/**
+* Find a user given the id
+* @param  {id}
+* @return {id, name, points, portal_id}
+*/
+router.get('/:id', async (req, res) => {
   try {
-    const userData = await User.findOne({ where: { email: req.body.email } });
+    const userData = await User.findOne({
+      include: [
+        { model: Portal }
+      ],
+      attributes: ['id', 'name', 'points'],
+      where: { id: req.params.id }
+    })
 
     if (!userData) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
-      return;
+      res.status(400).json({ message: 'Could not find that user!' })
+      return
     }
 
-    const validPassword = await userData.checkPassword(req.body.password);
-
-    if (!validPassword) {
-      res
-        .status(400)
-        .json({ message: 'Incorrect email or password, please try again' });
-      return;
-    }
-
-    req.session.save(() => {
-      req.session.user_id = userData.id;
-      req.session.logged_in = true;
-      
-      res.json({ user: userData, message: 'You are now logged in!' });
-    });
+    res.json(userData)
 
   } catch (err) {
-    res.status(400).json(err);
-  }
-});
 
-router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
-    req.session.destroy(() => {
-      res.status(204).end();
-    });
-  } else {
-    res.status(404).end();
-  }
-});
+    res.status(400).json(err)
 
-module.exports = router;
+  }
+})
+
+/**
+* Find a user given the id
+* @param  {id}
+* @param  {body: name &|| points}
+* @return {id, name, points, portal_id}
+*/
+router.put('/:id', async (req, res) => {
+  try {
+    let userData = await User.findOne({
+      include: [
+        { model: Portal }
+      ],
+      attributes: ['id', 'name', 'points'],
+      where: { id: req.params.id }
+    })
+
+    if (!userData) {
+      res.status(400).json({ message: 'Could not find that user!' })
+      return
+    }
+
+    if (req.body.name) {
+      userData = await userData.update({
+        name: req.body.name
+      })
+    }
+
+    if (req.body.points) {
+      userData = await userData.update({
+        points: req.body.points
+      })
+    }
+
+    res.json(userData)
+
+  } catch (err) {
+
+    res.status(400).json(err)
+
+  }
+})
+
+/**
+* Delete a user
+* @param  {id}
+* @return {id, code, round}
+*/
+router.delete('/:id', async (req, res) => {
+  try {
+    const userData = await User.destroy({
+      where: { id: req.body.id }
+    })
+
+    if (!userData) {
+      res.status(404).json({ message: 'Could not find that user!' })
+      return
+    }
+
+    res.status(200).json(userData)
+
+  } catch (err) {
+
+    res.status(500).json(err)
+
+  }
+})
+
+module.exports = router
