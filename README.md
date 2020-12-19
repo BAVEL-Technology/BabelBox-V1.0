@@ -12,7 +12,7 @@ BABELbox is a collection of fun games that we have cultivated for the best party
 Head over to our website and choose a game. Create portals or join existing ones to pair up with your friends. Easy as that!
 
 ## Technologies Used
-This is a full stack application. Various technologies were used in the creation of the frontend and backend.
+This is a full stack application. Various technologies were used throughout the development and deployment process. Below is a full list of what we used.
 
 __Frontend__
 - HTML
@@ -45,15 +45,15 @@ __Deployment__
 As a group of friends, we want to be able to join a game room and play against each other in rounds of light hearted fun.
 ## The TEAM
 ### The Babel team is back at it again with a new member added to the crew.
--Steve Tong
+- [Steve Tong](https://github.com/steversonTong)
 
--Dustin Pidcock
+- [Dustin Pidcock](https://github.com/DustinPiddy)
 
--Nick Graffis
+- [Nick Graffis](https://github.com/nickgraffis)
 
--Robert Schmal
+- [Robert Schmal](https://github.com/rschm007)
 
--Christian Payne
+- [Christian Payne](https://github.com/ChristianPayne)
 
 ## Source Code
 Find all the source code to your new favorite game over at our [GitHub](https://github.com/https-github-com-steversonTong/BabelBox) repo!
