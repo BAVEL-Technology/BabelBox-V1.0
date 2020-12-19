@@ -51,7 +51,7 @@ As a group of friends, we want to be able to join a game room and play against e
 
 - [Nick Graffis](https://github.com/nickgraffis)
 
-- [Robert Schmal](https://github.com/rschm007)
+- [Robert Schmahl](https://github.com/rschm007)
 
 - [Christian Payne](https://github.com/ChristianPayne)
 
