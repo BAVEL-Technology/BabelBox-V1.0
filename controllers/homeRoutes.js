@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { Portal } = require('../models')
+const { Portal, User, Round } = require('../models')
 
 router.get('/', async (req, res) => {
   try {
@@ -65,4 +65,43 @@ router.get('/fibbage/:code', async (req, res) => {
   }
 })
 
+router.get('/liarliar/lobby/:code', async (req, res) => {
+  try {
+    const portal = await Portal.findOne({
+      include: [
+        { model: Round },
+        { model: User }
+      ],
+      attributes: ['id', 'code', 'round'],
+      where: { code: req.params.code }
+    })
+
+    res.render("lobby", {portal})
+  } catch (err) {
+
+    console.log(err)
+    res.status(500).json(err)
+
+  }
+})
+
+router.get('/liarliar/lobby', async (req, res) => {
+  try {
+    console.log(res)
+    const portal = await Portal.create({code: "manly-gorilla12" , game: "liarliar"}, {
+      include: [
+        { model: Round },
+        { model: User }
+      ],
+      attributes: ['id', 'code', 'round'],
+    })
+
+    res.render("lobby", {portal})
+  } catch (err) {
+
+    console.log(err)
+    res.status(500).json(err)
+
+  }
+})
 module.exports = router
