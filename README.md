@@ -35,7 +35,7 @@ __Development__
 - [ESLint](https://eslint.org/)
 - [Git](https://git-scm.com/)
 - [Node Package Manager](https://www.npmjs.com/)
-- TravisCI
+- [Travis CI](https://travis-ci.org/)
 
 __Deployment__
 - [Heroku](https://www.heroku.com/)
