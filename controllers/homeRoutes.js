@@ -3,7 +3,21 @@ const { Portal } = require('../models')
 
 router.get('/', async (req, res) => {
   try {
-    res.render('homepage')
+    const games = [
+      {
+        title: "LIAR LIAR",
+        font: "'Nerko One', cursive",
+        color: "yellow-400"
+      },
+      {
+        title: "JEPARDY",
+        font: "'Nerko One', cursive",
+        color: "purple-400"
+      }
+    ]
+    res.render('games', {
+      games
+    })
 
   } catch (err) {
 
@@ -17,7 +31,7 @@ router.get('/fibbage', async (req, res) => {
   try {
 
     res.render('fibbage')
-    
+
   } catch (err) {
 
     res.status(500).json(err)
@@ -50,3 +64,5 @@ router.get('/fibbage/:code', async (req, res) => {
 
   }
 })
+
+module.exports = router
