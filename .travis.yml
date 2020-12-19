@@ -5,5 +5,3 @@ node_js:
 script:
   - npm run lint
   - npm install
-  - npm run build
-  - npm test
