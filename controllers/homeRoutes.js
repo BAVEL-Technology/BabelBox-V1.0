@@ -15,11 +15,9 @@ router.get('/', async (req, res) => {
 
 router.get('/fibbage', async (req, res) => {
   try {
-    if(!portalData) {
-      res.render('')
-    }
 
     res.render('fibbage')
+    
   } catch (err) {
 
     res.status(500).json(err)
