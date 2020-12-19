@@ -1,9 +1,9 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
 
-class User extends Model {}
+class Portal extends Model {}
 
-User.init(
+Portal.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -11,22 +11,18 @@ User.init(
       primaryKey: true,
       autoIncrement: true
     },
-    name: {
+    round: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 1
+    },
+    code: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    points: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: 0
-    },
-    portal_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'portal',
-        key: 'id',
-        unique: false
-      }
+    game: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   },
   {
@@ -34,8 +30,8 @@ User.init(
     timestamps: true,
     freezeTableName: true,
     underscored: true,
-    modelName: 'user'
+    modelName: 'portal'
   }
 );
 
-module.exports = User;
+module.exports = Portal;
