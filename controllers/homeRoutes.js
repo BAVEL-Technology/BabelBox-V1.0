@@ -13,6 +13,18 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.get('/fibbage', async (req, res) => {
+  try {
+
+    res.render('fibbage')
+    
+  } catch (err) {
+
+    res.status(500).json(err)
+
+  }
+})
+
 router.get('/fibbage/:code', async (req, res) => {
   try {
     const portalData = await Project.findOne({
