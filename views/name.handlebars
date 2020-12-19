@@ -1,0 +1,11 @@
+{{#each portal.users as |user| }}
+<div class="bg-white w-full text-gray-700 p-6 text-4xl text-center rounded-xl tracking-widest my-8">
+  <p>Please enter your name!</p>
+</div>
+
+{{!-- create form to link it into lobby --}}
+<div class="bg-green-300 w-full text-gray-700 p-10 text-4xl text-center rounded-xl tracking-widest my-8">
+  {{user.name}}
+</div>
+
+{{/each}}
