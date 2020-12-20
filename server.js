@@ -11,8 +11,15 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Set up Handlebars.js engine with custom helpers
-const hbs = exphbs.create({ helpers });
+const hbs = exphbs.create({
+  helpers: {
+    section: function(name, options) {
+      if (!this._sections) this._sections = {};
+        this._sections[name] = options.fn(this);
+        return null;
+      }
+  }
+});
 
 const sess = {
   secret: 'Super secret secret',

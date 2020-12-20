@@ -39,6 +39,9 @@ router.get('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const portalData = await Portal.findOne({
+      include: [
+        { model: User }
+      ],
       where: { id: req.body.portal_id }
     })
 
@@ -46,14 +49,27 @@ router.post('/', async (req, res) => {
         res.json({ message: 'Could not find that portal!' })
     }
 
-    const userData = await User.create(req.body, {
+    let leader = 0;
+    if (portalData.dataValues.users.length === 0) {
+      leader = 1;
+    }
+
+    const userData = await User.create({
+      name: req.body.name,
+      portal_id: req.body.portal_id,
+      leader
+    }, {
       include: [
         { model: Portal }
       ],
-      attributes: ['id', 'name', 'points'],
+      attributes: ['id', 'name', 'points', 'leader'],
     })
 
-    res.json(userData)
+    req.session.save(() => {
+      req.session.portal = portalData.dataValues.id;
+      req.session.user = userData.dataValues.id;
+      res.status(200).json(userData);
+    });
 
   } catch (err) {
 

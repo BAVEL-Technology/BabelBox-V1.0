@@ -1,5 +1,20 @@
 const router = require('express').Router()
+const words = require('./words.json')
 const { Portal, User, Round } = require('../../models')
+const games = [
+  {
+    title: "LIAR LIAR",
+    font: "'Nerko One', cursive",
+    color: "yellow-400",
+    url: "liar"
+  },
+  {
+    title: "JEPARDY",
+    font: "'Nerko One', cursive",
+    color: "purple-400",
+    url: ""
+  }
+]
 
 /**
 * Create a new portal
@@ -8,7 +23,15 @@ const { Portal, User, Round } = require('../../models')
 */
 router.post('/', async (req, res) => {
   try {
-    const portalData = await Portal.create(req.body, {
+    const game = games.filter(g => g.url === req.body.game)[0].title
+    const word1 = words[Math.floor(Math.random() * words.length)]
+    const word2 = words[Math.floor(Math.random() * words.length)]
+    const code = word1 + '-' + word2
+    const portalData = await Portal.create({
+      game,
+      code
+    },
+    {
       include: [
         { model: Round },
         { model: User }
