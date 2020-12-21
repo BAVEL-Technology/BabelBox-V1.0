@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const avatars = require('./avatars.json')
 const { User, Portal } = require('../../models')
 
 /**
@@ -12,7 +13,7 @@ router.get('/', async (req, res) => {
       include: [
         { model: Portal }
       ],
-      attributes: ['id', 'name', 'points'],
+      attributes: ['id', 'name', 'points', 'avatar', 'leader'],
       where: { id: req.body.portal_id }
     })
 
@@ -54,15 +55,18 @@ router.post('/', async (req, res) => {
       leader = 1;
     }
 
+    let avatar = avatars[Math.floor(Math.random() * avatars.length)]
+
     const userData = await User.create({
       name: req.body.name,
       portal_id: req.body.portal_id,
-      leader
+      leader,
+      avatar
     }, {
       include: [
         { model: Portal }
       ],
-      attributes: ['id', 'name', 'points', 'leader'],
+      attributes: ['id', 'name', 'points', 'leader', 'avatar'],
     })
 
     req.session.save(() => {

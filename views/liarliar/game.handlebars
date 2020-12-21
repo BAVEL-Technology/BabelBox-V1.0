@@ -1,0 +1,55 @@
+<nav class="h-24 w-full flex items-center justify-between px-12">
+  <div class="left">
+      {{> tiny-logo}}
+  </div>
+  <div class="">
+    <p class="text-{{game.color}} lg:text-6xl md:text-5xl text-4xl font-semibold" style="font-family: {{game.font}};">{{game.title}}</p>
+  </div>
+  <div class="right">
+    <span class="mx-4 fa-stack fa-1x text-pink-400 hover:text-blue-200">
+      <i class="text-3xl fas fa-circle fa-stack-1x"></i>
+      <i class="text-3xl far fa-question-circle fa-stack-1x text-blue-600 hover:text-pink-400"></i>
+    </span>
+  </div>
+</nav>
+<div class="flex flex-col w-full items-center justify-center h-screen">
+  <div class="h-full w-11/12 md:w-3/4 lg:w-1/3 rounded-xl p-4">
+    <p id="tag-line" class="text-3xl text-yellow-500 text-center mb-4" style="font-family: {{game.font}}e;">{{game.tagline}}</p>
+    <div class="bg-{{game.color}} w-full flex flex-col text-gray-100 p-8 rounded-xl tracking-widest my-8 cursor-pointer" style="font-family: {{game.font}};">
+      <div id="portal-area" class="w-full flex justify-center">
+        <div class="w-full mx-6 relative">
+          <div class="status-bar border-b-4 border-blue-400 absolute top-7"></div>
+          <input id="portal-name" type="text" name="portal-name" placeholder=" " class="block appearance-none focus:outline-none border-b-4 border-gray-100 w-full bg-transparent text-lg text-gray-100">
+          <label for="portal-name" class="duration-300 absolute left-0 top-0 mt-8 w-full -top-10 -z-1 label text-3xl">Portal name</label>
+        </div>
+      </div>
+      <button id="join-portal-button" onclick="joinPortal('{{game.url}}')" class="place-self-center my-4 bg-blue-400 h-12 text-gray-100 p-4 rounded-tl-xl rounded-br-xl rounded-tr rounded-bl flex items-center justify-center w-2/3 text-3xl">Join Portal</button>
+    </div>
+    <div class="bg-{{game.color}} w-full flex flex-col text-gray-100 p-8 rounded-xl tracking-widest my-8 cursor-pointer" style="font-family: {{game.font}};">
+      <div id="user-area" class="w-full flex justify-center mt-8" style="font-family: {{game.font}};">
+        <div class="w-full mx-6 relative">
+          <input id="user-name" type="text" name="user-name" placeholder=" " class="block appearance-none focus:outline-none border-b-4 border-gray-100 w-full bg-transparent text-xl text-gray-100">
+          <label for="user-name" class="duration-300 absolute left-0 top-0 mt-8 w-full -top-10 -z-1 label text-3xl">User name</label>
+        </div>
+      </div>
+      <button id="create-user-button" onclick="createPortal('{{game.url}}')" class="place-self-center my-4 bg-blue-400 h-12 text-gray-100 p-4 rounded-tl-xl rounded-br-xl rounded-tr rounded-bl flex items-center justify-center w-2/3 text-3xl" style="font-family: {{game.font}};">Create Portal</button>
+    </div>
+  </div>
+</div>
+
+{{#section 'script'}}
+  <script type="application/javascript">
+    /*
+    * When users type into the portal input, display how close they are to
+    * getting to the proper 10 letter code
+    */
+    if (document.querySelector('#portal-name')) {
+      setInterval(() => {
+        let letters = document.querySelector('#portal-name').value.length;
+        let width = letters >= 11 ? ' w-full' : ' w-' + letters + '/12';
+        let classes = 'status-bar border-b-4 border-blue-400 absolute top-7';
+        document.querySelector('.status-bar').classList = classes + width;
+      }, 100)
+    }
+  </script>
+{{/section}}

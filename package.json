@@ -7,7 +7,8 @@
     "lint": "./node_modules/.bin/eslint **/*.js",
     "build": "...",
     "test": "...",
-    "start": "node server.js"
+    "start": "node server.js",
+    "twemoji" : "node twemoji.js"
   },
   "keywords": [],
   "author": "",
@@ -20,7 +21,8 @@
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
     "mysql2": "^2.2.5",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "twemoji": "^13.0.1"
   },
   "devDependencies": {
     "eslint": "^7.12.1",

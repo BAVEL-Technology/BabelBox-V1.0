@@ -1,0 +1,17 @@
+[
+  {
+    "title": "LIAR LIAR",
+    "font": "'Sniglet', cursive",
+    "color": "yellow-500",
+    "url": "liar",
+    "tagline": "The game where knowing the right answer, is only half the challenge. 😉",
+    "logo": "🤥"
+  },
+  {
+    "title": "JEPARDY",
+    "font": "'Nerko One', cursive",
+    "color": "purple-400",
+    "url": "",
+    "logo": "🧑‍🎓"
+  }
+]

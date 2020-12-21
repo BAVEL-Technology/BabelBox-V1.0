@@ -13,23 +13,23 @@ Question.init(
     },
     category: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     question: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     answer: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     alternateAnswers: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     suggestions: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     }
   },
   {

@@ -10,7 +10,60 @@
   <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
   <script src="https://kit.fontawesome.com/7652f157a9.js" crossorigin="anonymous"></script>
   <title>BABELbox</title>
+  {{{_sections.styles}}}
   <style>
+.base-timer {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+}
+
+.base-timer__svg {
+  transform: scaleX(-1);
+}
+
+.base-timer__circle {
+  fill: none;
+  stroke: none;
+}
+
+.base-timer__path-elapsed {
+  stroke-width: 7px;
+  stroke: grey;
+}
+
+.base-timer__path-remaining {
+  stroke-width: 7px;
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  fill-rule: nonzero;
+  stroke: currentColor;
+}
+
+.base-timer__path-remaining.green {
+  color: rgb(65, 184, 131);
+}
+
+.base-timer__path-remaining.orange {
+  color: orange;
+}
+
+.base-timer__path-remaining.red {
+  color: red;
+}
+
+.base-timer__label {
+  position: absolute;
+  width: 3rem;
+  height: 3rem;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+}
   input:focus-within ~ label,
   input:not(:placeholder-shown) ~ label {
     transform: scale(.75) translateY(-1.5rem);
@@ -20,7 +73,7 @@
     transform-origin: 0%;
   }
 
-  #tag-line img.emoji {
+  #tag-line img.emoji, footer img.emoji {
    height: 1em;
    width: 1em;
    margin: 0 .05em 0 .1em;
@@ -31,8 +84,8 @@
 </head>
 <body class="bg-blue-200">
   {{{body}}}
-  {{> footer/footer}}
-<script src="/js/index.js"></script>
-{{{_sections.script}}}
+  {{> footer}}
+  <script src="/js/output.js"></script>
+  {{{_sections.script}}}
 </body>
 </html>

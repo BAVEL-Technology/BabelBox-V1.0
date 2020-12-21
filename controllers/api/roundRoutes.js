@@ -48,16 +48,19 @@ router.post('/', async (req, res) => {
     if(!portalData) {
         res.json({ message: 'Could not find that portal!' })
     }
-
     const questionData = await Question.findOne({
-      where: { id: req.body.question_id }
+      where: { id: 1 }
     })
 
     if(!questionData) {
         res.json({ message: 'Could not find that question!' })
     }
 
-    const roundData = await Round.create(req.body, {
+    const roundData = await Round.create({
+      portal_id: req.body.portal_id,
+      round: req.body.round,
+      question_id: questionData.dataValues.id
+    }, {
       include: [
         { model: Question },
         { model: Portal }

@@ -10,16 +10,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
-const hbs = exphbs.create({
-  helpers: {
-    section: function(name, options) {
-      if (!this._sections) this._sections = {};
-        this._sections[name] = options.fn(this);
-        return null;
-      }
-  }
-});
+const hbs = exphbs.create({ helpers });
 
 const sess = {
   secret: 'Super secret secret',

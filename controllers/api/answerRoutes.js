@@ -87,7 +87,7 @@ router.get('/:id', async (req, res) => {
         { model: User }
       ],
       attributes: ['id', 'answer'],
-      where: { id: req.body.id }
+      where: { id: req.params.id }
     })
 
     res.json({answer: answerData})

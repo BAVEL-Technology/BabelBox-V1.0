@@ -1,17 +1,17 @@
 function babelJax (method, route, params) {
   return new Promise((resolve, reject) => {
     let xhttp = new XMLHttpRequest();
-    xhr.onreadystatechange = function() {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          resolve(JSON.parse(xhr.responseText))
-        } else if (xhr.readyState == 4 && xhr.status != 200) {
-          reject(JSON.parse(xhr.statusText))
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState == 4 && xhttp.status == 200) {
+          resolve(JSON.parse(xhttp.responseText))
+        } else if (xhttp.readyState == 4 && xhttp.status != 200) {
+          reject(JSON.parse(xhttp.statusText))
         }
       };
-    xhr.open(method, route, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.send(JSON.stringify(params));
-  }
+    xhttp.open(method, route, true);
+    xhttp.setRequestHeader('Content-Type', 'application/json');
+    xhttp.send(JSON.stringify(params));
+  })
 }
 
 module.exports = {
@@ -28,7 +28,7 @@ module.exports = {
     let method = "GET"
     let route = "/api/" + model + "s"
     if (params.id) {
-      route = "/api" + model + "s/" + params.id
+      route = "/api/" + model + "s/" + params.id
     }
     return new Promise((resolve) => {
       babelJax(method, route, params).then((response) => resolve(response))
@@ -39,7 +39,7 @@ module.exports = {
     let method = "PUT"
     let route = "/api/" + model + "s"
     if (params.id) {
-      route = "/api" + model + "s/" + params.id
+      route = "/api/" + model + "s/" + params.id
     } else {
       return 'Update requires an id!'
     }
@@ -52,7 +52,7 @@ module.exports = {
     let method = "GET"
     let route = "/api/" + model + "s"
     if (params.id) {
-      route = "/api" + model + "s/" + params.id
+      route = "/api/" + model + "s/" + params.id
     } else {
       return 'Delete requires an id!'
     }
