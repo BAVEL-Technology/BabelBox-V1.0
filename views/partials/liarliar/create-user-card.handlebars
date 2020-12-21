@@ -1,0 +1,9 @@
+<div class="bg-{{game.color}} w-full flex flex-col text-gray-700 p-8 rounded-xl tracking-widest my-8 cursor-pointer" style="font-family: {{game.font}};">
+  <div id="user-area" class="w-full flex justify-center mt-8" style="font-family: {{game.font}};">
+    <div class="w-full mx-6 relative">
+      <input id="user-name" type="text" name="user-name" placeholder=" " class="block appearance-none focus:outline-none border-b-4 border-gray-700 w-full bg-transparent text-xl text-gray-700 font-semibold">
+      <label for="user-name" class="duration-300 absolute left-0 top-0 mt-8 w-full -top-10 -z-1 label text-4xl font-semibold">User name</label>
+    </div>
+  </div>
+  <button id="join-portal-button" onclick="createUser({{portal.id}})" class="place-self-center my-4 bg-pink-400 h-12 text-white p-4 rounded-tl-xl rounded-br-xl rounded-tr rounded-bl flex items-center justify-center font-semibold w-2/3 text-4xl" style="font-family: {{game.font}};">Create User</button>
+</div>

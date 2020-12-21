@@ -4,7 +4,7 @@ const { Answer, User, Round } = require('../../models')
 /**
 * Find all answers for given round
 * @param  {body: round_id}
-* @return {id, answer, round_id, user_id}
+* @return {id, answer, Round, User}
 */
 router.get('/', async (req, res) => {
   try {
@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
 /**
 * Create an answer
 * @param  {body: round_id, user_id}
-* @return {id, answer, round_id, user_id}
+* @return {id, answer, Round, User}
 */
 router.post('/', async (req, res) => {
   try {
@@ -77,7 +77,7 @@ router.post('/', async (req, res) => {
 /**
 * Find an answer with the given id
 * @param  {id}
-* @return {id, answer, round_id, user_id}
+* @return {id, answer, Round, User}
 */
 router.get('/:id', async (req, res) => {
   try {
@@ -99,7 +99,7 @@ router.get('/:id', async (req, res) => {
 /**
 * Delete an answer
 * @param  {id}
-* @return {id, answer, round_id, user_id}
+* @return {Answer}
 */
 router.delete('/:id', async (req, res) => {
   try {

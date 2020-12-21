@@ -1,42 +1,27 @@
 const router = require('express').Router()
-const words = require('./words.json')
+const pickCode = require('../../utils/pickCode')
+const games = require('../../jsonDB/games.json')
 const { Portal, User, Round } = require('../../models')
-const games = [
-  {
-    title: "LIAR LIAR",
-    font: "'Nerko One', cursive",
-    color: "yellow-400",
-    url: "liar"
-  },
-  {
-    title: "JEPARDY",
-    font: "'Nerko One', cursive",
-    color: "purple-400",
-    url: ""
-  }
-]
 
 /**
 * Create a new portal
 * @param  {body: code}
-* @return {id, code, round}
+* @return {id, code, round, phase, Round, Users}
 */
 router.post('/', async (req, res) => {
   try {
     const game = games.filter(g => g.url === req.body.game)[0].title
-    const word1 = words[Math.floor(Math.random() * words.length)]
-    const word2 = words[Math.floor(Math.random() * words.length)]
-    const code = word1 + '-' + word2
+
     const portalData = await Portal.create({
-      game,
-      code
+      code: pickCode(),
+      game
     },
     {
       include: [
         { model: Round },
         { model: User }
       ],
-      attributes: ['id', 'code', 'round'],
+      attributes: ['id', 'code', 'round', 'phase']
     })
 
     res.json(portalData)
@@ -49,19 +34,27 @@ router.post('/', async (req, res) => {
 })
 
 /**
-* Find a portal
-* @param  {id}
-* @return {id, code, round}
+* Find a portal with an id or code
+* @param  {id || code}
+* @return {id, code, round, phase, Round, Users}
 */
 router.get('/:id', async (req, res) => {
   try {
+    let whereParams = {}
+
+    if (isNaN(req.params.id)) {
+      whereParams.code = req.params.id
+    } else {
+      whereParams.id = req.params.id
+    }
+
     const portalData = await Portal.findOne({
       include: [
         { model: Round },
         { model: User }
       ],
-      attributes: ['id', 'code', 'round'],
-      where: { id: req.params.id }
+      attributes: ['id', 'code', 'round', 'phase'],
+      where: whereParams
     })
 
     if (!portalData) {
@@ -81,8 +74,8 @@ router.get('/:id', async (req, res) => {
 /**
 * Update a portal
 * @param  {id}
-* @param  {body: round}
-* @return {id, code, round}
+* @param  {body: round, phase}
+* @return {id, code, round, phase, Round, Users}
 */
 router.put('/:id', async (req, res) => {
   try {
@@ -91,7 +84,7 @@ router.put('/:id', async (req, res) => {
         { model: Round },
         { model: User }
       ],
-      attributes: ['id', 'code', 'round'],
+      attributes: ['id', 'code', 'round', 'phase'],
       where: { id: req.params.id }
     })
 
@@ -100,9 +93,17 @@ router.put('/:id', async (req, res) => {
       return
     }
 
-    portalData = await portalData.update({
-      round: req.body.round
-    })
+    if (req.body.round) {
+      portalData = await portalData.update({
+        round: req.body.round
+      })
+    }
+
+    if (req.body.phase) {
+      portalData = await portalData.update({
+        phase: req.body.phase
+      })
+    }
 
     res.json(portalData)
 
@@ -116,7 +117,7 @@ router.put('/:id', async (req, res) => {
 /**
 * Delete a portal
 * @param  {id}
-* @return {id, code, round}
+* @return {Portal}
 */
 router.delete('/:id', async (req, res) => {
   try {

@@ -8,12 +8,13 @@
     "build": "...",
     "test": "...",
     "start": "node server.js",
-    "twemoji" : "node twemoji.js"
+    "twemoji": "node twemoji.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "^10.1.0",
     "bcrypt": "^5.0.0",
     "connect-session-sequelize": "^7.0.4",
     "dotenv": "^8.2.0",
@@ -21,7 +22,9 @@
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
     "mysql2": "^2.2.5",
+    "postcss": "^8.2.1",
     "sequelize": "^6.3.5",
+    "tailwindcss": "^2.0.2",
     "twemoji": "^13.0.1"
   },
   "devDependencies": {

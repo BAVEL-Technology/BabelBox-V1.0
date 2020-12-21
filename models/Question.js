@@ -23,7 +23,7 @@ Question.init(
       type: DataTypes.STRING,
       allowNull: true
     },
-    alternateAnswers: {
+    alternate_answers: {
       type: DataTypes.STRING,
       allowNull: true
     },

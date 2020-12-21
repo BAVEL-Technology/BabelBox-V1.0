@@ -1,11 +1,18 @@
-<nav class="h-24 w-full flex items-center justify-between px-12">
+<nav class="h-24 w-full flex items-center justify-between lg:px-12 md:px-12 px-4">
   <div class="left">
+    {{#if tinyLogo}}
       {{> tiny-logo}}
+    {{/if}}
+  </div>
+  <div class="center">
+    {{#if centerText}}
+      <p class="text-{{@root.game.color}} lg:text-6xl md:text-5xl text-4xl font-semibold" style="font-family: {{@root.game.font}};">{{@root.game.title}}</p>
+    {{/if}}
   </div>
   <div class="right">
-    <span class="mx-4 fa-stack fa-1x text-pink-400 hover:text-blue-200">
-      <i class="text-3xl fas fa-circle fa-stack-1x"></i>
-      <i class="text-3xl far fa-question-circle fa-stack-1x text-blue-600 hover:text-pink-400"></i>
+    <span class="fa-stack fa-1x text-pink-400 hover:text-blue-200">
+      <i class="md:text-3xl lg:text-3xl text-xl fas fa-circle fa-stack-1x"></i>
+      <i class="md:text-3xl lg:text-3xl far fa-question-circle fa-stack-1x text-blue-600 hover:text-pink-400"></i>
     </span>
   </div>
 </nav>

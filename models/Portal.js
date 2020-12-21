@@ -22,9 +22,9 @@ Portal.init(
     },
     phase: {
       type: DataTypes.STRING,
+      defaultValue: 'waiting',
       allowNull: false
-    }, //lobby, question, answer
-    //If you enter the /questoin page you will be redirected to the proper page
+    },
     game: {
       type: DataTypes.STRING,
       allowNull: false

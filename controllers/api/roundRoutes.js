@@ -1,43 +1,10 @@
 const router = require('express').Router()
-const { Round, Portal, Question } = require('../../models')
-
-/**
-* Find all rounds inside given portal
-* @param  {body: portal_id}
-* @return {id, round, question_id, portal_id}
-*/
-router.get('/', async (req, res) => {
-  try {
-    const portalData = await Portal.findOne({
-      where: { id: req.body.portal_id }
-    })
-
-    if(!portalData) {
-        res.json({ message: 'Could not find that portal!' })
-    }
-
-    const roundData = await Round.findAll({
-      include: [
-        { model: Question },
-        { model: Portal }
-      ],
-      attributes: ['id', 'round'],
-      where: { portal_id: req.body.portal_id }
-    })
-
-    res.json({ rounds: roundData })
-
-  } catch (err) {
-
-    res.status(400).json(err)
-
-  }
-})
+const { Round, Portal, Question, User, Answer } = require('../../models')
 
 /**
 * Create a round inside given portal
 * @param  {body: round, question_id, portal_id}
-* @return {id, round, question_id, portal_id}
+* @return {id, round, Question, Portal}
 */
 router.post('/', async (req, res) => {
   try {
@@ -49,7 +16,7 @@ router.post('/', async (req, res) => {
         res.json({ message: 'Could not find that portal!' })
     }
     const questionData = await Question.findOne({
-      where: { id: 1 }
+      where: { id: Math.floor(Math.random() * 282) }
     })
 
     if(!questionData) {
@@ -68,6 +35,11 @@ router.post('/', async (req, res) => {
       attributes: ['id', 'round']
     })
 
+    const answerData = await Answer.create({
+        answer: questionData.dataValues.answer,
+        round_id: roundData.dataValues.id
+    })
+
     res.json(roundData)
 
   } catch (err) {
@@ -80,7 +52,7 @@ router.post('/', async (req, res) => {
 /**
 * Find a round with given id
 * @param  {id}
-* @return {id, round, question_id, portal_id}
+* @return {id, round, Question, Portal}
 */
 router.get('/:id', async (req, res) => {
   try {
@@ -90,7 +62,7 @@ router.get('/:id', async (req, res) => {
         { model: Portal }
       ],
       attributes: ['id', 'round'],
-      where: { id: req.body.id }
+      where: { id: req.params.id }
     })
 
     if (!roundData) {
@@ -111,7 +83,7 @@ router.get('/:id', async (req, res) => {
 * Update a rounds question
 * @param  {id}
 * @param  {body: question_id}
-* @return {id, round, question_id, portal_id}
+* @return {id, round, Question, Portal}
 */
 router.put('/:id', async (req, res) => {
   try {
@@ -153,7 +125,7 @@ router.put('/:id', async (req, res) => {
 /**
 * Delete a round
 * @param  {id}
-* @return {id, round, question_id, portal_id}
+* @return {Round}
 */
 router.delete('/:id', async (req, res) => {
   try {

@@ -1,11 +1,11 @@
 const router = require('express').Router()
-const avatars = require('./avatars.json')
+const getAvatar = require('../../utils/getAvatar')
 const { User, Portal } = require('../../models')
 
 /**
 * Find all users inside given portal
 * @param  {body: portal_id}
-* @return {id, name, points, portal_id}
+* @return {id, name, points, avatar, leader, Portal}
 */
 router.get('/', async (req, res) => {
   try {
@@ -35,7 +35,7 @@ router.get('/', async (req, res) => {
 /**
 * Create a user inside given portal
 * @param  {body: name, portal_id}
-* @return {id, name, points, portal_id}
+* @return {id, name, points, leader, avatar, Portal}
 */
 router.post('/', async (req, res) => {
   try {
@@ -50,18 +50,17 @@ router.post('/', async (req, res) => {
         res.json({ message: 'Could not find that portal!' })
     }
 
-    let leader = 0;
-    if (portalData.dataValues.users.length === 0) {
-      leader = 1;
-    }
+    let leader = 0
 
-    let avatar = avatars[Math.floor(Math.random() * avatars.length)]
+    if (portalData.dataValues.users.length === 0) {
+      leader = 1
+    }
 
     const userData = await User.create({
       name: req.body.name,
       portal_id: req.body.portal_id,
-      leader,
-      avatar
+      avatar: getAvatar(),
+      leader
     }, {
       include: [
         { model: Portal }
@@ -70,10 +69,10 @@ router.post('/', async (req, res) => {
     })
 
     req.session.save(() => {
-      req.session.portal = portalData.dataValues.id;
-      req.session.user = userData.dataValues.id;
-      res.status(200).json(userData);
-    });
+      req.session.portal = portalData.dataValues.id
+      req.session.user = userData.dataValues.id
+      res.status(200).json(userData)
+    })
 
   } catch (err) {
 
@@ -85,7 +84,7 @@ router.post('/', async (req, res) => {
 /**
 * Find a user given the id
 * @param  {id}
-* @return {id, name, points, portal_id}
+* @return {id, name, points, leader, avatar, Portal}
 */
 router.get('/:id', async (req, res) => {
   try {
@@ -93,7 +92,7 @@ router.get('/:id', async (req, res) => {
       include: [
         { model: Portal }
       ],
-      attributes: ['id', 'name', 'points'],
+      attributes: ['id', 'name', 'points', 'leader', 'avatar'],
       where: { id: req.params.id }
     })
 
@@ -115,7 +114,7 @@ router.get('/:id', async (req, res) => {
 * Find a user given the id
 * @param  {id}
 * @param  {body: name &|| points}
-* @return {id, name, points, portal_id}
+* @return {id, name, points, leader, avatar, Portal}
 */
 router.put('/:id', async (req, res) => {
   try {
@@ -123,7 +122,7 @@ router.put('/:id', async (req, res) => {
       include: [
         { model: Portal }
       ],
-      attributes: ['id', 'name', 'points'],
+      attributes: ['id', 'name', 'points', 'leader', 'avatar'],
       where: { id: req.params.id }
     })
 
@@ -156,7 +155,7 @@ router.put('/:id', async (req, res) => {
 /**
 * Delete a user
 * @param  {id}
-* @return {id, code, round}
+* @return {User}
 */
 router.delete('/:id', async (req, res) => {
   try {

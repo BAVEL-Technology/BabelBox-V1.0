@@ -1,23 +1,53 @@
-<nav class="h-24 w-full flex items-center justify-between px-12">
-  <div class="left">
-  </div>
-  <div class="right">
-    <span class="mx-4 fa-stack fa-1x text-pink-400 hover:text-blue-200">
-      <i class="text-3xl fas fa-circle fa-stack-1x"></i>
-      <i class="text-3xl far fa-question-circle fa-stack-1x text-blue-600 hover:text-pink-400"></i>
-    </span>
-  </div>
-</nav>
-<div class="w-full flex flex-col items-center items-center h-screen">
+{{> nav tinyLogo=false centerText=false}}
+<div class="w-full flex flex-col items-center items-center min-h-screen">
   {{> hero-title}}
   <div class="h-full w-11/12 md:w-3/4 lg:w-1/3 rounded-xl p-4">
-    {{#each games as |game|}}
-      <a href="/{{game.url}}">
-        <div class="my-4 flex items-center justify-around bg-{{game.color}} w-full text-gray-700 p-4 text-4xl text-center rounded-xl tracking-widest shadow-lg hover:shadow-xl transform hover:-translate-y-2 cursor-pointer" style="font-family: 'Sniglet', cursive;">
-          <div class="emoji">{{game.logo}}</div>
-          <p class="font-extrabold text-6xl" style="font-family: {{game.font}};">{{game.title}}</p>
-        </div>
-      </a>
+    {{#each games}}
+      {{> game-card}}
     {{/each}}
   </div>
 </div>
+
+{{#section 'script'}}
+  <script type="application/javascript">
+    /*
+    * Hover effect on "BABELBOX"
+    */
+    window.big = function (event) {
+      let letter = event.srcElement
+      letter.classList.add('scale-150')
+      if (letter.previousSibling.nodeType != Node.TEXT_NODE) {
+        let previousLetter = letter.previousSibling
+        previousLetter.classList.add('scale-125')
+        if (previousLetter.previousSibling.nodeType != Node.TEXT_NODE) {
+          previousLetter.previousSibling.classList.add('scale-100')
+        }
+      }
+      if (letter.nextSibling.nodeType != Node.TEXT_NODE) {
+        let nextLetter = letter.nextSibling
+        nextLetter.classList.add('scale-125')
+        if (nextLetter.nextSibling.nodeType != Node.TEXT_NODE) {
+          nextLetter.nextSibling.classList.add('scale-100')
+        }
+      }
+    }
+    window.small = function (event) {
+      let letter = event.srcElement
+      letter.classList.remove('scale-150')
+      if (letter.previousSibling.nodeType != Node.TEXT_NODE) {
+        let previousLetter = letter.previousSibling
+        previousLetter.classList.remove('scale-125')
+        if (previousLetter.previousSibling.nodeType != Node.TEXT_NODE) {
+          previousLetter.previousSibling.classList.remove('scale-100')
+        }
+      }
+      if (letter.nextSibling.nodeType != Node.TEXT_NODE) {
+        let nextLetter = letter.nextSibling
+        nextLetter.classList.remove('scale-125')
+        if (nextLetter.nextSibling.nodeType != Node.TEXT_NODE) {
+          nextLetter.nextSibling.classList.remove('scale-100')
+        }
+      }
+    }
+  </script>
+{{/section}}
