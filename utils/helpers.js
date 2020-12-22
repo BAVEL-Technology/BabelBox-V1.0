@@ -20,7 +20,7 @@ module.exports = {
       return array[0] + '-' + (parseInt(array[1]) + increase)
     },
 
-    evalIf: function (one, comparator, two) {
+    q: function (one, comparator, two) {
       if (eval(one + comparator + two)) {
         return true
       } else {

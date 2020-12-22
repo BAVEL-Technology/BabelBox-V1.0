@@ -4,7 +4,7 @@
     <div class="w-full flex items-center justify-center">
       <div class="flex flex-col items-center">
         {{#if portalLeader}}
-        <p class="text-{{game.color}} font-semibold lg:text-3xl md:text-3xl text-xl" style="font-family: {{game.font}};">{{#if (evalIf portal.round '===' 1) }}PLAY {{else}} NEXT ROUND {{/if}}</p>
+        <p class="text-{{game.color}} font-semibold lg:text-3xl md:text-3xl text-xl" style="font-family: {{game.font}};">{{#if (q portal.round '===' 1) }}PLAY {{else}} NEXT ROUND {{/if}}</p>
         <div onclick="startGame('{{game.url}}', {{portal.id}}, {{portal.round}})" class="my-2 cursor-pointer lg:h-24 md:h-24 lg:w-24 md:w-24 w-16 h-16 rounded-full bg-green-400 flex items-center justify-center text-gray-100 hover:text-green-400 hover:bg-gray-100 border-4 border-green-400">
           <i class="ml-1 lg:text-3xl md:text-3xl text-xl fas fa-play"></i>
         </div>

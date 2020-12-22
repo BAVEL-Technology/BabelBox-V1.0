@@ -8,8 +8,7 @@
     "build": "...",
     "test": "...",
     "start": "node server.js",
-    "users": "node -e 'require(`./seeds.seed`).testPortalUsers()'",
-    "answers": "node -e 'require(`./seeds.seed`).testAnswers()'"
+    "questions": "node -e 'require(`./seeds.seed`).questions()'"
   },
   "keywords": [],
   "author": "",
@@ -17,11 +16,13 @@
   "dependencies": {
     "autoprefixer": "^10.1.0",
     "bcrypt": "^5.0.0",
+    "chalk": "^4.1.0",
     "connect-session-sequelize": "^7.0.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
+    "figlet": "^1.5.0",
     "mysql2": "^2.2.5",
     "postcss": "^8.2.1",
     "sequelize": "^6.3.5",

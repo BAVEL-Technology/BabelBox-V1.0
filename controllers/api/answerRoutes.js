@@ -2,6 +2,11 @@ const router = require('express').Router()
 const { Answer, User, Round } = require('../../models')
 
 /**
+ ____  _____    _    ____
+|  _ \| ____|  / \  |  _ \
+| |_) |  _|   / _ \ | | | |
+|  _ <| |___ / ___ \| |_| |
+|_| \_\_____/_/   \_\____/
 * Find all answers for given round
 * @param  {body: round_id}
 * @return {id, answer, Round, User}
@@ -35,6 +40,11 @@ router.get('/', async (req, res) => {
 })
 
 /**
+  ____ ____  _____    _  _____ _____
+ / ___|  _ \| ____|  / \|_   _| ____|
+| |   | |_) |  _|   / _ \ | | |  _|
+| |___|  _ <| |___ / ___ \| | | |___
+ \____|_| \_\_____/_/   \_\_| |_____|
 * Create an answer
 * @param  {body: round_id, user_id}
 * @return {id, answer, Round, User}
@@ -98,6 +108,11 @@ router.get('/:id', async (req, res) => {
 
 /**
 * Delete an answer
+ ____  _____ _     _____ _____ _____
+|  _ \| ____| |   | ____|_   _| ____|
+| | | |  _| | |   |  _|   | | |  _|
+| |_| | |___| |___| |___  | | | |___
+|____/|_____|_____|_____| |_| |_____|
 * @param  {id}
 * @return {Answer}
 */
