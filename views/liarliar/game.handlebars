@@ -30,6 +30,7 @@
 {{/section}}
 
 {{#section 'script'}}
+  <script src="/js/liarliar/liarliar.js"></script>
   <script type="application/javascript">
     /*
     * When users type into the portal input, display how close they are to
@@ -43,5 +44,11 @@
         document.querySelector('.status-bar').classList = classes + width;
       }, 100)
     }
+    /*
+    * Console error if user tries to go to unknown portal
+    */
+    const urlParams = new URLSearchParams(window.location.search);
+    const error = urlParams.get('error');
+    console.error(error)
   </script>
 {{/section}}

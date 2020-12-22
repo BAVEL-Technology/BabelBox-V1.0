@@ -2,7 +2,7 @@ const games = require('../jsonDB/games.json')
 const game = games.filter(g => g.title === 'LIAR LIAR')[0]
 const { Portal, Round, User } = require('../models')
 
-const checkPhase = async (req, res, next) => {
+const matchUserToPortal = async (req, res, next) => {
   try {
     const portalData = await Portal.findOne({
       include: [
@@ -18,9 +18,14 @@ const checkPhase = async (req, res, next) => {
 
     const portal = portalData.get({ plain: true })
 
-    if (portal.phase != req.params.phase) {
-      res.redirect(`/liarliar/${portal.code}/${portal.phase}`)
+    let users = portal.users.map(u => u.id)
+
+    if (users.includes(req.session.user)) {
+      next()
     } else {
+      req.session.save(() => {
+        req.session.user = null
+      })
       next()
     }
 
@@ -29,4 +34,4 @@ const checkPhase = async (req, res, next) => {
   }
 }
 
-module.exports = checkPhase
+module.exports = matchUserToPortal

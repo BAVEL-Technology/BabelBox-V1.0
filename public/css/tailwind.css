@@ -31645,12 +31645,46 @@ video {
           animation: bounce 1s infinite;
 }
 
-footer img.emoji {
+footer img.emoji, .center img.emoji {
   height: 1em;
   width: 1em;
   margin: 0 .05em 0 .1em;
   vertical-align: -0.1em;
   display: inline-block;
+}
+
+.timer {
+  position: relative;
+}
+
+.timer-svg {
+  transform: scaleX(-1);
+}
+
+.timer-circle {
+  fill: none;
+  stroke: none;
+}
+
+.timer-path-remaining {
+  stroke-linecap: round;
+  transform: rotate(90deg);
+  transform-origin: center;
+  transition: 1s linear all;
+  fill-rule: nonzero;
+  stroke: currentColor;
+}
+
+.timer-label {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-path-elapsed {
+  stroke: grey;
 }
 
 .shake {

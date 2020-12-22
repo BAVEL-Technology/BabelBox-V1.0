@@ -69,7 +69,6 @@ router.post('/', async (req, res) => {
     })
 
     req.session.save(() => {
-      req.session.portal = portalData.dataValues.id
       req.session.user = userData.dataValues.id
       res.status(200).json(userData)
     })
@@ -113,7 +112,7 @@ router.get('/:id', async (req, res) => {
 /**
 * Find a user given the id
 * @param  {id}
-* @param  {body: name &|| points}
+* @param  {body: name, points, leader}
 * @return {id, name, points, leader, avatar, Portal}
 */
 router.put('/:id', async (req, res) => {
@@ -143,11 +142,36 @@ router.put('/:id', async (req, res) => {
       })
     }
 
+    if (req.body.leader) {
+      userData = await userData.update({
+        leader: req.body.leader
+      })
+    }
+
     res.json(userData)
 
   } catch (err) {
 
     res.status(400).json(err)
+
+  }
+})
+
+/**
+* Logout of given user name
+* @param  {id}
+* @return {}
+*/
+router.post('/logout', async (req, res) => {
+  try {
+    req.session.save(() => {
+      req.session.user = null
+      res.status(200).json({ message: 'You are logged out!' })
+    })
+
+  } catch (err) {
+
+    res.status(500).json(err)
 
   }
 })
@@ -160,6 +184,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const userData = await User.destroy({
+      attributes: ['id', 'name', 'points', 'leader', 'avatar', 'portal_id'],
       where: { id: req.body.id }
     })
 

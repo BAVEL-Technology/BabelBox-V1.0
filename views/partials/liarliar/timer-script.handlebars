@@ -1,36 +1,37 @@
-const FULL_DASH_ARRAY = 283;
-const WARNING_THRESHOLD = 10;
-const ALERT_THRESHOLD = 5;
+const timeLimit = {{timeLimit}};
+const fullCircle = 283;
+const warningThreshold = Math.round(timeLimit / 2)
+const alertThreshold = Math.round(timeLimit / 4);
 
-const COLOR_CODES = {
+const colorCodes = {
   info: {
-    color: "green"
+    color: "text-green-500"
   },
   warning: {
-    color: "orange",
-    threshold: WARNING_THRESHOLD
+    color: "text-yellow-500",
+    threshold: warningThreshold
   },
   alert: {
-    color: "red",
-    threshold: ALERT_THRESHOLD
+    color: "text-red-500",
+    threshold: alertThreshold
   }
 };
 
-const TIME_LIMIT = {{timeLimit}};
 let timePassed = 0;
-let timeLeft = TIME_LIMIT;
+let timeLeft = timeLimit;
 let timerInterval = null;
-let remainingPathColor = COLOR_CODES.info.color;
+let remainingPathColor = colorCodes.info.color;
 
 document.getElementById("timer").innerHTML = `
-<div class="base-timer">
-  <svg class="base-timer__svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-    <g class="base-timer__circle">
-      <circle class="base-timer__path-elapsed" cx="50" cy="50" r="45"></circle>
+<div class="timer" style="width: {{size}}; height: {{size}};">
+  <svg class="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g class="timer-circle">
+      <circle class="timer-path-elapsed" cx="50" cy="50" r="45" style="stroke-width: {{strokeWidth}};"></circle>
       <path
-        id="base-timer-path-remaining"
+        id="timer-path-remaining"
         stroke-dasharray="283"
-        class="base-timer__path-remaining ${remainingPathColor}"
+        class="timer-path-remaining ${remainingPathColor}"
+        style="stroke-width: {{strokeWidth}};"
         d="
           M 50, 50
           m -45, 0
@@ -40,7 +41,7 @@ document.getElementById("timer").innerHTML = `
       ></path>
     </g>
   </svg>
-  <span id="base-timer-label" class="base-timer__label">${formatTime(
+  <span id="timer-label" class="timer-label" style="width: {{size}}; height: {{size}}; font-size: {{fontSize}}">${formatTime(
     timeLeft
   )}</span>
 </div>
@@ -48,28 +49,23 @@ document.getElementById("timer").innerHTML = `
 
 startTimer();
 
-function onTimesUp() {
-  next()
-}
-
 function startTimer() {
   timerInterval = setInterval(() => {
     timePassed = timePassed += 1;
-    timeLeft = TIME_LIMIT - timePassed;
-    document.getElementById("base-timer-label").innerHTML = formatTime(
+    timeLeft = timeLimit - timePassed;
+    document.getElementById("timer-label").innerHTML = formatTime(
       timeLeft
     );
     setCircleDasharray();
     setRemainingPathColor(timeLeft);
 
     if (timeLeft === 0) {
-      onTimesUp();
+      next()
     }
   }, 1000);
 }
 
 function formatTime(time) {
-  const minutes = Math.floor(time / 60);
   let seconds = time % 60;
 
   if (seconds < 10) {
@@ -80,34 +76,34 @@ function formatTime(time) {
 }
 
 function setRemainingPathColor(timeLeft) {
-  const { alert, warning, info } = COLOR_CODES;
+  const { alert, warning, info } = colorCodes;
   if (timeLeft <= alert.threshold) {
     document
-      .getElementById("base-timer-path-remaining")
+      .getElementById("timer-path-remaining")
       .classList.remove(warning.color);
     document
-      .getElementById("base-timer-path-remaining")
+      .getElementById("timer-path-remaining")
       .classList.add(alert.color);
   } else if (timeLeft <= warning.threshold) {
     document
-      .getElementById("base-timer-path-remaining")
+      .getElementById("timer-path-remaining")
       .classList.remove(info.color);
     document
-      .getElementById("base-timer-path-remaining")
+      .getElementById("timer-path-remaining")
       .classList.add(warning.color);
   }
 }
 
 function calculateTimeFraction() {
-  const rawTimeFraction = timeLeft / TIME_LIMIT;
-  return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+  const rawTimeFraction = timeLeft / timeLimit;
+  return rawTimeFraction - (1 / timeLimit) * (1 - rawTimeFraction);
 }
 
 function setCircleDasharray() {
   const circleDasharray = `${(
-    calculateTimeFraction() * FULL_DASH_ARRAY
+    calculateTimeFraction() * fullCircle
   ).toFixed(0)} 283`;
   document
-    .getElementById("base-timer-path-remaining")
+    .getElementById("timer-path-remaining")
     .setAttribute("stroke-dasharray", circleDasharray);
 }

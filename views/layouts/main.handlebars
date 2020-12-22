@@ -11,65 +11,11 @@
   <script src="https://kit.fontawesome.com/7652f157a9.js" crossorigin="anonymous"></script>
   <title>BABELbox</title>
   {{{_sections.styles}}}
-  <style>
-.base-timer {
-  position: relative;
-  width: 3rem;
-  height: 3rem;
-}
-
-.base-timer__svg {
-  transform: scaleX(-1);
-}
-
-.base-timer__circle {
-  fill: none;
-  stroke: none;
-}
-
-.base-timer__path-elapsed {
-  stroke-width: 7px;
-  stroke: grey;
-}
-
-.base-timer__path-remaining {
-  stroke-width: 7px;
-  stroke-linecap: round;
-  transform: rotate(90deg);
-  transform-origin: center;
-  transition: 1s linear all;
-  fill-rule: nonzero;
-  stroke: currentColor;
-}
-
-.base-timer__path-remaining.green {
-  color: rgb(65, 184, 131);
-}
-
-.base-timer__path-remaining.orange {
-  color: orange;
-}
-
-.base-timer__path-remaining.red {
-  color: red;
-}
-
-.base-timer__label {
-  position: absolute;
-  width: 3rem;
-  height: 3rem;
-  top: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-}
-  </style>
 </head>
 <body class="bg-blue-200">
   {{{body}}}
   {{> footer}}
-  <script src="/js/output.js"></script>
+  <script src="/js/index.js"></script>
   {{{_sections.script}}}
 </body>
 </html>

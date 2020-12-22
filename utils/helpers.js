@@ -20,11 +20,11 @@ module.exports = {
       return array[0] + '-' + (parseInt(array[1]) + increase)
     },
 
-    defalultToNull: function (variable) {
-      if (variable === null) {
-        return null
+    evalIf: function (one, comparator, two) {
+      if (eval(one + comparator + two)) {
+        return true
       } else {
-        return variable
+        return false
       }
     }
 };

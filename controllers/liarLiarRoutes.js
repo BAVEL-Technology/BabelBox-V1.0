@@ -3,6 +3,8 @@ const games = require('../jsonDB/games.json')
 const game = games.filter(g => g.title === 'LIAR LIAR')[0]
 const { Portal, User, Round, Question, Answer } = require('../models')
 const checkPhase = require('../utils/checkPhase');
+const checkPortal = require('../utils/checkPortal');
+const matchUserToPortal = require('../utils/matchUserToPortal');
 const { Op } = require("sequelize");
 
 /**
@@ -30,7 +32,7 @@ router.get('/', async (req, res) => {
 * @param  {code, phase}
 * @return {game, portal, portalLeader, currentUser, loggedIn, round, answers}
 */
-router.get('/:code/:phase', checkPhase, async (req, res) => {
+router.get('/:code/:phase', checkPortal, checkPhase, matchUserToPortal, async (req, res) => {
   try {
     const portalData = await Portal.findOne({
       include: [
@@ -72,30 +74,39 @@ router.get('/:code/:phase', checkPhase, async (req, res) => {
       }
     })
 
-    const currentUserData = await User.findOne({
-      attributes: ['id', 'name', 'leader', 'avatar', 'points'],
-      where: {
-        id: req.session.user,
-        portal_id: portal.id
-      }
-    })
+    let currentUser
+    let users
+    let portalLeader = false
 
-    const currentUser = currentUserData.get({ plain: true })
+    if (req.session.user) {
+      const currentUserData = await User.findOne({
+        attributes: ['id', 'name', 'leader', 'avatar', 'points'],
+        where: {
+          id: req.session.user,
+          portal_id: portal.id
+        }
+      })
 
-    const userData = await User.findAll({
-      include: [
-        { model: Portal }
-      ],
-      attributes: ['id', 'name', 'leader', 'points', 'avatar'],
-      where: {
-        id: { [Op.not]: currentUser.id },
-        portal_id: portal.id
-      }
-    })
+      currentUser = currentUserData.get({ plain: true })
 
-    const users = userData.map(u => u.get({ plain: true }))
+      const userData = await User.findAll({
+        include: [
+          { model: Portal }
+        ],
+        attributes: ['id', 'name', 'leader', 'points', 'avatar'],
+        where: {
+          id: { [Op.not]: currentUser.id },
+          portal_id: portal.id
+        },
+        order: [
+          ['points', 'DESC']
+        ]
+      })
 
-    const portalLeader = portalLeaderData.dataValues.id === req.session.user ? true : false
+      users = userData.map(u => u.get({ plain: true }))
+
+      portalLeader = portalLeaderData.dataValues.id === req.session.user ? true : false
+    }
 
     let answers
 
@@ -125,7 +136,7 @@ router.get('/:code/:phase', checkPhase, async (req, res) => {
       currentUser,
       users,
       answers,
-      loggedIn: req.session.portal === portal.id ? true : false
+      loggedIn: req.session.user ? true : false
     })
   } catch (err) {
 

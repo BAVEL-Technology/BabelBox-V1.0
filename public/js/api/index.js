@@ -55,7 +55,7 @@ module.exports = {
   },
   //bb.delete('user', {id: 5})
   delete: function (model, params) {
-    let method = "GET"
+    let method = "DELETE"
     let route = "/api/" + model + "s"
     if (params.id) {
       route = "/api/" + model + "s/" + params.id
@@ -64,6 +64,15 @@ module.exports = {
     }
     return new Promise((resolve, reject) => {
       babelJax(method, route, params)
+      .then((response) => resolve(response))
+      .catch((error) => reject(error))
+    })
+  },
+  logout: function () {
+    let method = "POST"
+    let route = "/api/users/logout"
+    return new Promise((resolve, reject) => {
+      babelJax(method, route)
       .then((response) => resolve(response))
       .catch((error) => reject(error))
     })

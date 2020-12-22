@@ -2,10 +2,10 @@
   <div class="emoji">{{avatar}}</div>
   <p>{{name}}</p>
   <div class="flex flex-col text-sm justify-between">
-    <div {{#if @root.portalLeader}} onclick="makeLeader(event, {{id}})" {{/if}} class="w-8 h-8 rounded-full hover:bg-blue-300 flex items-center justify-center pl-1 cursor-pointer">
+    <div {{#if @root.portalLeader}} onclick="makeLeader(event, {{id}}, {{@root.currentUser.id}})" {{/if}} class="w-8 h-8 rounded-full hover:bg-blue-300 flex items-center justify-center pl-1 cursor-pointer">
       <span class="fa-stack fa-1x">
         {{#if leader}}
-          <span class="text-yellow-500"><i class="fas fa-star fa-stack-1x"></i></span>
+          <span class="text-yellow-500 gold-star"><i class="fas fa-star fa-stack-1x"></i></span>
         {{/if}}
         <span><i class="far fa-star fa-stack-1x"></i></span>
       </span>
