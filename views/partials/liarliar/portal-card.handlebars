@@ -1,4 +1,4 @@
-<div class="my-6 flex items-center justify-center bg-{{game.color}} w-full text-gray-700 p-4 text-4xl text-center rounded-xl tracking-widest shadow-lg hover:shadow-xl transform hover:-translate-y-2" style="font-family: 'Sniglet', cursive;">
+<div class="my-6 flex items-center justify-center bg-{{game.color}} w-full text-gray-700 p-4 text-xl lg:text-4xl md:text-3xl text-center rounded-xl tracking-widest shadow-lg hover:shadow-xl transform hover:-translate-y-2" style="font-family: 'Sniglet', cursive;">
   <p id="portal-code" class="p-4 flex-grow">{{portal.code}}</p>
   <div class="text-sm self-start col-span-1">
     <div onclick="copyCode()" class="w-8 h-8 rounded-full text-gray-100 flex items-center justify-center pl-1 cursor-pointer">
@@ -7,8 +7,8 @@
       </span>
     </div>
   </div>
-  <div class="absolute -top-12 -left-8 flex flex-col items-center">
-    <p class="text-{{game.color}} font-semibold text-xl" style="font-family: {{game.font}};">ROUND</p>
-    <div class="text-2xl p-2 text-gray-100 font-semibold bg-red-400 h-12 w-12 rounded-full">{{portal.round}}</div>
+  <div class="absolute -top-12 -left-6 lg:-left-8 md:-left-8 flex flex-col items-center">
+    <p class="text-{{game.color}} font-semibold text-md lg:text-xl md:text-xl" style="font-family: {{game.font}};">ROUND</p>
+    <div class="text-xl lg:text-2xl md:text-2xl p-2 text-gray-100 font-semibold bg-red-400 h-10 lg:h-12 md:h-12 w-10 lg:w-12 md:w-12 rounded-full">{{portal.round}}</div>
   </div>
 </div>

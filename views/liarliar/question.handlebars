@@ -5,19 +5,19 @@
       <div id="timer" style="font-family: {{game.font}};"></div>
     </div>
     {{> liarliar/user-card currentUser}}
-    <div class=" text-center w-full flex items-center justify-center py-8 text-4xl"
+    <div class=" text-center w-full flex items-center justify-center py-8 lg:text-4xl md:text-3xl text-xl"
     style="font-family: {{game.font}};">
       {{round.question.question}}
     </div>
     <input id="user-answer" type="text" name="portal-name"
     placeholder="{{pick3 round.question.suggestions}}"
     class="block appearance-none focus:outline-none border-b-4 border-gray-700
-    bg-transparent text-3xl text-gray-700 w-full" style="font-family: {{game.font}};">
+    bg-transparent lg:text-3xl md:text-2xl text-xl text-gray-700 w-full" style="font-family: {{game.font}};">
     <button id="submit-answer-button"
     onclick="submitAnswer({{currentUser.id}}, {{round.id}}, {{portal.id}})"
     class="place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-4 rounded-tl-xl
     rounded-br-xl rounded-tr rounded-bl flex items-center justify-center w-full
-    text-3xl disabled:opacity-50" style="font-family: {{game.font}};">
+    lg:text-3xl md:text-2xl text-xl disabled:opacity-50" style="font-family: {{game.font}};">
       Submit Answer
     </button>
   </div>

@@ -5,7 +5,7 @@
       <div id="timer" style="font-family: {{game.font}};"></div>
     </div>
     {{> liarliar/user-card currentUser}}
-    <div class=" text-center w-full flex items-center justify-center py-8 text-4xl"
+    <div class=" text-center w-full flex items-center justify-center py-8 lg:text-4xl md:text-3xl text-xl"
     style="font-family: {{game.font}};">
       {{round.question.question}}
     </div>
@@ -13,13 +13,13 @@
       {{#if user.id}}
         <button onclick="selectAnswer({{@root.currentUser.id}}, {{@root.round.id}}, {{user.id}})"
         class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-4 rounded-xl flex
-        items-center justify-center w-full text-3xl disabled:opacity-50">
+        items-center justify-center w-full lg:text-3xl md:text-2xl text-xl disabled:opacity-50">
           {{answer}}
         </button>
       {{else}}
         <button onclick="selectAnswer({{@root.currentUser.id}}, {{@root.round.id}})"
         class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-6 rounded-xl flex
-        items-center justify-center w-full text-3xl disabled:opacity-50">
+        items-center justify-center w-full lg:text-3xl md:text-2xl text-xl disabled:opacity-50">
           {{answer}}
         </button>
       {{/if}}

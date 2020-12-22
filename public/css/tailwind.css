@@ -31653,6 +31653,11 @@ footer img.emoji, .center img.emoji {
   display: inline-block;
 }
 
+.card img.emoji {
+  height: 2em;
+  width: 2em;
+}
+
 .timer {
   position: relative;
 }

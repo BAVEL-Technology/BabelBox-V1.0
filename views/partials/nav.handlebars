@@ -1,4 +1,4 @@
-<nav class="h-24 w-full flex items-center justify-between lg:px-12 md:px-12 px-4">
+<nav class="h-24 w-full flex items-center justify-between lg:px-12 md:px-12 px-4 {{#if hideOnMobile}} hidden {{/if}} lg:flex md:flex">
   <div class="left">
     {{#if tinyLogo}}
       {{> tiny-logo}}
@@ -7,9 +7,9 @@
   <div class="center">
     {{#if centerText}}
       <a href="/{{@root.game.url}}">
-        <p class="text-{{@root.game.color}} lg:text-6xl md:text-5xl text-4xl font-semibold" style="font-family: {{@root.game.font}};">
-          {{@root.game.logo}} {{@root.game.title}}
-        </p>
+        <div class="text-{{@root.game.color}} flex flex-col lg:flex-row md:flex-row items-center justify-centerlg:text-6xl md:text-5xl text-4xl font-semibold" style="font-family: {{@root.game.font}};">
+          <p>{{@root.game.logo}}</p> <p>{{@root.game.title}}</p>
+        </div>
       </a>
     {{/if}}
   </div>
