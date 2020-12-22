@@ -7,8 +7,7 @@
     "lint": "./node_modules/.bin/eslint **/*.js",
     "build": "...",
     "test": "...",
-    "start": "node server.js",
-    "twemoji": "node twemoji.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
