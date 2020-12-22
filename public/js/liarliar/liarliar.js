@@ -124,12 +124,10 @@ window.deleteUser = async function (event, id) {
   try {
     let user = await bb.read('user', {id})
     await bb.delete('user', {id})
-    console.log(user)
+
     if (user.leader) {
       let portal = await bb.read('portal', {id: user.portal.id})
-      console.log(portal)
       let newLeader = await bb.update('user', {id: portal.users[0].id, leader: '1'})
-        console.log(newLeader)
     }
 
     let elem = event.srcElement
@@ -190,6 +188,15 @@ window.createUser = async function (portal_id) {
 }
 
 /*
+* Change a user's name
+*/
+window.changeUserName = async function (id) {
+  let name = document.querySelector('#user-name-change').value;
+
+  let user = await bb.update('user', {id, name})
+}
+
+/*
 * Start a new game by creating a new Round
 */
 window.startGame = async function (game, portal_id, roundNum) {
@@ -227,7 +234,7 @@ window.selectAnswer = async function (currentUserId, round_id, user_id) {
   } else {
     let user = await bb.read('user', {id: user_id})
 
-    await bb.update('user', {id: user_id, points: (user.points + 100)})
+    await bb.update('user', {id: user_id, points: (user.points + 25)})
   }
 
   let buttons = document.getElementsByClassName('answer')

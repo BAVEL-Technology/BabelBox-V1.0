@@ -23,7 +23,7 @@ let timerInterval = null;
 let remainingPathColor = colorCodes.info.color;
 
 document.getElementById("timer").innerHTML = `
-<div class="timer" style="width: {{size}}; height: {{size}};">
+<div class="timer w-16 h-16 lg:w-32 md:w-28 lg:h-28 md:h-28">
   <svg class="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
     <g class="timer-circle">
       <circle class="timer-path-elapsed" cx="50" cy="50" r="45" style="stroke-width: {{strokeWidth}};"></circle>
@@ -41,7 +41,7 @@ document.getElementById("timer").innerHTML = `
       ></path>
     </g>
   </svg>
-  <span id="timer-label" class="timer-label" style="width: {{size}}; height: {{size}}; font-size: {{fontSize}}">${formatTime(
+  <span id="timer-label" class="timer-label w-16 h-16 lg:w-32 md:w-24 lg:h-32 md:h-28 text-4xl lg:text-7xl md:text-6xl">${formatTime(
     timeLeft
   )}</span>
 </div>

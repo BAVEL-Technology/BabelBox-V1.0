@@ -105,6 +105,15 @@ window.createUser = async function (portal_id) {
 }
 
 /*
+* Change a user's name
+*/
+window.changeUserName = async function (id) {
+  let name = document.querySelector('#user-name-change').value;
+
+  let user = await bb.update('user', {id, name})
+}
+
+/*
 * Start a new game by creating a new Round
 */
 window.startGame = async function (game, portal_id, roundNum) {
@@ -142,7 +151,7 @@ window.selectAnswer = async function (currentUserId, round_id, user_id) {
   } else {
     let user = await bb.read('user', {id: user_id})
 
-    await bb.update('user', {id: user_id, points: (user.points + 100)})
+    await bb.update('user', {id: user_id, points: (user.points + 25)})
   }
 
   let buttons = document.getElementsByClassName('answer')

@@ -26,5 +26,9 @@ module.exports = {
       } else {
         return false
       }
+    },
+
+    blankify: function (string) {
+      return string.replace('<BLANK>', '_____')
     }
 };

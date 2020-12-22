@@ -15,6 +15,7 @@ router.post('/', async (req, res) => {
     if(!portalData) {
         res.json({ message: 'Could not find that portal!' })
     }
+
     const questionData = await Question.findOne({
       where: { id: Math.floor(Math.random() * 282) }
     })

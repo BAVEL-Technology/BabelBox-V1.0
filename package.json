@@ -7,7 +7,9 @@
     "lint": "./node_modules/.bin/eslint **/*.js",
     "build": "...",
     "test": "...",
-    "start": "node server.js"
+    "start": "node server.js",
+    "users": "node -e 'require(`./seeds.seed`).testPortalUsers()'",
+    "answers": "node -e 'require(`./seeds.seed`).testAnswers()'"
   },
   "keywords": [],
   "author": "",

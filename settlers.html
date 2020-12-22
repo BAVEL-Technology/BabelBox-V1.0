@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Nerko+One&display=swap" rel="stylesheet">
+  <title>Fibbage</title>
+  <style>
+  .hex {
+    float: left;
+    margin-right: -16x;
+    margin-bottom: -50px;
+}
+.hex {
+    float: left;
+    margin-left: 10px;
+    margin-bottom: -66px;
+}
+.hex .top {
+    width: 0;
+    border-bottom: 30px solid #6C6;
+    border-left: 52px solid transparent;
+    border-right: 52px solid transparent;
+}
+.hex .middle {
+    width: 104px;
+    height: 60px;
+    background: #6C6;
+}
+.hex .bottom {
+    width: 0;
+    border-top: 30px solid #6C6;
+    border-left: 52px solid transparent;
+    border-right: 52px solid transparent;
+}
+.hex-row {
+    clear: left;
+}
+.hex-row.even {
+    margin-left: 53px;
+}
+
+img.emoji {
+   height: 3em;
+   width: 3em;
+   margin: 0 .05em 0 .1em;
+   vertical-align: -0.1em;
+}
+  </style>
+  <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+</head>
+<body class="bg-gray-300">
+  <div class="flex w-full h-screen items-center justify-center">
+    <div class="">
+        <div class="hex-row">
+            <div class="hex"><p class="relative top-16 left-6">⛰️</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+            <div class="hex"><p class="relative top-16 left-6">🌳</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+            <div class="hex"><p class="relative top-16 left-6">🐑</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+        </div>
+        <div class="hex-row even">
+            <div class="hex"><p class="relative top-16 left-6">🏜️</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+            <div class="hex"><p class="relative top-16 left-6">⛰️</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+        </div>
+        <div class="hex-row">
+            <div class="hex"><p class="relative top-16 left-6">🌳</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+            <div class="hex"><p class="relative top-16 left-6">🌳</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+            <div class="hex"><p class="relative top-16 left-6">🌳</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+        </div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  /*
+  * Parse DOM for twemojis
+  * use npm twemoji to convert from emoji to twemoij
+  */
+  twemoji.parse(document.body);
+  </script>
+</body>
+</html>
