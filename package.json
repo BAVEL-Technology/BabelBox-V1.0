@@ -8,7 +8,7 @@
     "build": "...",
     "test": "...",
     "start": "node server.js",
-    "questions": "node -e 'require(`./seeds.seed`).questions()'"
+    "questions": "node seeds/seed.js"
   },
   "keywords": [],
   "author": "",
