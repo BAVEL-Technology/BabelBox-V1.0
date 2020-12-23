@@ -2,5 +2,8 @@ language: node_js
 //use latest version of node
 node_js:
   - node
+branches:
+  only:
+    - main
 script:
   - npm run lint
