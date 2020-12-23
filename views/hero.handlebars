@@ -1,0 +1,53 @@
+{{> nav tinyLogo=false centerText=false hideOnMobile=true}}
+<div class="w-full flex flex-col items-center items-center min-h-screen">
+  {{> hero-title darkness=600}}
+  <div class="h-full w-11/12 md:w-3/4 lg:w-1/3 rounded-xl p-4">
+    {{#each games}}
+      {{> game-card}}
+    {{/each}}
+  </div>
+</div>
+
+{{#section 'script'}}
+  <script type="application/javascript">
+    /*
+    * Hover effect on "BABELBOX"
+    */
+    window.big = function (event) {
+      let letter = event.srcElement
+      letter.classList.add('scale-150')
+      if (letter.previousSibling.nodeType != Node.TEXT_NODE) {
+        let previousLetter = letter.previousSibling
+        previousLetter.classList.add('scale-125')
+        if (previousLetter.previousSibling.nodeType != Node.TEXT_NODE) {
+          previousLetter.previousSibling.classList.add('scale-100')
+        }
+      }
+      if (letter.nextSibling.nodeType != Node.TEXT_NODE) {
+        let nextLetter = letter.nextSibling
+        nextLetter.classList.add('scale-125')
+        if (nextLetter.nextSibling.nodeType != Node.TEXT_NODE) {
+          nextLetter.nextSibling.classList.add('scale-100')
+        }
+      }
+    }
+    window.small = function (event) {
+      let letter = event.srcElement
+      letter.classList.remove('scale-150')
+      if (letter.previousSibling.nodeType != Node.TEXT_NODE) {
+        let previousLetter = letter.previousSibling
+        previousLetter.classList.remove('scale-125')
+        if (previousLetter.previousSibling.nodeType != Node.TEXT_NODE) {
+          previousLetter.previousSibling.classList.remove('scale-100')
+        }
+      }
+      if (letter.nextSibling.nodeType != Node.TEXT_NODE) {
+        let nextLetter = letter.nextSibling
+        nextLetter.classList.remove('scale-125')
+        if (nextLetter.nextSibling.nodeType != Node.TEXT_NODE) {
+          nextLetter.nextSibling.classList.remove('scale-100')
+        }
+      }
+    }
+  </script>
+{{/section}}

@@ -1,0 +1,109 @@
+const timeLimit = {{timeLimit}};
+const fullCircle = 283;
+const warningThreshold = Math.round(timeLimit / 2)
+const alertThreshold = Math.round(timeLimit / 4);
+
+const colorCodes = {
+  info: {
+    color: "text-green-500"
+  },
+  warning: {
+    color: "text-yellow-500",
+    threshold: warningThreshold
+  },
+  alert: {
+    color: "text-red-500",
+    threshold: alertThreshold
+  }
+};
+
+let timePassed = 0;
+let timeLeft = timeLimit;
+let timerInterval = null;
+let remainingPathColor = colorCodes.info.color;
+
+document.getElementById("timer").innerHTML = `
+<div class="timer w-16 h-16 lg:w-32 md:w-28 lg:h-28 md:h-28">
+  <svg class="timer-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <g class="timer-circle">
+      <circle class="timer-path-elapsed" cx="50" cy="50" r="45" style="stroke-width: {{strokeWidth}};"></circle>
+      <path
+        id="timer-path-remaining"
+        stroke-dasharray="283"
+        class="timer-path-remaining ${remainingPathColor}"
+        style="stroke-width: {{strokeWidth}};"
+        d="
+          M 50, 50
+          m -45, 0
+          a 45,45 0 1,0 90,0
+          a 45,45 0 1,0 -90,0
+        "
+      ></path>
+    </g>
+  </svg>
+  <span id="timer-label" class="timer-label w-16 h-16 lg:w-32 md:w-24 lg:h-32 md:h-28 text-4xl lg:text-7xl md:text-6xl">${formatTime(
+    timeLeft
+  )}</span>
+</div>
+`;
+
+startTimer();
+
+function startTimer() {
+  timerInterval = setInterval(() => {
+    timePassed = timePassed += 1;
+    timeLeft = timeLimit - timePassed;
+    document.getElementById("timer-label").innerHTML = formatTime(
+      timeLeft
+    );
+    setCircleDasharray();
+    setRemainingPathColor(timeLeft);
+
+    if (timeLeft === 0) {
+      next()
+    }
+  }, 1000);
+}
+
+function formatTime(time) {
+  let seconds = time % 60;
+
+  if (seconds < 10) {
+    seconds = `0${seconds}`;
+  }
+
+  return `${seconds}`;
+}
+
+function setRemainingPathColor(timeLeft) {
+  const { alert, warning, info } = colorCodes;
+  if (timeLeft <= alert.threshold) {
+    document
+      .getElementById("timer-path-remaining")
+      .classList.remove(warning.color);
+    document
+      .getElementById("timer-path-remaining")
+      .classList.add(alert.color);
+  } else if (timeLeft <= warning.threshold) {
+    document
+      .getElementById("timer-path-remaining")
+      .classList.remove(info.color);
+    document
+      .getElementById("timer-path-remaining")
+      .classList.add(warning.color);
+  }
+}
+
+function calculateTimeFraction() {
+  const rawTimeFraction = timeLeft / timeLimit;
+  return rawTimeFraction - (1 / timeLimit) * (1 - rawTimeFraction);
+}
+
+function setCircleDasharray() {
+  const circleDasharray = `${(
+    calculateTimeFraction() * fullCircle
+  ).toFixed(0)} 283`;
+  document
+    .getElementById("timer-path-remaining")
+    .setAttribute("stroke-dasharray", circleDasharray);
+}

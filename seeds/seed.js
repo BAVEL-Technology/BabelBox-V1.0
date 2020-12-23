@@ -1,17 +1,24 @@
-const sequelize = require('../config/connection');
-const { Question } = require('../models');
+const sequelize = require('../config/connection')
+const { Question, Portal } = require('../models')
+const questionData = require('./questions.json')
+const { Op } = require("sequelize");
 
-const questionData = require('./questions.json');
+const questions = async () => {
+  try {
 
-const seedDatabase = async () => {
-  await sequelize.sync({ force: true });
+    await Question.destroy({where: { }, force: true})
 
-  const questions = await Question.bulkCreate(questionData, {
-    individualHooks: true,
-    returning: true,
-  });
+    const seededQuestions = await Question.bulkCreate(questionData.normal, {
+      ignoreDuplicates: true
+    })
 
-  process.exit(0);
-};
+    process.exit(0)
 
-seedDatabase();
+  } catch (err) {
+
+    console.log(err)
+
+  }
+}
+
+questions()
