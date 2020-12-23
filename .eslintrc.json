@@ -34,5 +34,7 @@
     "semi": ["error", "always"],
     "radix": "off"
   },
-  "extends": ["prettier"]
+  "eslint.validate": [
+    {"language": "javascript", "autoFix": true}
+  ]
 }

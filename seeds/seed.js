@@ -21,6 +21,4 @@ const questions = async () => {
   }
 }
 
-module.exports = {
-  questions: questions
-}
+questions()
