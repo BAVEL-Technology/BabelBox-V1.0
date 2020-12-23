@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint **/*.js",
+    "lint": "\"**/*.js\"",
     "build": "...",
     "test": "...",
     "start": "node server.js",
@@ -34,6 +34,7 @@
     "@barba/core": "^2.9.7",
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.3.0",
     "prettier": "^2.1.2"
   }
 }
