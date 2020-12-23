@@ -13,6 +13,8 @@
 */
 {
 }
+{
+}
 const chalk = require("chalk");
 const figlet = require("figlet");
 const path = require("path");
