@@ -7,20 +7,27 @@
     "lint": "./node_modules/.bin/eslint **/*.js",
     "build": "...",
     "test": "...",
-    "start": "node server.js"
+    "start": "node server.js",
+    "questions": "node -e 'require(`./seeds.seed`).questions()'"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "autoprefixer": "^10.1.0",
     "bcrypt": "^5.0.0",
+    "chalk": "^4.1.0",
     "connect-session-sequelize": "^7.0.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
+    "figlet": "^1.5.0",
     "mysql2": "^2.2.5",
-    "sequelize": "^6.3.5"
+    "postcss": "^8.2.1",
+    "sequelize": "^6.3.5",
+    "tailwindcss": "^2.0.2",
+    "twemoji": "^13.0.1"
   },
   "devDependencies": {
     "eslint": "^7.12.1",
