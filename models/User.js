@@ -15,10 +15,19 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false
     },
+    leader: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 0
+    },
     points: {
       type: DataTypes.INTEGER,
       allowNull: false,
       defaultValue: 0
+    },
+    avatar: {
+      type: DataTypes.STRING,
+      allowNull: false
     },
     portal_id: {
       type: DataTypes.INTEGER,

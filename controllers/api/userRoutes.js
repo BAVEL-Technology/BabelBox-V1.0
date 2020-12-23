@@ -1,10 +1,11 @@
 const router = require('express').Router()
+const getAvatar = require('../../utils/getAvatar')
 const { User, Portal } = require('../../models')
 
 /**
 * Find all users inside given portal
 * @param  {body: portal_id}
-* @return {id, name, points, portal_id}
+* @return {id, name, points, avatar, leader, Portal}
 */
 router.get('/', async (req, res) => {
   try {
@@ -12,7 +13,7 @@ router.get('/', async (req, res) => {
       include: [
         { model: Portal }
       ],
-      attributes: ['id', 'name', 'points'],
+      attributes: ['id', 'name', 'points', 'avatar', 'leader'],
       where: { id: req.body.portal_id }
     })
 
@@ -34,11 +35,14 @@ router.get('/', async (req, res) => {
 /**
 * Create a user inside given portal
 * @param  {body: name, portal_id}
-* @return {id, name, points, portal_id}
+* @return {id, name, points, leader, avatar, Portal}
 */
 router.post('/', async (req, res) => {
   try {
     const portalData = await Portal.findOne({
+      include: [
+        { model: User }
+      ],
       where: { id: req.body.portal_id }
     })
 
@@ -46,14 +50,28 @@ router.post('/', async (req, res) => {
         res.json({ message: 'Could not find that portal!' })
     }
 
-    const userData = await User.create(req.body, {
+    let leader = 0
+
+    if (portalData.dataValues.users.length === 0) {
+      leader = 1
+    }
+
+    const userData = await User.create({
+      name: req.body.name,
+      portal_id: req.body.portal_id,
+      avatar: getAvatar(),
+      leader
+    }, {
       include: [
         { model: Portal }
       ],
-      attributes: ['id', 'name', 'points'],
+      attributes: ['id', 'name', 'points', 'leader', 'avatar'],
     })
 
-    res.json(userData)
+    req.session.save(() => {
+      req.session.user = userData.dataValues.id
+      res.status(200).json(userData)
+    })
 
   } catch (err) {
 
@@ -65,7 +83,7 @@ router.post('/', async (req, res) => {
 /**
 * Find a user given the id
 * @param  {id}
-* @return {id, name, points, portal_id}
+* @return {id, name, points, leader, avatar, Portal}
 */
 router.get('/:id', async (req, res) => {
   try {
@@ -73,7 +91,7 @@ router.get('/:id', async (req, res) => {
       include: [
         { model: Portal }
       ],
-      attributes: ['id', 'name', 'points'],
+      attributes: ['id', 'name', 'points', 'leader', 'avatar'],
       where: { id: req.params.id }
     })
 
@@ -94,8 +112,8 @@ router.get('/:id', async (req, res) => {
 /**
 * Find a user given the id
 * @param  {id}
-* @param  {body: name &|| points}
-* @return {id, name, points, portal_id}
+* @param  {body: name, points, leader}
+* @return {id, name, points, leader, avatar, Portal}
 */
 router.put('/:id', async (req, res) => {
   try {
@@ -103,7 +121,7 @@ router.put('/:id', async (req, res) => {
       include: [
         { model: Portal }
       ],
-      attributes: ['id', 'name', 'points'],
+      attributes: ['id', 'name', 'points', 'leader', 'avatar'],
       where: { id: req.params.id }
     })
 
@@ -124,6 +142,12 @@ router.put('/:id', async (req, res) => {
       })
     }
 
+    if (req.body.leader) {
+      userData = await userData.update({
+        leader: req.body.leader
+      })
+    }
+
     res.json(userData)
 
   } catch (err) {
@@ -134,13 +158,33 @@ router.put('/:id', async (req, res) => {
 })
 
 /**
+* Logout of given user name
+* @param  {id}
+* @return {}
+*/
+router.post('/logout', async (req, res) => {
+  try {
+    req.session.save(() => {
+      req.session.user = null
+      res.status(200).json({ message: 'You are logged out!' })
+    })
+
+  } catch (err) {
+
+    res.status(500).json(err)
+
+  }
+})
+
+/**
 * Delete a user
 * @param  {id}
-* @return {id, code, round}
+* @return {User}
 */
 router.delete('/:id', async (req, res) => {
   try {
     const userData = await User.destroy({
+      attributes: ['id', 'name', 'points', 'leader', 'avatar', 'portal_id'],
       where: { id: req.body.id }
     })
 
