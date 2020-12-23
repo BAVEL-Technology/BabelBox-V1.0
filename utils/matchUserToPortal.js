@@ -1,37 +1,33 @@
-const games = require('../jsonDB/games.json')
-const game = games.filter(g => g.title === 'LIAR LIAR')[0]
-const { Portal, Round, User } = require('../models')
+const games = require('../jsonDB/games.json');
+const game = games.filter((g) => g.title === 'LIAR LIAR')[0];
+const { Portal, Round, User } = require('../models');
 
 const matchUserToPortal = async (req, res, next) => {
   try {
     const portalData = await Portal.findOne({
-      include: [
-        { model: Round },
-        { model: User }
-      ],
+      include: [{ model: Round }, { model: User }],
       attributes: ['id', 'code', 'round', 'phase'],
       where: {
         code: req.params.code,
-        game: game.title
-      }
-    })
+        game: game.title,
+      },
+    });
 
-    const portal = portalData.get({ plain: true })
+    const portal = portalData.get({ plain: true });
 
-    let users = portal.users.map(u => u.id)
+    const users = portal.users.map((u) => u.id);
 
     if (users.includes(req.session.user)) {
-      next()
+      next();
     } else {
       req.session.save(() => {
-        req.session.user = null
-      })
-      next()
+        req.session.user = null;
+      });
+      next();
     }
-
   } catch (error) {
-    console.log(error)
+    console.log(error);
   }
-}
+};
 
-module.exports = matchUserToPortal
+module.exports = matchUserToPortal;

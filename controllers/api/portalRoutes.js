@@ -1,142 +1,123 @@
-const router = require('express').Router()
-const pickCode = require('../../utils/pickCode')
-const games = require('../../jsonDB/games.json')
-const { Portal, User, Round } = require('../../models')
+const router = require('express').Router();
+const pickCode = require('../../utils/pickCode');
+const games = require('../../jsonDB/games.json');
+const { Portal, User, Round } = require('../../models');
 
 /**
-* Create a new portal
-* @param  {body: code}
-* @return {id, code, round, phase, Round, Users}
-*/
+ * Create a new portal
+ * @param  {body: code}
+ * @return {id, code, round, phase, Round, Users}
+ */
 router.post('/', async (req, res) => {
   try {
-    const game = games.filter(g => g.url === req.body.game)[0].title
+    const game = games.filter((g) => g.url === req.body.game)[0].title;
 
-    const portalData = await Portal.create({
-      code: pickCode(),
-      game
-    },
-    {
-      include: [
-        { model: Round },
-        { model: User }
-      ],
-      attributes: ['id', 'code', 'round', 'phase']
-    })
+    const portalData = await Portal.create(
+      {
+        code: pickCode(),
+        game,
+      },
+      {
+        include: [{ model: Round }, { model: User }],
+        attributes: ['id', 'code', 'round', 'phase'],
+      }
+    );
 
-    res.json(portalData)
-
+    res.json(portalData);
   } catch (err) {
-
-    res.status(400).json(err)
-
+    res.status(400).json(err);
   }
-})
+});
 
 /**
-* Find a portal with an id or code
-* @param  {id || code}
-* @return {id, code, round, phase, Round, Users}
-*/
+ * Find a portal with an id or code
+ * @param  {id || code}
+ * @return {id, code, round, phase, Round, Users}
+ */
 router.get('/:id', async (req, res) => {
   try {
-    let whereParams = {}
+    let whereParams = {};
 
     if (isNaN(req.params.id)) {
-      whereParams.code = req.params.id
+      whereParams.code = req.params.id;
     } else {
-      whereParams.id = req.params.id
+      whereParams.id = req.params.id;
     }
 
     const portalData = await Portal.findOne({
-      include: [
-        { model: Round },
-        { model: User }
-      ],
+      include: [{ model: Round }, { model: User }],
       attributes: ['id', 'code', 'round', 'phase'],
-      where: whereParams
-    })
+      where: whereParams,
+    });
 
     if (!portalData) {
-      res.status(400).json({ message: 'Could not find that portal!' })
-      return
+      res.status(400).json({ message: 'Could not find that portal!' });
+      return;
     }
 
-    res.json(portalData)
-
+    res.json(portalData);
   } catch (err) {
-
-    res.status(400).json(err)
-
+    res.status(400).json(err);
   }
-})
+});
 
 /**
-* Update a portal
-* @param  {id}
-* @param  {body: round, phase}
-* @return {id, code, round, phase, Round, Users}
-*/
+ * Update a portal
+ * @param  {id}
+ * @param  {body: round, phase}
+ * @return {id, code, round, phase, Round, Users}
+ */
 router.put('/:id', async (req, res) => {
   try {
     let portalData = await Portal.findOne({
-      include: [
-        { model: Round },
-        { model: User }
-      ],
+      include: [{ model: Round }, { model: User }],
       attributes: ['id', 'code', 'round', 'phase'],
-      where: { id: req.params.id }
-    })
+      where: { id: req.params.id },
+    });
 
     if (!portalData) {
-      res.status(400).json({ message: 'Could not find that portal!' })
-      return
+      res.status(400).json({ message: 'Could not find that portal!' });
+      return;
     }
 
     if (req.body.round) {
       portalData = await portalData.update({
-        round: req.body.round
-      })
+        round: req.body.round,
+      });
     }
 
     if (req.body.phase) {
       portalData = await portalData.update({
-        phase: req.body.phase
-      })
+        phase: req.body.phase,
+      });
     }
 
-    res.json(portalData)
-
+    res.json(portalData);
   } catch (err) {
-
-    res.status(400).json(err)
-
+    res.status(400).json(err);
   }
-})
+});
 
 /**
-* Delete a portal
-* @param  {id}
-* @return {Portal}
-*/
+ * Delete a portal
+ * @param  {id}
+ * @return {Portal}
+ */
 router.delete('/:id', async (req, res) => {
   try {
     const portalData = await Portal.destroy({
-      where: { id: req.body.id }
-    })
+      where: { id: req.body.id },
+    });
 
     if (!portalData) {
-      res.status(404).json({ message: 'Could not find that portal!' })
-      return
+      res.status(404).json({ message: 'Could not find that portal!' });
+      return;
     }
 
-    res.status(200).json(portalData)
-
+    res.status(200).json(portalData);
   } catch (err) {
-
-    res.status(500).json(err)
-
+    res.status(500).json(err);
   }
-})
+});
 
-module.exports = router
+module.exports = router;

@@ -1,7 +1,7 @@
-const avatars = require('../jsonDB/avatars.json')
+const avatars = require('../jsonDB/avatars.json');
 
-function getAvatar () {
-  return avatars[Math.floor(Math.random() * avatars.length)]
+function getAvatar() {
+  return avatars[Math.floor(Math.random() * avatars.length)];
 }
 
-module.exports = getAvatar
+module.exports = getAvatar;
