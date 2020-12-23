@@ -20,6 +20,11 @@ Portal.init(
       type: DataTypes.STRING,
       allowNull: false
     },
+    phase: {
+      type: DataTypes.STRING,
+      defaultValue: 'waiting',
+      allowNull: false
+    },
     game: {
       type: DataTypes.STRING,
       allowNull: false

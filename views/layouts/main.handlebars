@@ -5,40 +5,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/tailwind.css">
   <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Nerko+One&display=swap" rel="stylesheet">
-  <title>Fibbage</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Nerko+One&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Sniglet:wght@400;800&display=swap" rel="stylesheet">
+  <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+  <script src="https://kit.fontawesome.com/7652f157a9.js" crossorigin="anonymous"></script>
+  <title>BABELbox</title>
+  {{{_sections.styles}}}
 </head>
-
-<body class="bg-gray-300">
-  {{!-- this is our Barba wrapper containing content that stays the same --}}
-  <div class="flex flex-col h-screen w-full p-12 items-center barba-wrapper">
-    <a href="/" class="text-6xl text-center text-gray-700 font-semibold"
-      style="font-family: 'Bungee Outline', cursive;">
-      <span class="text-yellow-500">B</span>
-      <span class="text-green-500">A</span>
-      <span class="text-indigo-500">B</span>
-      <span class="text-purple-500">E</span>
-      <span class="text-blue-500">L</span>
-      <span class="text-red-500">B</span>
-      <span class="text-yellow-600">O</span>
-      <span class="text-indigo-800">X</span>
-    </a>
-    {{!-- this is our Barba-Container which contains content that changes between pages --}}
-    <div class="bg-blue-400 h-full w-1/3 mt-12 rounded-xl shadow-lg p-4 barba-container">
-      <ul class="transition">
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-      {{{body}}}
-    </div>
-  </div>
-  {{!-- jQuery library --}}
-  <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
-    crossorigin="anonymous"></script>
-
+<body class="bg-blue-200">
+  {{{body}}}
+  {{> footer}}
+  <script src="/js/index.js"></script>
+  {{{_sections.script}}}
 </body>
 
 </html>
