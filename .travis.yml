@@ -1,9 +1,9 @@
-language: node_js
-//use latest version of node
-node_js:
-  - node
-branches:
-  only:
+--- 
+branches: 
+  only: 
     - main
-script:
-  - npm run lint
+language: node_js
+node_js: 
+  - node
+script: 
+  - "npm run lint"
