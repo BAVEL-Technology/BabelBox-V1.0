@@ -40,7 +40,7 @@ can get access to whatever you passed the view in the first place with `@root.`:
 I realized that `{{#if 1 != 2}}` won't work. #if expects only 1 argument. So there is a helper
 /utils/helpers -> ?() that will evaluate a statement and return true or false.
 ```
-{{#if (? 1 '!=' 2)}} //returns true because 1 does not equal 2
+{{#if (q 1 '!=' 2)}} //returns true because 1 does not equal 2
 ```
 
 Also there is an `{{#unless}}` in handlebars that renders html UNLESS true. use `?` in the same way
