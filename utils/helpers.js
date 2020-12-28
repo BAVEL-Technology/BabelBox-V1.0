@@ -31,4 +31,10 @@ module.exports = {
   blankify: function (string) {
     return string.replace("<BLANK>", "_____");
   },
+
+  countDown: function (startTime, timeAllowed) {
+    console.log(startTime)
+    console.log(timeAllowed)
+    return Math.floor((timeAllowed - (Date.now() - startTime) / 1000));
+  }
 };

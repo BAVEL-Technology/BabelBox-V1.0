@@ -18,13 +18,12 @@
     </button>
   </div>
 </div>
-
 {{#section 'script'}}
 <script src="/js/liarliar/liarliar-browserify.js"></script>
 <script type="application/javascript">
   function next() {
     window.location.href = `/{{game.url}}/{{portal.code}}/answer`
   }
-  { {> liarliar / timer - script timeLimit = 20 strokeWidth = '10px' } }
+  {{> liarliar/timer-script timeLimit=(countDown round.question_start_time 20) totalTime=20 strokeWidth='10px' }}
 </script>
 {{/section}}

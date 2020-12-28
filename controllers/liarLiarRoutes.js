@@ -52,7 +52,7 @@ router.get(
       if (portal.rounds.length > 0) {
         const roundData = await Round.findOne({
           include: [{ model: Question }, { model: Portal }],
-          attributes: ['id', 'round'],
+          attributes: ['id', 'round', 'question_start_time', 'answer_start_time'],
           where: {
             id: portal.rounds.filter((r) => r.round === portal.round)[0].id,
             // eslint-disable-next-line camelcase

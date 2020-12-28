@@ -1,7 +1,8 @@
 const timeLimit = {{timeLimit}};
+const totalTime = {{totalTime}};
 const fullCircle = 283;
-const warningThreshold = Math.round(timeLimit / 2)
-const alertThreshold = Math.round(timeLimit / 4);
+const warningThreshold = Math.round(totalTime / 2)
+const alertThreshold = Math.round(totalTime / 4);
 
 const colorCodes = {
   info: {
@@ -95,7 +96,7 @@ function setRemainingPathColor(timeLeft) {
 }
 
 function calculateTimeFraction() {
-  const rawTimeFraction = timeLeft / timeLimit;
+  const rawTimeFraction = timeLeft / totalTime;
   return rawTimeFraction - (1 / timeLimit) * (1 - rawTimeFraction);
 }
 

@@ -33,6 +33,6 @@
   function next() {
     window.location.href = `/{{game.url}}/{{portal.code}}/waiting`
   }
-  { {> liarliar / timer - script timeLimit = 20 strokeWidth = '10px' } }
+  {{> liarliar/timer-script timeLimit=(countDown round.answer_start_time 20) totalTime=20 strokeWidth='10px' }}
 </script>
 {{/section}}

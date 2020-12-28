@@ -16,6 +16,14 @@ Round.init(
       allowNull: false,
       defaultValue: 1
     },
+    question_start_time: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    answer_start_time: {
+      type: DataTypes.STRING,
+      allowNull: true
+    },
     portal_id: {
       type: DataTypes.INTEGER,
       references: {

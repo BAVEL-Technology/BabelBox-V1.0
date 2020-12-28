@@ -135,7 +135,11 @@ window.startGame = async function (game, portal_id, roundNum) {
     phase: 'question',
   });
 
-  await bb.create('round', { portal_id, roundNum });
+  const question_start_time = Date.now();
+
+  const answer_start_time = question_start_time + 20000;
+
+  await bb.create('round', { portal_id, roundNum, question_start_time, answer_start_time });
 
   window.location.href = `/${game}/${portal.code}/question`;
 };
