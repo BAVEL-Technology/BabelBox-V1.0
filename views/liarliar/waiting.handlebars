@@ -15,7 +15,7 @@
       {{#if loggedIn}}
         {{> liarliar/user-card currentUser}}
         <p class="my-4 text-center text-gray-700 text-lg lg:text-2xl md:text-2xl text-center tracking-widest" style="font-family: 'Sniglet', cursive;">
-          Not you? <span onclick="logout('{{portal.code}}')" class="cursor-pointer create-new-user relative">Creae a new user</span>!
+          Not you? <span onclick="logout('{{portal.code}}')" class="cursor-pointer create-new-user relative">Create a new user</span>!
         </p>
       {{#each users}}
         {{> liarliar/user-card}}
