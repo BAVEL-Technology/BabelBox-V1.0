@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Round, Portal, Question, User, Answer } = require('../../models');
+const { Round, Portal, Question } = require('../../models');
 
 /**
  * Create a round inside given portal
@@ -38,11 +38,11 @@ router.post('/', async (req, res) => {
       }
     );
 
-    const answerData = await Answer.create({
-      answer: questionData.dataValues.answer,
-      // eslint-disable-next-line camelcase
-      round_id: roundData.dataValues.id,
-    });
+    // const answerData = await Answer.create({
+    //   answer: questionData.dataValues.answer,
+    //   // eslint-disable-next-line camelcase
+    //   round_id: roundData.dataValues.id,
+    // });
 
     res.json(roundData);
   } catch (err) {
