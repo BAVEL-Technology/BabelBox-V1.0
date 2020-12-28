@@ -40,11 +40,11 @@ router.post('/', async (req, res) => {
       }
     );
 
-    // const answerData = await Answer.create({
-    //   answer: questionData.dataValues.answer,
-    //   // eslint-disable-next-line camelcase
-    //   round_id: roundData.dataValues.id,
-    // });
+    await Answer.create({
+      answer: questionData.dataValues.answer,
+      // eslint-disable-next-line camelcase
+      round_id: roundData.dataValues.id,
+    });
 
     res.json(roundData);
   } catch (err) {
