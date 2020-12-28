@@ -29,7 +29,7 @@
     "no-unused-vars": "error",
     "no-var": "error",
     "prefer-const": "error",
-    "quotes": ["error", "double"],
+    "quotes": ["error", "single"],
     "semi": ["error", "always"],
     "yoda": "error"
   }
