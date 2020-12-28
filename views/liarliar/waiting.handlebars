@@ -4,8 +4,10 @@
     <div class="w-full flex items-center justify-center">
       <div class="flex flex-col items-center">
         {{#if portalLeader}}
-        <p class="text-{{game.color}} font-semibold lg:text-3xl md:text-3xl text-xl" style="font-family: {{game.font}};">{{#if (q portal.round '===' 1) }}PLAY {{else}} NEXT ROUND {{/if}}</p>
-        <div onclick="startGame('{{game.url}}', {{portal.id}}, {{portal.round}})" class="my-2 cursor-pointer lg:h-24 md:h-24 lg:w-24 md:w-24 w-16 h-16 rounded-full bg-green-400 flex items-center justify-center text-gray-100 hover:text-green-400 hover:bg-gray-100 border-4 border-green-400">
+        <p class="text-{{game.color}} font-semibold lg:text-3xl md:text-3xl text-xl"
+          style="font-family: {{game.font}};">{{#if (q portal.round '===' 1) }}PLAY {{else}} NEXT ROUND {{/if}}</p>
+        <div onclick="startGame('{{game.url}}', {{portal.id}}, {{portal.round}})"
+          class="my-2 cursor-pointer lg:h-24 md:h-24 lg:w-24 md:w-24 w-16 h-16 rounded-full bg-green-400 flex items-center justify-center text-gray-100 hover:text-green-400 hover:bg-gray-100 border-4 border-green-400">
           <i class="ml-1 lg:text-3xl md:text-3xl text-xl fas fa-play"></i>
         </div>
         {{/if}}
@@ -21,58 +23,59 @@
         {{> liarliar/user-card}}
       {{/each}}
     {{else}}
-      {{> liarliar/create-user-card}}
+    {{> liarliar/create-user-card}}
     {{/if}}
   </div>
 </div>
 
 {{#section 'styles'}}
-  <style>
-      input:focus-within ~ label,
-      input:not(:placeholder-shown) ~ label {
-        transform: scale(.75) translateY(-1.5rem);
-      }
+<style>
+  input:focus-within~label,
+  input:not(:placeholder-shown)~label {
+    transform: scale(.75) translateY(-1.5rem);
+  }
 
-      label {
-        transform-origin: 0%;
-      }
+  label {
+    transform-origin: 0%;
+  }
 
-      .create-new-user::before {
-      content: "";
-      position: absolute;
-      width: 100%;
-      height: 2px;
-      bottom: 0;
-      left: 0;
-      background-color: #000;
-      visibility: hidden;
-      transform: scaleX(0);
-      transition: all 0.3s ease-in-out 0s;
-    }
-    .create-new-user:hover::before {
-      visibility: visible;
-      transform: scaleX(1);
-    }
-  </style>
+  .create-new-user::before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #000;
+    visibility: hidden;
+    transform: scaleX(0);
+    transition: all 0.3s ease-in-out 0s;
+  }
+
+  .create-new-user:hover::before {
+    visibility: visible;
+    transform: scaleX(1);
+  }
+</style>
 {{/section}}
 
 {{#section 'script'}}
-  <script src="/js/liarliar/liarliar.js"></script>
-  {{#each portal.users}}
-    <script type="application/javascript">
-      /*
-      * Copy the code to clipboard!
-      */
-      window.copyCode = function () {
-      let code = document.querySelector("#portal-code").innerHTML.trim()
-      console.log(code)
-      let elem = document.createElement("textarea");
-      document.body.appendChild(elem);
-      elem.value = code;
-      elem.select();
-      document.execCommand("copy");
-      document.body.removeChild(elem);
-      }
-    </script>
-  {{/each}}
+<script src="/js/liarliar/liarliar-browserify.js"></script>
+{{#each portal.users}}
+<script type="application/javascript">
+  /*
+  * Copy the code to clipboard!
+  */
+  window.copyCode = function () {
+    let code = document.querySelector("#portal-code").innerHTML.trim()
+    console.log(code)
+    let elem = document.createElement("textarea");
+    document.body.appendChild(elem);
+    elem.value = code;
+    elem.select();
+    document.execCommand("copy");
+    document.body.removeChild(elem);
+  }
+</script>
+{{/each}}
 {{/section}}

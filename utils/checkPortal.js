@@ -1,6 +1,6 @@
-const games = require('../jsonDB/games.json');
-const game = games.filter((g) => g.title === 'LIAR LIAR')[0];
-const { Portal, Round, User } = require('../models');
+const games = require("../jsonDB/games.json");
+const game = games.filter((g) => g.title === "LIAR LIAR")[0];
+const { Portal } = require("../models");
 
 const checkPortal = async (req, res, next) => {
   try {
