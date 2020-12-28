@@ -31,7 +31,8 @@ router.post('/', async (req, res) => {
         round: req.body.round,
         // eslint-disable-next-line camelcase
         question_id: questionData.dataValues.id,
-        question_start_time: req.body.question_start_time
+        question_start_time: req.body.question_start_time,
+        answer_start_time: req.body.answer_start_time
       },
       {
         include: [{ model: Question }, { model: Portal }],
