@@ -1,7 +1,13 @@
 {{> nav tinyLogo=false centerText=false hideOnMobile=true}}
 {{!-- barba namespace for homepage --}}
-<div data-barba="container" data-barba-namespace="home"
+<div data-barba="container" data-barba-namespace="hero"
   class="w-full flex flex-col items-center items-center min-h-screen">
+  {{!-- ul for animation --}}
+  <ul class="transition">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
   {{> hero-title darkness=600}}
   <div class="h-full w-11/12 md:w-3/4 lg:w-1/3 rounded-xl p-4">
     {{#each games}}
