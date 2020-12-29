@@ -1,8 +1,6 @@
 // ====================================================
 // DEPENDENCIES
 // ====================================================
-// import GSAP as a dependency
-const gsap = require("gsap/dist/gsap");
 // start Barba
 Barba.Pjax.start();
 
