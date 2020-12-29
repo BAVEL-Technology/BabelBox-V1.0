@@ -16,26 +16,26 @@
   }
   .hex2 .top {
     float: left;
-    border-right: 165px solid rgb(191, 219, 254);
-    border-top: 286px solid transparent;
-    border-bottom: 286px solid transparent;
+    border-right: 180.5px solid rgb(191, 219, 254);
+    border-top: 314.6px solid transparent;
+    border-bottom: 314.6px solid transparent;
   }
   .hex2 .middle {
     float: left;
-    width: 330px;
-    height: 572px;
+    width: 363px;
+    height: 629.2px;
     background-color: rgb(191, 219, 254);
   }
   .hex2 .bottom {
     float: left;
-    border-left: 165px solid rgb(191, 219, 254);
-    border-top: 286px solid transparent;
-    border-bottom: 286px solid transparent;
+    border-left: 180.5px solid rgb(191, 219, 254);
+    border-top: 314.6px solid transparent;
+    border-bottom: 314.6px solid transparent;
   }
 .hex {
     float: left;
     margin-left: 10px;
-    margin-bottom: -26px;
+    margin-bottom: -60px;
 }
 .hex .top {
     width: 0;
@@ -72,7 +72,6 @@ img.emoji {
 </head>
 <body class="bg-gray-300">
   <div class="flex w-full h-screen items-center justify-center">
-    <p class="z-20">⛵</p>
     <div class="hex2"><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
     <div class="">
       <div class="hex-row first">
@@ -213,7 +212,7 @@ img.emoji {
     return answer
   }
 
-  hexes.forEach((hex) => {
+  hexes.forEach((hex, index) => {
     let roll = findRoll()
     let resource
     if (roll === ' ') {
@@ -225,10 +224,80 @@ img.emoji {
     <div class="absolute w-24 h-24">
                 <span class="relative top-3 left-6">${resource.icon}</span>
                 <span class="relative top-12 left-4">${resource.icon}</span>
-                <span style="left: 35%;" class="z-10 absolute -mt-2 w-10 h-10 bg-gray-300 flex justify-center items-center rounded-full text-xl font-bold">${roll}</span>
+                <span style="left: 35%;" class="z-10 absolute -mt-2 w-10 h-10 bg-gray-300 flex flex-col leading-none justify-center items-center rounded-full text-lg font-bold ${(roll == '6' || roll == '8') ? 'text-red-600' : ''}">
+                  <span>${roll}</span>
+                  <span>${(roll == '8' || roll == '6') ? '·····' : ''}</span>
+                  <span>${(roll == '3' || roll == '11') ? '··' : ''}</span>
+                  <span>${(roll == '10' || roll == '4') ? '···' : ''}</span>
+                  <span>${(roll == '5' || roll == '9') ? '····' : ''}</span>
+                  <span>${(roll == '12' || roll == '2') ? '·' : ''}</span>
+                </span>
                 <span class="relative top-5 left-16">${resource.icon}</span>
               </div><div class="top" style="border-bottom: 30px solid ${resource.color};"></div><div class="middle" style="background: ${resource.color};"></div><div style="border-top: 30px solid ${resource.color};" class="bottom"></div>
               `
+  if (index === 6) {
+    hex.innerHTML += `<div class="relative" style="top: -90px; left: 5px; transform: rotate(70deg)">
+      <p class="z-20 relative" style="left: -45px; top: -90px; transform: rotate(-45deg)">⛵</p>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -64px; left: 10px; transform: rotate(200deg)"></div>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -45px; left: -30px; transform: rotate(80deg)"></div>
+    </div>`
+  }
+
+  if (index === 11) {
+    hex.innerHTML += `<div class="relative" style="top: -60px; left: -10px; transform: rotate(180deg)">
+      <p class="z-20 relative" style="left: -45px; top: -90px; transform: rotate(-45deg)">⛵</p>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -64px; left: 10px; transform: rotate(200deg)"></div>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -45px; left: -30px; transform: rotate(80deg)"></div>
+    </div>`
+  }
+
+  if (index === 2) {
+    hex.innerHTML += `<div class="relative" style="top: -90px; left: 5px; transform: rotate(70deg)">
+      <p class="z-20 relative" style="left: -45px; top: -90px; transform: rotate(-45deg)">🌾</p>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -64px; left: 10px; transform: rotate(200deg)"></div>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -45px; left: -30px; transform: rotate(80deg)"></div>
+    </div>`
+  }
+
+  if (index === 0) {
+    hex.innerHTML += `<div class="relative" style="top: -90px; left: 0px; transform: rotate(10deg)">
+      <p class="z-20 relative" style="left: -45px; top: -90px; transform: rotate(-45deg)">🐑</p>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -64px; left: 10px; transform: rotate(200deg)"></div>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -45px; left: -30px; transform: rotate(80deg)"></div>
+    </div>`
+  }
+
+  if (index === 18) {
+    hex.innerHTML += `<div class="relative" style="top: -70px; left: 5px; transform: rotate(130deg)">
+      <p class="z-20 relative" style="left: -45px; top: -90px; transform: rotate(-45deg)">🧱</p>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -64px; left: 10px; transform: rotate(200deg)"></div>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -45px; left: -30px; transform: rotate(80deg)"></div>
+    </div>`
+  }
+
+  if (index === 3) {
+    hex.innerHTML += `<div class="relative" style="top: -90px; left: -10px; transform: rotate(-50deg)">
+      <p class="z-20 relative" style="left: -45px; top: -90px; transform: rotate(-45deg)">🌳</p>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -64px; left: 10px; transform: rotate(200deg)"></div>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -45px; left: -30px; transform: rotate(80deg)"></div>
+    </div>`
+  }
+  if (index === 7 || index === 17) {
+    hex.innerHTML += `<div class="relative" style="top: -70px; left: -10px; transform: rotate(-110deg)">
+      <p class="z-20 relative" style="left: -45px; top: -90px; transform: rotate(-45deg)">⛵</p>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -64px; left: 10px; transform: rotate(200deg)"></div>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -45px; left: -30px; transform: rotate(80deg)"></div>
+    </div>`
+  }
+
+  if (index === 12) {
+    hex.innerHTML += `<div class="relative" style="top: -70px; left: -10px; transform: rotate(-110deg)">
+      <p class="z-20 relative" style="left: -45px; top: -90px; transform: rotate(-45deg)">⛰️</p>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -64px; left: 10px; transform: rotate(200deg)"></div>
+      <div class="bg-yellow-600 h-2 w-8 transform relative z-20" style="top: -45px; left: -30px; transform: rotate(80deg)"></div>
+    </div>`
+  }
+
   })
     twemoji.parse(document.body);
   </script>
