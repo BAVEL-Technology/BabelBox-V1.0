@@ -64,20 +64,5 @@
 {{#section 'script'}}
 <script src="/js/liarliar/liarliar-browserify.js"></script>
 {{#each portal.users}}
-<script type="application/javascript">
-  /*
-  * Copy the code to clipboard!
-  */
-  window.copyCode = function () {
-    let code = document.querySelector("#portal-code").innerHTML.trim()
-    console.log(code)
-    let elem = document.createElement("textarea");
-    document.body.appendChild(elem);
-    elem.value = code;
-    elem.select();
-    document.execCommand("copy");
-    document.body.removeChild(elem);
-  }
-</script>
 {{/each}}
 {{/section}}

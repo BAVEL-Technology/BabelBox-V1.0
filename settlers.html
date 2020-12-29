@@ -9,16 +9,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Nerko+One&display=swap" rel="stylesheet">
   <title>Fibbage</title>
   <style>
-
-  .hex p {
-    position: relative;
-    top: 0px;
+  .hex2 {
+    z-index: -10;
+    position: absolute;
+    margin-left: -20px;
+  }
+  .hex2 .top {
+    float: left;
+    border-right: 165px solid rgb(191, 219, 254);
+    border-top: 286px solid transparent;
+    border-bottom: 286px solid transparent;
+  }
+  .hex2 .middle {
+    float: left;
+    width: 330px;
+    height: 572px;
+    background-color: rgb(191, 219, 254);
+  }
+  .hex2 .bottom {
+    float: left;
+    border-left: 165px solid rgb(191, 219, 254);
+    border-top: 286px solid transparent;
+    border-bottom: 286px solid transparent;
   }
 .hex {
     float: left;
     margin-left: 10px;
-    margin-bottom: -66px;
-    border: solid 2px white;
+    margin-bottom: -26px;
 }
 .hex .top {
     width: 0;
@@ -29,24 +46,24 @@
 .hex .middle {
     width: 104px;
     height: 60px;
-    background: #6C6;
 }
 .hex .bottom {
     width: 0;
-    border-top: 30px solid #6C6;
     border-left: 52px solid transparent;
     border-right: 52px solid transparent;
 }
 .hex-row {
     clear: left;
 }
-.hex-row.even {
+.hex-row.first {
     margin-left: 53px;
 }
-
+.hex-row.second {
+    margin-left: -53px;
+}
 img.emoji {
-   height: 3em;
-   width: 3em;
+   height: 1.5em;
+   width: 1.5em;
    margin: 0 .05em 0 .1em;
    vertical-align: -0.1em;
 }
@@ -55,20 +72,37 @@ img.emoji {
 </head>
 <body class="bg-gray-300">
   <div class="flex w-full h-screen items-center justify-center">
+    <p class="z-20">⛵</p>
+    <div class="hex2"><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
     <div class="">
+      <div class="hex-row first">
+          <div class="hex"></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
+      </div>
         <div class="hex-row">
-            <div class="hex"><p class="relative top-16 left-6">⛰️</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
-            <div class="hex"><p class="relative top-16 left-6">🌳</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
-            <div class="hex"><p class="relative top-16 left-6">🐑</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
         </div>
-        <div class="hex-row even">
-            <div class="hex"><p class="relative top-16 left-6">🏜️</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
-            <div class="hex"><p class="relative top-16 left-6">⛰️</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+        <div class="hex-row second">
+          <div class="hex"></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
         </div>
         <div class="hex-row">
-            <div class="hex"><p class="relative top-16 left-6">🌳</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
-            <div class="hex"><p class="relative top-16 left-6">🌳</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
-            <div class="hex"><p class="relative top-16 left-6">🌳</p><div class="top"></div><div class="middle"></div><div class="bottom"></div></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
+        </div>
+        <div class="hex-row first">
+          <div class="hex"></div>
+          <div class="hex"></div>
+          <div class="hex"></div>
         </div>
     </div>
   </div>
@@ -77,7 +111,126 @@ img.emoji {
   * Parse DOM for twemojis
   * use npm twemoji to convert from emoji to twemoij
   */
-  twemoji.parse(document.body);
+
+  let hexes = document.querySelectorAll('.hex')
+
+  const allResources = [
+    {
+      icon: '⛰️',
+      color: 'rgb(167, 139, 250)'
+    },
+    {
+      icon: '⛰️',
+      color: 'rgb(167, 139, 250)'
+    },
+    {
+      icon: '⛰️',
+      color: 'rgb(167, 139, 250)'
+    },
+    {
+      icon: '🌳',
+      color: 'rgb(4, 120, 87)'
+    },
+    {
+      icon: '🌳',
+      color: 'rgb(4, 120, 87)'
+    },
+    {
+      icon: '🌳',
+      color: 'rgb(4, 120, 87)'
+    },
+    {
+      icon: '🌳',
+      color: 'rgb(4, 120, 87)'
+    },
+    {
+      icon: '🐑',
+      color: 'rgb(52, 211, 153)'
+    },
+    {
+      icon: '🐑',
+      color: 'rgb(52, 211, 153)'
+    },
+    {
+      icon: '🐑',
+      color: 'rgb(52, 211, 153)'
+    },
+    {
+      icon: '🐑',
+      color: 'rgb(52, 211, 153)'
+    },
+    {
+      icon: '🌾',
+      color: 'rgb(252, 211, 77)'
+    },
+    {
+      icon: '🌾',
+      color: 'rgb(252, 211, 77)'
+    },
+    {
+      icon: '🌾',
+      color: 'rgb(252, 211, 77)'
+    },
+    {
+      icon: '🌾',
+      color: 'rgb(252, 211, 77)'
+    },
+    {
+      icon: '🧱',
+      color: 'rgb(248, 113, 113)'
+    },
+    {
+      icon: '🧱',
+      color: 'rgb(248, 113, 113)'
+    },
+    {
+      icon: '🧱',
+      color: 'rgb(248, 113, 113)'
+    }
+  ]
+
+  const desert =     {
+        icon: '🏜️',
+        color: 'rgb(245, 158, 11)'
+      }
+
+  var numbers = [2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 4, 5, 6, 8, 9, 10, 3, 11, ' ']
+  let chosenResources = []
+
+  function findRoll() {
+    let length = numbers.length
+    let roll = Math.floor(Math.random() * Math.floor(length))
+    let answer = numbers[roll]
+    numbers.splice(roll, 1)
+    return answer
+  }
+
+  function findResource () {
+    let length = allResources.length
+    let resource = Math.floor(Math.random() * Math.floor(length))
+    let answer = allResources[resource]
+    allResources.splice(resource, 1)
+    return answer
+  }
+
+  hexes.forEach((hex) => {
+    let roll = findRoll()
+    let resource
+    if (roll === ' ') {
+      resource = desert
+    } else {
+      resource = findResource()
+    }
+    hex.innerHTML = `
+    <div class="absolute w-24 h-24">
+                <span class="relative top-3 left-6">${resource.icon}</span>
+                <span class="relative top-12 left-4">${resource.icon}</span>
+                <span style="left: 35%;" class="z-10 absolute -mt-2 w-10 h-10 bg-gray-300 flex justify-center items-center rounded-full text-xl font-bold">${roll}</span>
+                <span class="relative top-5 left-16">${resource.icon}</span>
+              </div><div class="top" style="border-bottom: 30px solid ${resource.color};"></div><div class="middle" style="background: ${resource.color};"></div><div style="border-top: 30px solid ${resource.color};" class="bottom"></div>
+              `
+  })
+    twemoji.parse(document.body);
   </script>
 </body>
 </html>

@@ -1,5 +1,27 @@
 const router = require('express').Router();
-const { Round, Portal, Question } = require('../../models');
+const { Round, Portal, Question, Answer } = require('../../models');
+
+function startGameTimer (portal_id, round_id) {
+  console.log('StartTimeer');
+  const id = portal_id;
+  const roudId = round_id;
+  async function go () {
+    try {
+      console.log('Finish');
+      const portalData = await Portal.findOne({
+        where: { id },
+      });
+
+      await portalData.update({
+        phase: 'waiting',
+        round: portalData.dataValues.round++
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  setTimeout(go, (40000));
+}
 
 /**
  * Create a round inside given portal
@@ -39,6 +61,8 @@ router.post('/', async (req, res) => {
         attributes: ['id', 'round'],
       }
     );
+
+    startGameTimer(portalData.dataValues.id, roundData.dataValues.id);
 
     await Answer.create({
       answer: questionData.dataValues.answer,

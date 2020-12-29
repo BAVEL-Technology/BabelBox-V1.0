@@ -1,4 +1,5 @@
 const bb = require('../api/index');
+const { toast, snackbar } = require('tailwind-toast');
 
 /*
  * Assign a user as the portal leader
@@ -35,6 +36,20 @@ window.makeLeader = async function (event, id, currentUserId) {
   } catch (error) {
     console.log(error);
   }
+};
+
+/*
+* Copy the code to clipboard!
+*/
+window.copyCode = function () {
+  const code = document.querySelector('#portal-code').innerHTML.trim();
+  const elem = document.createElement('textarea');
+  document.body.appendChild(elem);
+  elem.value = code;
+  elem.select();
+  document.execCommand('copy');
+  document.body.removeChild(elem);
+  toast().success(' ', 'Copied to clipboard!').with({shape: 'pill'}).show();
 };
 
 /*
@@ -175,10 +190,12 @@ window.selectAnswer = async function (currentUserId, round_id, user_id) {
       id: currentUser.id,
       points: currentUser.points + 100,
     });
+    toast().success('Great!', 'You got the right answer!').with({shape: 'pill'}).show();
   } else {
     const user = await bb.read('user', { id: user_id });
 
     await bb.update('user', { id: user_id, points: user.points + 25 });
+    toast().danger('Doh!', 'You were fooled!').with({shape: 'pill'}).show();
   }
 
   const buttons = document.getElementsByClassName('answer');
@@ -187,18 +204,5 @@ window.selectAnswer = async function (currentUserId, round_id, user_id) {
     buttons[i].disabled = true;
   }
 
-  const round = await bb.read('round', { id: round_id });
 
-  if (currentUser.leader) {
-    await bb.create('round', {
-      portal_id: round.portal.id,
-      round: round.round + 1,
-    });
-
-    await bb.update('portal', {
-      id: round.portal.id,
-      round: round.round + 1,
-      phase: 'waiting',
-    });
-  }
 };
