@@ -173,8 +173,6 @@ window.submitAnswer = async function (user_id, round_id, portal_id) {
     answer: submission,
   });
 
-  await bb.update('portal', { id: portal_id, phase: 'answer' });
-
   button.disabled = true;
   button.innerHTML = 'Answer Locked In!';
 };
@@ -183,7 +181,7 @@ window.submitAnswer = async function (user_id, round_id, portal_id) {
  * Select an answer for a certain round
  */
 window.selectAnswer = async function (currentUserId, round_id, user_id) {
-  const currentUser = await bb.read('user', { id: currentUserId });
+  const currentUser = await bb.update('user', { id: currentUserId, answer_lock: true });
 
   if (!user_id) {
     await bb.update('user', {

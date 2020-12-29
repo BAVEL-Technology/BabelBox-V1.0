@@ -13,14 +13,32 @@ function startGameTimer (portal_id, round_id) {
       });
 
       await portalData.update({
-        phase: 'waiting',
+        phase: 'answer',
         round: portalData.dataValues.round++
       });
     } catch (error) {
       console.log(error);
     }
+
+    setTimeout(async function() {
+      try {
+        console.log('Finish');
+        const portalData = await Portal.findOne({
+          where: { id },
+        });
+  
+        await portalData.update({
+          phase: 'waiting',
+          round: portalData.dataValues.round++
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }, 20000);
+
+
   }
-  setTimeout(go, (40000));
+  setTimeout(go, (20000));
 }
 
 /**

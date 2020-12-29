@@ -78,7 +78,7 @@ router.get(
 
       if (req.session.user) {
         const currentUserData = await User.findOne({
-          attributes: ['id', 'name', 'leader', 'avatar', 'points'],
+          attributes: ['id', 'name', 'leader', 'avatar', 'points', 'answer_lock'],
           where: {
             id: req.session.user,
             // eslint-disable-next-line camelcase

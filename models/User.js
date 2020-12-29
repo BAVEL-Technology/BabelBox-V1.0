@@ -29,6 +29,11 @@ User.init(
       type: DataTypes.STRING,
       allowNull: false
     },
+    answer_lock: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 0
+    },
     portal_id: {
       type: DataTypes.INTEGER,
       references: {
@@ -36,7 +41,7 @@ User.init(
         key: 'id',
         unique: false
       }
-    }
+    },
   },
   {
     sequelize,
