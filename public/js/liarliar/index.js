@@ -1,5 +1,5 @@
 const bb = require('../api/index');
-const { toast, snackbar } = require('tailwind-toast');
+const { toast } = require('tailwind-toast');
 
 /*
  * Assign a user as the portal leader
@@ -162,7 +162,7 @@ window.startGame = async function (game, portal_id, roundNum) {
 /*
  * Submit an answer for a certain round
  */
-window.submitAnswer = async function (user_id, round_id, portal_id) {
+window.submitAnswer = async function (user_id, round_id) {
   const submission = document.querySelector('#user-answer').value;
 
   const button = document.querySelector('#submit-answer-button');

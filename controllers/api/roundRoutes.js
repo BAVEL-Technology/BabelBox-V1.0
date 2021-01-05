@@ -9,7 +9,6 @@ async function startGameTimer (portal_id, round_id) {
     attributes: ['id', 'code', 'round', 'phase'],
     where: { id: portal_id },
   });
-  const roudId = round_id;
   async function go () {
     try {
       console.log('Answer Phase');
