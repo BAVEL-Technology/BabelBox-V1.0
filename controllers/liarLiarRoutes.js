@@ -49,7 +49,7 @@ router.get(
 
       let round;
 
-      if (portal.rounds.length > 0) {
+      if (portal.phase === 'question' || portal.phase === 'answer') {
         const roundData = await Round.findOne({
           include: [{ model: Question }, { model: Portal }],
           attributes: ['id', 'round', 'question_start_time', 'answer_start_time'],
@@ -78,6 +78,10 @@ router.get(
 
       if (req.session.user) {
         const currentUserData = await User.findOne({
+          include: [{
+            model: Answer,
+            attributes: ['round_id', 'answer']
+          }],
           attributes: ['id', 'name', 'leader', 'avatar', 'points', 'answer_lock'],
           where: {
             id: req.session.user,
@@ -87,6 +91,8 @@ router.get(
         });
 
         currentUser = currentUserData.get({ plain: true });
+
+        console.log(currentUser);
 
         const userData = await User.findAll({
           include: [{ model: Portal }],

@@ -1,20 +1,21 @@
 const router = require('express').Router();
-const { Round, Portal, Question, Answer } = require('../../models');
+const { Round, Portal, Question, Answer, User } = require('../../models');
+const { Op } = require('sequelize');
 
-function startGameTimer (portal_id, round_id) {
-  console.log('StartTimeer');
-  const id = portal_id;
+async function startGameTimer (portal_id, round_id) {
+  console.log('Question Phase');
+  let portalData = await Portal.findOne({
+    include: [{ model: Round }, { model: User }],
+    attributes: ['id', 'code', 'round', 'phase'],
+    where: { id: portal_id },
+  });
   const roudId = round_id;
   async function go () {
     try {
-      console.log('Finish');
-      const portalData = await Portal.findOne({
-        where: { id },
-      });
+      console.log('Answer Phase');
 
-      await portalData.update({
-        phase: 'answer',
-        round: portalData.dataValues.round++
+      portalData = await portalData.update({
+        phase: 'answer'
       });
     } catch (error) {
       console.log(error);
@@ -22,21 +23,24 @@ function startGameTimer (portal_id, round_id) {
 
     setTimeout(async function() {
       try {
-        console.log('Finish');
-        const portalData = await Portal.findOne({
-          where: { id },
-        });
-  
-        await portalData.update({
+        console.log('Waiting Phase');
+        console.log(portalData.dataValues.round);
+        portalData = await portalData.update({
           phase: 'waiting',
-          round: portalData.dataValues.round++
+          round: (portalData.dataValues.round + 1)
+        });
+        console.log(portalData.dataValues.round);
+        const userIds = portalData.users.map((user) => user.id);
+        console.log(userIds);
+        await User.update({ answer_lock: 0 }, {
+          where: {
+            id: { [Op.in]: userIds }
+          }
         });
       } catch (error) {
         console.log(error);
       }
     }, 20000);
-
-
   }
   setTimeout(go, (20000));
 }

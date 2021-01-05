@@ -31,7 +31,7 @@
 <script src="/js/liarliar/liarliar-browserify.js"></script>
 <script type="application/javascript">
   function next() {
-    //window.location.href = `/{{game.url}}/{{portal.code}}/waiting`
+    window.location.href = `/{{game.url}}/{{portal.code}}/waiting`
   }
   {{> liarliar/timer-script timeLimit=(countDown round.answer_start_time 20) totalTime=20 strokeWidth='10px' }}
 </script>

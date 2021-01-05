@@ -154,7 +154,7 @@ window.startGame = async function (game, portal_id, roundNum) {
 
   const answer_start_time = question_start_time + 20000;
 
-  await bb.create('round', { portal_id, roundNum, question_start_time, answer_start_time });
+  await bb.create('round', { portal_id, round: roundNum, question_start_time, answer_start_time });
 
   window.location.href = `/${game}/${portal.code}/question`;
 };
@@ -201,6 +201,4 @@ window.selectAnswer = async function (currentUserId, round_id, user_id) {
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].disabled = true;
   }
-
-
 };
