@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-footer img.emoji, .center img.emoji {
+footer img.emoji, .center img.emoji, #about img.emoji {
  height: 1em;
  width: 1em;
  margin: 0 .05em 0 .1em;
