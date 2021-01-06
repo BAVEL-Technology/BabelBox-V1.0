@@ -18,9 +18,30 @@
 
 {{!-- barba main wrapper --}}
 <body data-barba="wrapper" class="bg-blue-200">
+  <div id="loader" class="fixed flex items-center justify-center h-full w-full bg-blue-200 z-50">
+    <div class="loader1">
+      <span class="h-10 w-10"></span>
+      <span class="h-10 w-10"></span>
+      <span class="h-10 w-10"></span>
+      <span class="h-10 w-10"></span>
+      <span class="h-10 w-10"></span>
+    </div>
+  </div>
   {{{body}}}
   {{> footer}}
   <script src="/js/index.js"></script>
+  <script>
+  var ready = (callback) => {
+    if (document.readyState != "loading") callback();
+    else document.addEventListener("DOMContentLoaded", callback);
+  }
+  let loader = document.createElement('DIV')
+
+  document.body.prepend()
+  ready(() => {
+    document.querySelector('#loader').remove()
+  });
+  </script>
   {{{_sections.script}}}
 </body>
 
