@@ -31,27 +31,27 @@ const checkWhenUserJoinedPortal = async (req, res, next) => {
       });
 
       user = userData.get({ plain: true });
-      console.log(user.created_at)
+      console.log(user.created_at);
     }
 
 
     const portal = portalData.get({ plain: true });
     if (portal.rounds.length > 0 && user) {
       if (user.created_at > portal.rounds[0].created_at) {
-        console.log('redirecting to waiting HARD')
+        console.log('redirecting to waiting HARD');
         res.redirect(`/liarliar/${portal.code}/waiting/hard`);
       } else {
-        console.log('next checkWhen')
+        console.log('next checkWhen');
         next();
       }
-      console.log(user.created_at > portal.rounds[0].created_at)
+      console.log(user.created_at > portal.rounds[0].created_at);
     } else {
       if (!user) {
-        console.log('redirecting to waiting HARD')
+        console.log('redirecting to waiting HARD');
         res.redirect(`/liarliar/${portal.code}/waiting/hard`);
       } else {
-        console.log('next checkWhen')
-        next()
+        console.log('next checkWhen');
+        next();
       }
     }
 

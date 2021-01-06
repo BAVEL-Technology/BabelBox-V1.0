@@ -24,10 +24,10 @@ const checkPhase = async (req, res, next) => {
     const portal = portalData.get({ plain: true });
 
     if (portal.phase !== req.params.phase) {
-      console.log('redirecting to phase')
+      console.log('redirecting to phase');
       res.redirect(`/liarliar/${portal.code}/${portal.phase}`);
     } else {
-      console.log('next checkPhase')
+      console.log('next checkPhase');
       next();
     }
   } catch (error) {

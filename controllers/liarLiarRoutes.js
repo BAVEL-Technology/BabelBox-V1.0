@@ -71,12 +71,12 @@ router.get(
         portal = portalData.get({ plain: true });
       }
 
-      console.log(portal)
+      console.log(portal);
 
       let currentUserData;
 
       if (req.session.user) {
-          currentUserData = await User.findOne({
+        currentUserData = await User.findOne({
           include: [{
             model: Answer,
             required: false,
@@ -97,14 +97,14 @@ router.get(
         currentUser = currentUserData.get({ plain: true });
       }
 
-      res.render(`liarliar/waiting`, {
+      res.render('liarliar/waiting', {
         portal,
         game,
         currentUser,
         loggedIn: req.session.user ? true : false,
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(500).json(err);
     }
   }
@@ -160,12 +160,12 @@ router.get(
         portal = portalData.get({ plain: true });
       }
 
-      console.log(portal)
+      console.log(portal);
 
       let currentUserData;
 
       if (req.session.user) {
-          currentUserData = await User.findOne({
+        currentUserData = await User.findOne({
           include: [{
             model: Answer,
             required: false,
@@ -186,7 +186,7 @@ router.get(
         currentUser = currentUserData.get({ plain: true });
       }
 
-      console.log(currentUser)
+      console.log(currentUser);
 
       res.render(`liarliar/${req.params.phase}`, {
         portal,
@@ -195,7 +195,7 @@ router.get(
         loggedIn: req.session.user ? true : false,
       });
     } catch (err) {
-      console.log(err)
+      console.log(err);
       res.status(500).json(err);
     }
   }
