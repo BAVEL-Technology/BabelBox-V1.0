@@ -1,4 +1,5 @@
 const bb = require('../api/index');
+const { toast } = require('tailwind-toast');
 
 /*
  * Assign a user as the portal leader
@@ -35,6 +36,20 @@ window.makeLeader = async function (event, id, currentUserId) {
   } catch (error) {
     console.log(error);
   }
+};
+
+/*
+* Copy the code to clipboard!
+*/
+window.copyCode = function () {
+  const code = document.querySelector('#portal-code').innerHTML.trim();
+  const elem = document.createElement('textarea');
+  document.body.appendChild(elem);
+  elem.value = code;
+  elem.select();
+  document.execCommand('copy');
+  document.body.removeChild(elem);
+  toast().success(' ', 'Copied to clipboard!').with({shape: 'pill'}).show();
 };
 
 /*
@@ -135,7 +150,11 @@ window.startGame = async function (game, portal_id, roundNum) {
     phase: 'question',
   });
 
-  await bb.create('round', { portal_id, roundNum });
+  const question_start_time = Date.now();
+
+  const answer_start_time = question_start_time + 20000;
+
+  await bb.create('round', { portal_id, round: roundNum, question_start_time, answer_start_time });
 
   window.location.href = `/${game}/${portal.code}/question`;
 };
@@ -143,7 +162,7 @@ window.startGame = async function (game, portal_id, roundNum) {
 /*
  * Submit an answer for a certain round
  */
-window.submitAnswer = async function (user_id, round_id, portal_id) {
+window.submitAnswer = async function (user_id, round_id) {
   const submission = document.querySelector('#user-answer').value;
 
   const button = document.querySelector('#submit-answer-button');
@@ -154,8 +173,6 @@ window.submitAnswer = async function (user_id, round_id, portal_id) {
     answer: submission,
   });
 
-  await bb.update('portal', { id: portal_id, phase: 'answer' });
-
   button.disabled = true;
   button.innerHTML = 'Answer Locked In!';
 };
@@ -164,37 +181,24 @@ window.submitAnswer = async function (user_id, round_id, portal_id) {
  * Select an answer for a certain round
  */
 window.selectAnswer = async function (currentUserId, round_id, user_id) {
-  const currentUser = await bb.read('user', { id: currentUserId });
+  const currentUser = await bb.update('user', { id: currentUserId, answer_lock: true });
 
   if (!user_id) {
     await bb.update('user', {
       id: currentUser.id,
       points: currentUser.points + 100,
     });
+    toast().success('Great!', 'You got the right answer!').with({shape: 'pill'}).show();
   } else {
     const user = await bb.read('user', { id: user_id });
 
     await bb.update('user', { id: user_id, points: user.points + 25 });
+    toast().danger('Doh!', 'You were fooled!').with({shape: 'pill'}).show();
   }
 
   const buttons = document.getElementsByClassName('answer');
 
   for (let i = 0; i < buttons.length; i++) {
     buttons[i].disabled = true;
-  }
-
-  const round = await bb.read('round', { id: round_id });
-
-  if (currentUser.leader) {
-    await bb.create('round', {
-      portal_id: round.portal.id,
-      round: round.round + 1,
-    });
-
-    await bb.update('portal', {
-      id: round.portal.id,
-      round: round.round + 1,
-      phase: 'waiting',
-    });
   }
 };

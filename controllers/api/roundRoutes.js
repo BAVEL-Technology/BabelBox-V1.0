@@ -1,5 +1,48 @@
 const router = require('express').Router();
-const { Round, Portal, Question } = require('../../models');
+const { Round, Portal, Question, Answer, User } = require('../../models');
+const { Op } = require('sequelize');
+
+async function startGameTimer (portal_id) {
+  console.log('Question Phase');
+  let portalData = await Portal.findOne({
+    include: [{ model: Round }, { model: User }],
+    attributes: ['id', 'code', 'round', 'phase'],
+    where: { id: portal_id },
+  });
+  async function go () {
+    try {
+      console.log('Answer Phase');
+
+      portalData = await portalData.update({
+        phase: 'answer'
+      });
+    } catch (error) {
+      console.log(error);
+    }
+
+    setTimeout(async function() {
+      try {
+        console.log('Waiting Phase');
+        console.log(portalData.dataValues.round);
+        portalData = await portalData.update({
+          phase: 'waiting',
+          round: (portalData.dataValues.round + 1)
+        });
+        console.log(portalData.dataValues.round);
+        const userIds = portalData.users.map((user) => user.id);
+        console.log(userIds);
+        await User.update({ answer_lock: 0 }, {
+          where: {
+            id: { [Op.in]: userIds }
+          }
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }, 20000);
+  }
+  setTimeout(go, (20000));
+}
 
 /**
  * Create a round inside given portal
@@ -31,6 +74,8 @@ router.post('/', async (req, res) => {
         round: req.body.round,
         // eslint-disable-next-line camelcase
         question_id: questionData.dataValues.id,
+        question_start_time: req.body.question_start_time,
+        answer_start_time: req.body.answer_start_time
       },
       {
         include: [{ model: Question }, { model: Portal }],
@@ -38,11 +83,13 @@ router.post('/', async (req, res) => {
       }
     );
 
-    // const answerData = await Answer.create({
-    //   answer: questionData.dataValues.answer,
-    //   // eslint-disable-next-line camelcase
-    //   round_id: roundData.dataValues.id,
-    // });
+    startGameTimer(portalData.dataValues.id, roundData.dataValues.id);
+
+    await Answer.create({
+      answer: questionData.dataValues.answer,
+      // eslint-disable-next-line camelcase
+      round_id: roundData.dataValues.id,
+    });
 
     res.json(roundData);
   } catch (err) {
@@ -105,6 +152,7 @@ router.put('/:id', async (req, res) => {
     roundData = await roundData.update({
       // eslint-disable-next-line camelcase
       question_id: req.body.question_id,
+      answer_start_time: req.body.answer_start_time
     });
 
     res.json(roundData);
