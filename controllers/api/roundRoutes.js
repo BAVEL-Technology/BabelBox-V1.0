@@ -31,7 +31,7 @@ async function startGameTimer (portal_id) {
         console.log(portalData.dataValues.round);
         const userIds = portalData.users.map((user) => user.id);
         console.log(userIds);
-        await User.update({ answer_lock: 0 }, {
+        await User.update({ answer_lock: 0, question_lock: 0 }, {
           where: {
             id: { [Op.in]: userIds }
           }

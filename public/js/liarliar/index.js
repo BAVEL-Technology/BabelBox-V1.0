@@ -166,7 +166,7 @@ window.submitAnswer = async function (user_id, round_id) {
   const submission = document.querySelector('#user-answer').value;
 
   const button = document.querySelector('#submit-answer-button');
-
+  await bb.update('user', { id: user_id, question_lock: true });
   await bb.create('answer', {
     round_id,
     user_id,

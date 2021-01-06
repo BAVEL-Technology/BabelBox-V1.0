@@ -82,7 +82,7 @@ router.get(
             model: Answer,
             attributes: ['round_id', 'answer']
           }],
-          attributes: ['id', 'name', 'leader', 'avatar', 'points', 'answer_lock'],
+          attributes: ['id', 'name', 'leader', 'avatar', 'points', 'answer_lock', 'question_lock'],
           where: {
             id: req.session.user,
             // eslint-disable-next-line camelcase
@@ -92,7 +92,8 @@ router.get(
 
         currentUser = currentUserData.get({ plain: true });
 
-        console.log(currentUser);
+        // currentUser.answers.filter((a) => a.round_id === round.id)
+
 
         const userData = await User.findAll({
           include: [{ model: Portal }],
