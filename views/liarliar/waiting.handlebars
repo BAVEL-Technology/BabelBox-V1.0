@@ -75,14 +75,13 @@
 {{/each}}
 <script>
 setInterval(async () => {
-  const portalID = {{ portal.id }};
+  const portalId = {{ portal.id }};
   const status = await checkPortalStatus(portalID)
   console.log(status)
-if (status != 'waiting') {
-  window.location.href = `/{{game.url}}/{{portal.code}}/answer`
-}
-}, 500
-)
+  if (status != 'waiting') {
+      window.location.href = `/{{game.url}}/{{portal.code}}/question`
+    }
+  }, 500)
 
 </script>
 {{/section}}

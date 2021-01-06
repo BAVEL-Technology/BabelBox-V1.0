@@ -47,6 +47,8 @@ router.get(
 
       const portal = portalData.get({ plain: true });
 
+      console.log(portal)
+
       let round;
 
       if (portal.phase === 'question' || portal.phase === 'answer') {
@@ -61,6 +63,8 @@ router.get(
         });
 
         round = roundData.get({ plain: true });
+
+        console.log(round)
       }
 
       const portalLeaderData = await User.findOne({
@@ -92,8 +96,7 @@ router.get(
 
         currentUser = currentUserData.get({ plain: true });
 
-        // currentUser.answers.filter((a) => a.round_id === round.id)
-
+        console.log(currentUser)
 
         const userData = await User.findAll({
           include: [{ model: Portal }],
@@ -108,8 +111,12 @@ router.get(
 
         users = userData.map((u) => u.get({ plain: true }));
 
+        console.log(users)
+
         portalLeader =
           portalLeaderData.dataValues.id === req.session.user ? true : false;
+
+        console.log(portalLeader)
       }
 
       let answers;
@@ -126,6 +133,8 @@ router.get(
         });
 
         answers = answerData.map((a) => a.get({ plain: true }));
+
+        console.log(answers)
       }
 
       res.render(`liarliar/${req.params.phase}`, {
