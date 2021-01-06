@@ -49,10 +49,10 @@ router.get(
 
       let round;
 
-      if (portal.rounds.length > 0) {
+      if (portal.phase === 'question' || portal.phase === 'answer') {
         const roundData = await Round.findOne({
           include: [{ model: Question }, { model: Portal }],
-          attributes: ['id', 'round'],
+          attributes: ['id', 'round', 'question_start_time', 'answer_start_time'],
           where: {
             id: portal.rounds.filter((r) => r.round === portal.round)[0].id,
             // eslint-disable-next-line camelcase
@@ -78,7 +78,11 @@ router.get(
 
       if (req.session.user) {
         const currentUserData = await User.findOne({
-          attributes: ['id', 'name', 'leader', 'avatar', 'points'],
+          include: [{
+            model: Answer,
+            attributes: ['round_id', 'answer']
+          }],
+          attributes: ['id', 'name', 'leader', 'avatar', 'points', 'answer_lock'],
           where: {
             id: req.session.user,
             // eslint-disable-next-line camelcase
@@ -87,6 +91,8 @@ router.get(
         });
 
         currentUser = currentUserData.get({ plain: true });
+
+        console.log(currentUser);
 
         const userData = await User.findAll({
           include: [{ model: Portal }],
