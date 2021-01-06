@@ -21,18 +21,18 @@
     bg-transparent lg:text-3xl md:text-2xl text-xl text-gray-700 w-full" style="font-family: {{game.font}};">
     <button id="submit-answer-button" onclick="submitAnswer({{currentUser.id}}, {{round.id}}, {{portal.id}})" class="place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-4 rounded-tl-xl
     rounded-br-xl rounded-tr rounded-bl flex items-center justify-center w-full
-    lg:text-3xl md:text-2xl text-xl disabled:opacity-50" style="font-family: {{game.font}};">
-      Submit Answer
+    lg:text-3xl md:text-2xl text-xl disabled:opacity-50" style="font-family: {{game.font}};"{{#if currentUser.question_lock}} disabled {{/if}}>
+      {{#if currentUser.question_lock}} Answer Locked In! {{/if}}
+      {{#unless currentUser.question_lock}} Submit {{/unless}}
     </button>
   </div>
 </div>
-
 {{#section 'script'}}
 <script src="/js/liarliar/liarliar-browserify.js"></script>
 <script type="application/javascript">
   function next() {
     window.location.href = `/{{game.url}}/{{portal.code}}/answer`
   }
-  { {> liarliar / timer - script timeLimit = 20 strokeWidth = '10px' } }
+  {{> liarliar/timer-script timeLimit=(countDown round.question_start_time 20) totalTime=20 strokeWidth='10px' }}
 </script>
 {{/section}}
