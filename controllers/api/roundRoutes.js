@@ -2,7 +2,7 @@ const router = require('express').Router();
 const { Round, Portal, Question, Answer, User } = require('../../models');
 const { Op } = require('sequelize');
 
-async function startGameTimer (portal_id, round_id) {
+async function startGameTimer (portal_id) {
   console.log('Question Phase');
   let portalData = await Portal.findOne({
     include: [{ model: Round }, { model: User }],
