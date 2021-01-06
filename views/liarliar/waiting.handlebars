@@ -74,14 +74,15 @@
 {{#each portal.users}}
 {{/each}}
 <script>
-  setInterval(() => {
-    const portalID = {{ portal.id }
-  };
-  const portal = bb.read('portal', { id: portalID });
-  if (portal.phase != waiting) {
-    window.location.href = `/{{game.url}}/{{portal.code}}/answer`
-  }
-  }, 500
-  )
+setInterval(async () => {
+  const portalID = {{ portal.id }};
+  const status = await checkPortalStatus(portalID)
+  console.log(status)
+if (status != 'waiting') {
+  window.location.href = `/{{game.url}}/{{portal.code}}/answer`
+}
+}, 500
+)
+
 </script>
 {{/section}}

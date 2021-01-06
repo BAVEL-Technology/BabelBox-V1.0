@@ -414,6 +414,12 @@ window.logout = async function (portalCode) {
   }
 };
 
+window.checkPortalStatus = async function (id) {
+  const portal = await bb.read('portal', { id });
+  const status = portal.phase
+  return status
+}
+
 /*
  * Assign a user as the portal leader
  */
