@@ -8,6 +8,7 @@
     "test": "...",
     "start": "node server.js",
     "questions": "node seeds/seed.js",
+    "heroku-postbuild": "npm run questions",
     "ll-browserify": "browserify public/js/liarliar/index.js -o public/js/liarliar/liarliar-browserify.js"
   },
   "keywords": [],
