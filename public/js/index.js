@@ -5,26 +5,30 @@
 twemoji.parse(document.body);
 
 // ====================================================
+// BARBA CONFIGURATION
+// ====================================================
+import barba from "@barba/core";
+import barbaCss from "@barba/css";
+
+barba.use(barbaCss);
+
+// ====================================================
 // GSAP AND BARBA PAGE TRANSITION ANIMATION PROPERTIES
 // ====================================================
-$(document).ready(function () {
-  // basic barba/gsap page transition animation
-  barba.init({
-    sync: true,
-    transitions: [
-      {
-        name: "opacity-transition",
-        leave(data) {
-          return gsap.to(data.current.container, {
-            opacity: 0,
-          });
-        },
-        enter(data) {
-          return gsap.from(data.next.container, {
-            opacity: 0,
-          });
-        },
-      },
-    ],
-  });
+
+// basic barba/gsap page transition animation
+barba.init({
+  transitions: [
+   {
+     once() {
+       opacity: 0;
+     }
+     .barba-once-active {
+       transition: all 1s linear;
+     }
+     .barba-once-to {
+       opacity: 1;
+     }
+   }
+  ],
 });

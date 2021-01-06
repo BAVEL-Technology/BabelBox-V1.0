@@ -15,6 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@barba/css": "^2.1.15",
     "autoprefixer": "^10.1.0",
     "bcrypt": "^5.0.0",
     "browserify": "^17.0.0",
