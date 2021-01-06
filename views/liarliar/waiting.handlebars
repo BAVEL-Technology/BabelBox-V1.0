@@ -73,4 +73,13 @@
 <script src="/js/liarliar/liarliar-browserify.js"></script>
 {{#each portal.users}}
 {{/each}}
+<script>
+  setInterval(() => {
+    const portal = bb.read('portal', { id: {{ portal.id }})
+  if (portal.phase != waiting) {
+    window.location.href = `/{{game.url}}/{{portal.code}}/answer`
+  }
+  }, 500
+  )
+</script>
 {{/section}}
