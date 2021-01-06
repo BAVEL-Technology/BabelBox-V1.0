@@ -1,7 +1,7 @@
 {{> nav tinyLogo=true centerText=true}}
 {{!-- barba namespace for answer phase --}}
 <div data-barba="container" data-barba-namespace="answer"
-  class="flex flex-col w-full items-center justify-center min-h-screen">
+  class="flex flex-col w-full items-center min-h-screen">
   {{!-- ul for animation --}}
   <ul class="transition">
     <li></li>
@@ -15,18 +15,18 @@
     {{> liarliar/user-card currentUser}}
     <div class="text-center w-full flex items-center justify-center py-8 lg:text-4xl md:text-3xl text-xl"
       style="font-family: {{game.font}};">
-      {{blankify round.question.question}}
+      {{blankify portal.rounds.0.question.question}}
     </div>
-    {{#each answers}}
-    {{#if user.id}}
-    {{#unless (q user.id '==' @root.currentUser.id)}}
-    <button {{#if @root.currentUser.answer_lock}} disabled {{/if}} onclick="selectAnswer({{@root.currentUser.id}}, {{@root.round.id}}, {{user.id}})" class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-4 rounded-xl flex
+    {{#each portal.rounds.0.answers}}
+    {{#if user_id}}
+    {{#unless (q user_id '==' @root.currentUser.id)}}
+    <button {{#if @root.currentUser.answer_lock}} disabled {{/if}} onclick="selectAnswer({{@root.currentUser.id}}, {{@root.portal.rounds.0.id}}, {{user_id}})" class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-4 rounded-xl flex
             items-center justify-center w-full lg:text-3xl md:text-2xl text-xl disabled:opacity-50">
       {{answer}}
     </button>
     {{/unless}}
     {{else}}
-    <button {{#if @root.currentUser.answer_lock}} disabled {{/if}} onclick="selectAnswer({{@root.currentUser.id}}, {{@root.round.id}})" class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-6 rounded-xl flex
+    <button {{#if @root.currentUser.answer_lock}} disabled {{/if}} onclick="selectAnswer({{@root.currentUser.id}}, {{@root.portal.rounds.0.id}})" class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-6 rounded-xl flex
             items-center justify-center w-full lg:text-3xl md:text-2xl text-xl disabled:opacity-50">
       {{answer}}
     </button>
@@ -41,6 +41,6 @@
   function next() {
     window.location.href = `/{{game.url}}/{{portal.code}}/waiting`
   }
-  {{> liarliar/timer-script timeLimit=(countDown round.answer_start_time 20) totalTime=20 strokeWidth='10px' }}
+  {{> liarliar/timer-script timeLimit=(countDown portal.rounds.0.answer_start_time 20) totalTime=20 strokeWidth='10px' }}
 </script>
 {{/section}}

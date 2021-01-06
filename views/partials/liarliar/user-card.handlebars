@@ -6,7 +6,7 @@
     <p>{{name}}</p>
   {{/if}}
   <div class="flex flex-col text-sm justify-between">
-    <div {{#if @root.portalLeader}} onclick="makeLeader(event, {{id}}, {{@root.currentUser.id}})" {{/if}} class="w-8 h-8 rounded-full hover:bg-blue-300 flex items-center justify-center pl-1 cursor-pointer">
+    <div {{#if @root.currentUser.leader}} onclick="makeLeader(event, {{id}}, {{@root.currentUser.id}})" {{/if}} class="w-8 h-8 rounded-full hover:bg-blue-300 flex items-center justify-center pl-1 cursor-pointer">
       <span class="fa-stack fa-1x">
         {{#if leader}}
           <span class="text-yellow-500 gold-star"><i class="fas fa-star fa-stack-1x"></i></span>
@@ -14,7 +14,7 @@
         <span><i class="far fa-star fa-stack-1x"></i></span>
       </span>
     </div>
-    {{#if @root.portalLeader}}
+    {{#if @root.currentUser.leader}}
       <div onclick="deleteUser(event, {{id}})" class="w-8 h-8 rounded-full hover:bg-blue-300 flex items-center justify-center pl-1 cursor-pointer">
         <span class="fa-stack fa-1x">
           <span class="text-red-500"><i class="fas fa-trash fa-stack-1x"></i></span>

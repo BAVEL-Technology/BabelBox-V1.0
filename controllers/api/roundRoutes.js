@@ -106,7 +106,7 @@ router.get('/:id', async (req, res) => {
   try {
     const roundData = await Round.findOne({
       include: [{ model: Question }, { model: Portal }],
-      attributes: ['id', 'round'],
+      attributes: ['id', 'round', 'created_at'],
       where: { id: req.params.id },
     });
 
