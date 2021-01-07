@@ -17,7 +17,7 @@
       style="font-family: {{game.font}};">
       {{{blankify round.question.question}}}
     </div>
-    <input id="user-answer" type="text" name="portal-name" placeholder="{{pick3 round.question.question}}" class="block appearance-none focus:outline-none border-b-4 border-gray-700
+    <input id="user-answer" type="text" name="portal-name" placeholder="{{pick3 round.question.suggestions}}" class="block appearance-none focus:outline-none border-b-4 border-gray-700
     bg-transparent lg:text-3xl md:text-2xl text-xl text-gray-700 w-full" style="font-family: {{game.font}};" {{#if currentUser.question_lock}} value="{{ currentUser.answers.0.answer}}" {{/if}} {{#if currentUser.question_lock}} disabled {{/if}}>
     <button id="submit-answer-button" onclick="submitAnswer({{currentUser.id}}, {{round.id}}, {{portal.id}})" class="place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-4 rounded-tl-xl
     rounded-br-xl rounded-tr rounded-bl flex items-center justify-center w-full
@@ -31,9 +31,11 @@
 <script src="/js/liarliar/liarliar-browserify.js"></script>
 <script type="application/javascript">
   function next() {
-    window.location.href = `/{{game.url}}/{{portal.code}}/answer`
+    setTimeout(() => {
+      window.location.href = `/{{game.url}}/{{portal.code}}/answer`
+    }, 1000)
   }
-  {{> liarliar/timer-script timeLimit=(countDown round.question_start_time 20) totalTime=20 strokeWidth='10px' }}
+  {{> liarliar/timer-script timeLimit=(countDown round.question_start_time 30) totalTime=30 strokeWidth='10px' }}
   document.querySelector('#user-answer').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
       submitAnswer({{currentUser.id}}, {{round.id}}, {{portal.id}})
