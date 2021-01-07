@@ -42,7 +42,7 @@ async function startGameTimer (portal_id) {
       }
     }, 20000);
   }
-  setTimeout(go, (20000));
+  setTimeout(go, (30000));
 }
 
 /**

@@ -26,7 +26,7 @@
     {{> liarliar/user-card currentUser}}
     <p class="my-4 text-center text-gray-700 text-lg lg:text-2xl md:text-2xl text-center tracking-widest"
       style="font-family: 'Sniglet', cursive;">
-      Not you? <span onclick="logout('{{portal.code}}')" class="cursor-pointer create-new-user relative">Creae a new
+      Not you? <span onclick="logout('{{portal.code}}')" class="cursor-pointer create-new-user relative">Create a new
         user</span>!
     </p>
     {{#each portal.users}}
@@ -79,9 +79,9 @@
     const status = await checkPortalStatus(portalId)
     console.log('waiting')
     if (status != 'waiting' && paths[paths.length - 1] != 'hard') {
-      window.location.href = `/{{game.url}}/{{portal.code}}/question`
-    } else if (status == 'waiting' && paths[paths.length - 1] == 'hard') {
       window.location.href = `/{{game.url}}/{{portal.code}}/waiting`
+    } else if (status == 'waiting' && paths[paths.length - 1] == 'hard') {
+      window.location.href = `/{{game.url}}/{{portal.code}}/waiting/hard`
     }
   }, 500)
 </script>

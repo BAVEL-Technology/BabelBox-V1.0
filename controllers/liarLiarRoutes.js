@@ -121,7 +121,6 @@ router.get(
 router.get(
   '/:code/:phase',
   checkPortal,
-  checkWhenUserJoinedPortal,
   checkPhase,
   matchUserToPortal,
   async (req, res) => {
