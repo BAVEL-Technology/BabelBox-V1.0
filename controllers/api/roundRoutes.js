@@ -1,48 +1,51 @@
-const router = require('express').Router();
-const { Round, Portal, Question, Answer, User } = require('../../models');
-const { Op } = require('sequelize');
-const sequelize = require('sequelize');
+const router = require("express").Router();
+const { Round, Portal, Question, Answer, User } = require("../../models");
+const { Op } = require("sequelize");
+const sequelize = require("sequelize");
 
-async function startGameTimer (portal_id) {
-  console.log('Question Phase');
+async function startGameTimer(portal_id) {
+  console.log("Question Phase");
   let portalData = await Portal.findOne({
     include: [{ model: Round }, { model: User }],
-    attributes: ['id', 'code', 'round', 'phase'],
+    attributes: ["id", "code", "round", "phase"],
     where: { id: portal_id },
   });
-  async function go () {
+  async function go() {
     try {
-      console.log('Answer Phase');
+      console.log("Answer Phase");
 
       portalData = await portalData.update({
-        phase: 'answer'
+        phase: "answer",
       });
     } catch (error) {
       console.log(error);
     }
 
-    setTimeout(async function() {
+    setTimeout(async function () {
       try {
-        console.log('Waiting Phase');
+        console.log("Waiting Phase");
         console.log(portalData.dataValues.round);
         portalData = await portalData.update({
-          phase: 'waiting',
-          round: (portalData.dataValues.round + 1)
+          phase: "waiting",
+          round: portalData.dataValues.round + 1,
         });
         console.log(portalData.dataValues.round);
         const userIds = portalData.users.map((user) => user.id);
         console.log(userIds);
-        await User.update({ answer_lock: 0, question_lock: 0 }, {
-          where: {
-            id: { [Op.in]: userIds }
+        await User.update(
+          { answer_lock: 0, question_lock: 0 },
+          {
+            where: {
+              id: { [Op.in]: userIds },
+            },
           }
-        });
+        );
       } catch (error) {
         console.log(error);
       }
-    }, 20000);
+    }, 30000);
   }
-  setTimeout(go, (30000));
+  setTimeout(go, 20000);
 }
 
 /**
@@ -50,20 +53,22 @@ async function startGameTimer (portal_id) {
  * @param  {body: round, question_id, portal_id}
  * @return {id, round, Question, Portal}
  */
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
   try {
     const portalData = await Portal.findOne({
       where: { id: req.body.portal_id },
     });
 
     if (!portalData) {
-      res.json({ message: 'Could not find that portal!' });
+      res.json({ message: "Could not find that portal!" });
     }
 
-    const questionData = await Question.findOne({ order: sequelize.literal('rand()') });
+    const questionData = await Question.findOne({
+      order: sequelize.literal("rand()"),
+    });
 
     if (!questionData) {
-      res.json({ message: 'Could not find that question!' });
+      res.json({ message: "Could not find that question!" });
     }
 
     const roundData = await Round.create(
@@ -74,11 +79,11 @@ router.post('/', async (req, res) => {
         // eslint-disable-next-line camelcase
         question_id: questionData.dataValues.id,
         question_start_time: req.body.question_start_time,
-        answer_start_time: req.body.answer_start_time
+        answer_start_time: req.body.answer_start_time,
       },
       {
         include: [{ model: Question }, { model: Portal }],
-        attributes: ['id', 'round'],
+        attributes: ["id", "round"],
       }
     );
 
@@ -101,16 +106,16 @@ router.post('/', async (req, res) => {
  * @param  {id}
  * @return {id, round, Question, Portal}
  */
-router.get('/:id', async (req, res) => {
+router.get("/:id", async (req, res) => {
   try {
     const roundData = await Round.findOne({
       include: [{ model: Question }, { model: Portal }],
-      attributes: ['id', 'round', 'created_at'],
+      attributes: ["id", "round", "created_at"],
       where: { id: req.params.id },
     });
 
     if (!roundData) {
-      res.status(400).json({ message: 'Could not find that round!' });
+      res.status(400).json({ message: "Could not find that round!" });
       return;
     }
 
@@ -126,17 +131,17 @@ router.get('/:id', async (req, res) => {
  * @param  {body: question_id}
  * @return {id, round, Question, Portal}
  */
-router.put('/:id', async (req, res) => {
+router.put("/:id", async (req, res) => {
   try {
     const roundData = await Round.findOne({
       include: [{ model: Question }, { model: Portal }],
-      attributes: ['id', 'round'],
+      attributes: ["id", "round"],
       // eslint-disable-next-line camelcase
       where: { portal_id: req.body.portal_id },
     });
 
     if (!roundData) {
-      res.status(400).json({ message: 'Could not find that round!' });
+      res.status(400).json({ message: "Could not find that round!" });
       return;
     }
 
@@ -145,13 +150,13 @@ router.put('/:id', async (req, res) => {
     });
 
     if (!questionData) {
-      res.json({ message: 'Could not find that question!' });
+      res.json({ message: "Could not find that question!" });
     }
 
     roundData = await roundData.update({
       // eslint-disable-next-line camelcase
       question_id: req.body.question_id,
-      answer_start_time: req.body.answer_start_time
+      answer_start_time: req.body.answer_start_time,
     });
 
     res.json(roundData);
@@ -165,14 +170,14 @@ router.put('/:id', async (req, res) => {
  * @param  {id}
  * @return {Round}
  */
-router.delete('/:id', async (req, res) => {
+router.delete("/:id", async (req, res) => {
   try {
     const roundData = await Round.destroy({
       where: { id: req.body.id },
     });
 
     if (!roundData) {
-      res.status(404).json({ message: 'Could not find that round!' });
+      res.status(404).json({ message: "Could not find that round!" });
       return;
     }
 
