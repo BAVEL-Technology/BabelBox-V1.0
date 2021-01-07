@@ -10,9 +10,6 @@ const checkPhase = async (req, res, next) => {
         model: Round,
         required: false,
         attributes: ['id', 'round', 'created_at'],
-        where: {
-          round: {[Op.col]: 'Portal.round'}
-        }
       }, { model: User }],
       attributes: ['id', 'code', 'round', 'phase'],
       where: {
