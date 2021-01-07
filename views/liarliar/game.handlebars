@@ -1,7 +1,7 @@
 {{> nav tinyLogo=true centerText=false}}
 {{!-- barba namespace for game --}}
 <div data-barba="container" data-barba-namespace="game"
-  class="flex flex-col w-full items-center justify-center min-h-screen">
+  class="flex flex-col w-full items-center min-h-screen">
   {{!-- ul for animation --}}
   <ul class="transition">
     <li></li>
@@ -54,11 +54,5 @@
       document.querySelector('.status-bar').classList = classes + width;
     }, 100)
   }
-  /*
-  * Console error if user tries to go to unknown portal
-  */
-  const urlParams = new URLSearchParams(window.location.search);
-  const error = urlParams.get('error');
-  console.error(error)
 </script>
 {{/section}}

@@ -1,7 +1,7 @@
 {{> nav tinyLogo=true centerText=true}}
 {{!-- barba namespace for question phase --}}
 <div data-barba="container" data-barba-namespace="question"
-  class="flex flex-col w-full items-center justify-center min-h-screen">
+  class="flex flex-col w-full items-center min-h-screen">
   {{!-- ul for animation --}}
   <ul class="transition">
     <li></li>
@@ -15,16 +15,15 @@
     {{> liarliar/user-card currentUser}}
     <div class=" text-center w-full flex items-center justify-center py-8 lg:text-4xl md:text-3xl text-xl"
       style="font-family: {{game.font}};">
-      {{blankify round.question.question}}
+      {{{blankify round.question.question}}}
     </div>
     <input id="user-answer" type="text" name="portal-name" placeholder="{{pick3 round.question.suggestions}}" class="block appearance-none focus:outline-none border-b-4 border-gray-700
-    bg-transparent lg:text-3xl md:text-2xl text-xl text-gray-700 w-full" style="font-family: {{game.font}};" {{#if (q currentUser.answers.length '!=' 0)}}
-    value="{{currentUser.name}}"
-    {{/if}}>
+    bg-transparent lg:text-3xl md:text-2xl text-xl text-gray-700 w-full" style="font-family: {{game.font}};" {{#if currentUser.question_lock}} value="{{ currentUser.answers.0.answer}}" {{/if}} {{#if currentUser.question_lock}} disabled {{/if}}>
     <button id="submit-answer-button" onclick="submitAnswer({{currentUser.id}}, {{round.id}}, {{portal.id}})" class="place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-4 rounded-tl-xl
     rounded-br-xl rounded-tr rounded-bl flex items-center justify-center w-full
-    lg:text-3xl md:text-2xl text-xl disabled:opacity-50" style="font-family: {{game.font}};"{{#if (q currentUser.answers.length '!=' 0)}} disabled {{/if}}>
-      Submit Answer
+    lg:text-3xl md:text-2xl text-xl disabled:opacity-50" style="font-family: {{game.font}};"{{#if currentUser.question_lock}} disabled {{/if}}>
+      {{#if currentUser.question_lock}} Answer Locked In! {{/if}}
+      {{#unless currentUser.question_lock}} Submit {{/unless}}
     </button>
   </div>
 </div>
@@ -32,8 +31,15 @@
 <script src="/js/liarliar/liarliar-browserify.js"></script>
 <script type="application/javascript">
   function next() {
-    window.location.href = `/{{game.url}}/{{portal.code}}/answer`
+    setTimeout(() => {
+      window.location.href = `/{{game.url}}/{{portal.code}}/answer`
+    }, 1000)
   }
-  {{> liarliar/timer-script timeLimit=(countDown round.question_start_time 20) totalTime=20 strokeWidth='10px' }}
+  {{> liarliar/timer-script timeLimit=(countDown round.question_start_time 30) totalTime=30 strokeWidth='10px' }}
+  document.querySelector('#user-answer').addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') {
+      submitAnswer({{currentUser.id}}, {{round.id}}, {{portal.id}})
+    }
+  });
 </script>
 {{/section}}

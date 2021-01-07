@@ -1,7 +1,7 @@
 {{> nav tinyLogo=true centerText=true}}
 {{!-- barba namespace for homepage --}}
 <div data-barba="container" data-barba-namespace="waiting"
-  class="flex flex-col w-full items-center justify-center min-h-screen">
+  class="flex flex-col w-full items-center min-h-screen">
   {{!-- ul for animation --}}
   <ul class="transition">
     <li></li>
@@ -11,8 +11,7 @@
   <div class="h-full w-11/12 md:w-3/4 lg:w-1/3 rounded-xl p-4">
     <div class="w-full flex items-center justify-center">
       <div class="flex flex-col items-center">
-        {{!-- Play or Next Round text if you are the leader. --}}
-        {{#if portalLeader}}
+        {{#if currentUser.leader}}
         <p class="text-{{game.color}} font-semibold lg:text-3xl md:text-3xl text-xl"
           style="font-family: {{game.font}};">{{#if (q portal.round '===' 1) }}PLAY {{else}} NEXT ROUND {{/if}}</p>
           {{!-- Start button --}}
@@ -26,15 +25,16 @@
     </div>
     {{!-- Partial for the portal card. --}}
     {{> liarliar/portal-card}}
-      {{#if loggedIn}}
-      {{!-- User confirmation if logged in. --}}
-        {{> liarliar/user-card currentUser}}
-        <p class="my-4 text-center text-gray-700 text-lg lg:text-2xl md:text-2xl text-center tracking-widest" style="font-family: 'Sniglet', cursive;">
-          Not you? <span onclick="logout('{{portal.code}}')" class="cursor-pointer create-new-user relative">Create a new user</span>!
-        </p>
-      {{#each users}}
-        {{> liarliar/user-card}}
-      {{/each}}
+    {{#if loggedIn}}
+    {{> liarliar/user-card currentUser}}
+    <p class="my-4 text-center text-gray-700 text-lg lg:text-2xl md:text-2xl text-center tracking-widest"
+      style="font-family: 'Sniglet', cursive;">
+      Not you? <span onclick="logout('{{portal.code}}')" class="cursor-pointer create-new-user relative">Create a new
+        user</span>!
+    </p>
+    {{#each portal.users}}
+    {{> liarliar/user-card}}
+    {{/each}}
     {{else}}
     {{!-- Create new user partial. --}}
     {{> liarliar/create-user-card}}
@@ -75,6 +75,19 @@
 
 {{#section 'script'}}
 <script src="/js/liarliar/liarliar-browserify.js"></script>
-{{#each portal.users}}
-{{/each}}
+{{#unless currentUser.leader}}
+<script>
+  let paths = window.location.pathname.split('/')
+  setInterval(async () => {
+    const portalId = {{ portal.id }};
+    const status = await checkPortalStatus(portalId)
+    console.log('waiting')
+    if (status != 'waiting' && paths[paths.length - 1] != 'hard') {
+      window.location.href = `/{{game.url}}/{{portal.code}}/waiting`
+    } else if (status == 'waiting' && paths[paths.length - 1] == 'hard') {
+      window.location.href = `/{{game.url}}/{{portal.code}}/waiting/hard`
+    }
+  }, 500)
+</script>
+{{/unless}}
 {{/section}}

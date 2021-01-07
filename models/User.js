@@ -34,6 +34,11 @@ User.init(
       allowNull: false,
       defaultValue: 0
     },
+    question_lock: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: 0
+    },
     portal_id: {
       type: DataTypes.INTEGER,
       references: {
