@@ -167,7 +167,7 @@ window.startGame = async function (game, portal_id, roundNum) {
 
   const question_start_time = Date.now();
 
-  const answer_start_time = question_start_time + 30000;
+  const answer_start_time = question_start_time + 20000;
 
   await bb.create("round", {
     portal_id,
