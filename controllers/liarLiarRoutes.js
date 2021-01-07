@@ -7,7 +7,7 @@ const checkPortal = require('../utils/checkPortal');
 const matchUserToPortal = require('../utils/matchUserToPortal');
 const checkWhenUserJoinedPortal = require('../utils/checkWhenUserJoinedPortal');
 const { Op } = require('sequelize');
-
+const Sequelize = require('sequelize');
 /**
  * Prompt user to create new portal or join current portal with code
  * @param  {}
@@ -41,9 +41,7 @@ router.get(
           {
             model: Round,
             required: false,
-            where: {
-              round: {[Op.col]: 'Portal.round'}
-            },
+            order: [['id', 'ASC']],
             include: [
               { model: Question },
               {
@@ -133,9 +131,7 @@ router.get(
           {
             model: Round,
             required: false,
-            where: {
-              round: {[Op.col]: 'Portal.round'}
-            },
+            order: [['id', 'DESC']],
             include: [
               { model: Question },
               {
@@ -165,6 +161,20 @@ router.get(
 
       console.log(portal);
 
+      const roundData = await Round.findOne({
+        include: [{ model: Question }, { model: Answer }],
+        where: {
+          portal_id: portal.id,
+          round: portal.round
+        }
+      });
+
+      let round;
+
+      if (roundData) {
+        round = roundData.get({ plain: true });
+      }
+      console.log(round);
       let currentUserData;
 
       if (req.session.user) {
@@ -195,6 +205,7 @@ router.get(
         portal,
         game,
         currentUser,
+        round,
         loggedIn: req.session.user ? true : false,
       });
     } catch (err) {
