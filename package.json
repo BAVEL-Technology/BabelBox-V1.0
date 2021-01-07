@@ -8,7 +8,6 @@
     "test": "...",
     "start": "node server.js",
     "questions": "node seeds/seed.js",
-    "heroku-postbuild": "npm run questions",
     "tailwind": "npx tailwindcss-cli@latest build public/css/style.css -o public/css/tailwind.css",
     "ll-browserify": "browserify public/js/liarliar/index.js -o public/js/liarliar/liarliar-browserify.js"
   },
