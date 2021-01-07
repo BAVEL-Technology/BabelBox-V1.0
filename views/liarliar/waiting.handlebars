@@ -1,7 +1,6 @@
 {{> nav tinyLogo=true centerText=true}}
 {{!-- barba namespace for homepage --}}
-<div data-barba="container" data-barba-namespace="waiting"
-  class="flex flex-col w-full items-center min-h-screen">
+<div data-barba="container" data-barba-namespace="waiting" class="flex flex-col w-full items-center min-h-screen">
   {{!-- ul for animation --}}
   <ul class="transition">
     <li></li>
@@ -14,13 +13,16 @@
         {{#if currentUser.leader}}
         <p class="text-{{game.color}} font-semibold lg:text-3xl md:text-3xl text-xl"
           style="font-family: {{game.font}};">{{#if (q portal.round '===' 1) }}PLAY {{else}} NEXT ROUND {{/if}}</p>
+          {{!-- Start button --}}
         <div onclick="startGame('{{game.url}}', {{portal.id}}, {{portal.round}})"
           class="my-2 cursor-pointer lg:h-24 md:h-24 lg:w-24 md:w-24 w-16 h-16 rounded-full bg-green-400 flex items-center justify-center text-gray-100 hover:text-green-400 hover:bg-gray-100 border-4 border-green-400">
+          {{!-- Play button icon --}}
           <i class="ml-1 lg:text-3xl md:text-3xl text-xl fas fa-play"></i>
         </div>
         {{/if}}
       </div>
     </div>
+    {{!-- Partial for the portal card. --}}
     {{> liarliar/portal-card}}
     {{#if loggedIn}}
     {{> liarliar/user-card currentUser}}
@@ -33,6 +35,7 @@
     {{> liarliar/user-card}}
     {{/each}}
     {{else}}
+    {{!-- Create new user partial. --}}
     {{> liarliar/create-user-card}}
     {{/if}}
   </div>
@@ -71,19 +74,4 @@
 
 {{#section 'script'}}
 <script src="/js/liarliar/liarliar-browserify.js"></script>
-{{#unless currentUser.leader}}
-<script>
-  let paths = window.location.pathname.split('/')
-  setInterval(async () => {
-    const portalId = {{ portal.id }};
-    const status = await checkPortalStatus(portalId)
-    console.log('waiting')
-    if (status != 'waiting' && paths[paths.length - 1] != 'hard') {
-      window.location.href = `/{{game.url}}/{{portal.code}}/waiting`
-    } else if (status == 'waiting' && paths[paths.length - 1] == 'hard') {
-      window.location.href = `/{{game.url}}/{{portal.code}}/waiting/hard`
-    }
-  }, 500)
-</script>
-{{/unless}}
 {{/section}}
