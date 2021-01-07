@@ -70,20 +70,4 @@
 
 {{#section 'script'}}
 <script src="/js/liarliar/liarliar-browserify.js"></script>
-{{#unless currentUser.leader}}
-<script>
-  let paths = window.location.pathname.split('/')
-  setInterval(async () => {
-    const portalId = {{ portal.id }
-  };
-  const status = await checkPortalStatus(portalId)
-  console.log('waiting')
-  if (status != 'waiting' && paths[paths.length - 1] != 'hard') {
-    window.location.href = `/{{game.url}}/{{portal.code}}/waiting`
-  } else if (status == 'waiting' && paths[paths.length - 1] == 'hard') {
-    window.location.href = `/{{game.url}}/{{portal.code}}/waiting/hard`
-  }
-  }, 500)
-</script>
-{{/unless}}
 {{/section}}
