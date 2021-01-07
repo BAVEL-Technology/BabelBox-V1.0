@@ -43,7 +43,7 @@ async function startGameTimer(portal_id) {
       } catch (error) {
         console.log(error);
       }
-    }, 30000);
+    }, 20000);
   }
   setTimeout(go, 20000);
 }
