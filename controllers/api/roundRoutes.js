@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { Round, Portal, Question, Answer, User } = require('../../models');
 const { Op } = require('sequelize');
+const sequelize = require('sequelize');
 
 async function startGameTimer (portal_id) {
   console.log('Question Phase');
@@ -59,9 +60,7 @@ router.post('/', async (req, res) => {
       res.json({ message: 'Could not find that portal!' });
     }
 
-    const questionData = await Question.findOne({
-      where: { id: Math.floor(Math.random() * 282) },
-    });
+    const questionData = await Question.findOne({ order: sequelize.literal('rand()') });
 
     if (!questionData) {
       res.json({ message: 'Could not find that question!' });
@@ -106,7 +105,7 @@ router.get('/:id', async (req, res) => {
   try {
     const roundData = await Round.findOne({
       include: [{ model: Question }, { model: Portal }],
-      attributes: ['id', 'round'],
+      attributes: ['id', 'round', 'created_at'],
       where: { id: req.params.id },
     });
 
