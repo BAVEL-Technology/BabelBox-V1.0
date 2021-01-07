@@ -2,6 +2,7 @@ const games = require('../jsonDB/games.json');
 const game = games.filter((g) => g.title === 'LIAR LIAR')[0];
 const { Portal, Round, User } = require('../models');
 const { Op } = require('sequelize');
+const Sequelize = require('sequelize');
 
 const checkWhenUserJoinedPortal = async (req, res, next) => {
   try {
@@ -10,9 +11,7 @@ const checkWhenUserJoinedPortal = async (req, res, next) => {
         model: Round,
         required: false,
         attributes: ['id', 'round', 'created_at'],
-        where: {
-          round: {[Op.col]: 'Portal.round'}
-        }
+        order: [['id', 'ASC']]
       }, { model: User }],
       attributes: ['id', 'code', 'round', 'phase'],
       where: {
@@ -20,6 +19,8 @@ const checkWhenUserJoinedPortal = async (req, res, next) => {
         game: game.title,
       },
     });
+
+    console.log(portalData.get({plain: true}));
 
     let userData;
     let user;
