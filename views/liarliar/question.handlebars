@@ -37,7 +37,7 @@
       window.location.href = `/{{game.url}}/{{portal.code}}/answer`
     }, 1000)
   }
-  { {> liarliar / timer - script timeLimit = (countDown round.question_start_time 20) totalTime = 20 strokeWidth = '10px' } }
+  {{> liarliar / timer - script timeLimit = (countDown round.question_start_time 20) totalTime = 20 strokeWidth = '10px' }}
   document.querySelector('#user-answer').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
       submitAnswer({{ currentUser.id }}, { { round.id } }, { { portal.id } })
