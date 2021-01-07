@@ -2,6 +2,15 @@ const bb = require('../api/index');
 const { toast } = require('tailwind-toast');
 
 /*
+* Handle errors from the server
+*/
+const urlParams = new URLSearchParams(window.location.search);
+const error = urlParams.get('error');
+if(error) {
+  toast().danger(' ', error).with({shape: 'pill'}).show();
+}
+
+/*
  * Assign a user as the portal leader
  */
 window.logout = async function (portalCode) {
@@ -16,9 +25,9 @@ window.logout = async function (portalCode) {
 
 window.checkPortalStatus = async function (id) {
   const portal = await bb.read('portal', { id });
-  const status = portal.phase
-  return status
-}
+  const status = portal.phase;
+  return status;
+};
 
 /*
  * Assign a user as the portal leader
@@ -172,6 +181,7 @@ window.submitAnswer = async function (user_id, round_id) {
   const submission = document.querySelector('#user-answer').value;
 
   const button = document.querySelector('#submit-answer-button');
+  const input = document.querySelector('#user-answer');
   await bb.update('user', { id: user_id, question_lock: true });
   await bb.create('answer', {
     round_id,
@@ -180,6 +190,7 @@ window.submitAnswer = async function (user_id, round_id) {
   });
 
   button.disabled = true;
+  input.disabled = true;
   button.innerHTML = 'Answer Locked In!';
 };
 
