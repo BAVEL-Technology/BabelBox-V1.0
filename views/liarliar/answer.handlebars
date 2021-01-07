@@ -15,7 +15,7 @@
     {{> liarliar/user-card currentUser}}
     <div class="text-center w-full flex items-center justify-center py-8 lg:text-4xl md:text-3xl text-xl"
       style="font-family: {{game.font}};">
-      {{blankify portal.rounds.0.question.question}}
+      {{{blankify portal.rounds.0.question.question}}}
     </div>
     {{#each portal.rounds.0.answers}}
     {{#if user_id}}

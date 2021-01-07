@@ -29,19 +29,12 @@
   </div>
   {{{body}}}
   {{> footer}}
-  <script src="/js/index.js"></script>
   <script>
-  var ready = (callback) => {
-    if (document.readyState != "loading") callback();
-    else document.addEventListener("DOMContentLoaded", callback);
-  }
-  let loader = document.createElement('DIV')
-
-  document.body.prepend()
-  ready(() => {
-    document.querySelector('#loader').remove()
-  });
+    window.onload = (event) => {
+      document.querySelector('#loader').remove()
+    };
   </script>
+  <script src="/js/index.js"></script>
   {{{_sections.script}}}
 </body>
 

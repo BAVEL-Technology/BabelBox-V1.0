@@ -30,6 +30,14 @@ const checkWhenUserJoinedPortal = async (req, res, next) => {
         attributes: ['id', 'created_at']
       });
 
+      if (!userData) {
+        req.session.save(() => {
+          req.session.user = null;
+        });
+        console.log('next checkWhen');
+        next();
+      }
+
       user = userData.get({ plain: true });
       console.log(user.created_at);
     }

@@ -105,7 +105,10 @@ router.get(
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500);
+      res.redirect(
+        `/liarliar?error=${encodeURIComponent(err)}`
+      );
     }
   }
 );
@@ -196,7 +199,10 @@ router.get(
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json(err);
+      res.status(500);
+      res.redirect(
+        `/liarliar?error=${encodeURIComponent(err)}`
+      );
     }
   }
 );
