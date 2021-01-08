@@ -29,12 +29,26 @@
   </div>
   {{{body}}}
   {{> footer}}
+  <script src="https://cdn.jsdelivr.net/npm/socket.io-client@3.0.1/dist/socket.io.min.js"></script>
+  <script src="/js/index.js"></script>
   <script>
     window.onload = (event) => {
       document.querySelector('#loader').remove()
+      {{#if currentUser}}
+        localStorage.setItem('currentUser', '{{{ stringify currentUser }}}');
+      {{/if}}
+      {{#if portal}}
+        localStorage.setItem('portal', '{{{ stringify portal }}}');
+      {{/if}}
     };
+    console.log(localStorage.getItem('currentUser'))
+    const socket = io();
+    socket.io.connect(window.location.hostname)
+    socket.on('new user', pushNewUser)
+    socket.on('updated user', pushUpdatedUser)
+    socket.on('deleted user', pushDeletedUser)
+    socket.on('phase changed', changePortalPhase)
   </script>
-  <script src="/js/index.js"></script>
   {{{_sections.script}}}
 </body>
 

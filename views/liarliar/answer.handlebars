@@ -9,29 +9,34 @@
     <li></li>
   </ul>
   <div class="h-full w-11/12 md:w-3/4 lg:w-1/3 rounded-xl p-4" style="font-family: {{game.font}};">
-    <div class="w-full flex justify-center pb-6">
-      <div id="timer" style="font-family: {{game.font}};"></div>
-    </div>
-    {{> liarliar/user-card currentUser}}
-    <div class="text-center w-full flex items-center justify-center py-8 lg:text-4xl md:text-3xl text-xl"
-      style="font-family: {{game.font}};">
-      {{{blankify round.question.question}}}
-    </div>
-    {{#each round.answers}}
-    {{#if user_id}}
-    {{#unless (q user_id '==' @root.currentUser.id)}}
-    <button {{#if @root.currentUser.answer_lock}} disabled {{/if}} onclick="selectAnswer({{@root.currentUser.id}}, {{@root.round.id}}, {{user_id}})" class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-4 rounded-xl flex
-            items-center justify-center w-full lg:text-3xl md:text-2xl text-xl disabled:opacity-50">
-      {{answer}}
-    </button>
-    {{/unless}}
+      {{#if loggedIn}}
+      <div class="w-full flex justify-center pb-6">
+        <div id="timer" style="font-family: {{game.font}};"></div>
+      </div>
+      {{> liarliar/user-card currentUser}}
+      <div class="text-center w-full flex items-center justify-center py-8 lg:text-4xl md:text-3xl text-xl"
+        style="font-family: {{game.font}};">
+        {{{blankify round.question.question}}}
+      </div>
+      {{#each round.answers}}
+      {{#if user_id}}
+      {{#unless (q user_id '==' @root.currentUser.id)}}
+      <button {{#if @root.currentUser.answer_lock}} disabled {{/if}} onclick="selectAnswer({{@root.currentUser.id}}, {{@root.round.id}}, {{user_id}})" class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-4 rounded-xl flex
+              items-center justify-center w-full lg:text-3xl md:text-2xl text-xl disabled:opacity-50">
+        {{answer}}
+      </button>
+      {{/unless}}
+      {{else}}
+      <button {{#if @root.currentUser.answer_lock}} disabled {{/if}} onclick="selectAnswer({{@root.currentUser.id}}, {{@root.round.id}})" class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-6 rounded-xl flex
+              items-center justify-center w-full lg:text-3xl md:text-2xl text-xl disabled:opacity-50">
+        {{answer}}
+      </button>
+      {{/if}}
+      {{/each}}
     {{else}}
-    <button {{#if @root.currentUser.answer_lock}} disabled {{/if}} onclick="selectAnswer({{@root.currentUser.id}}, {{@root.round.id}})" class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-6 rounded-xl flex
-            items-center justify-center w-full lg:text-3xl md:text-2xl text-xl disabled:opacity-50">
-      {{answer}}
-    </button>
+      {{!-- Create new user partial. --}}
+      {{> liarliar/create-user-card}}
     {{/if}}
-    {{/each}}
   </div>
 </div>
 

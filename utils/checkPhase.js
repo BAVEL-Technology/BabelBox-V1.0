@@ -6,22 +6,17 @@ const { Op } = require('sequelize');
 const checkPhase = async (req, res, next) => {
   try {
     const portalData = await Portal.findOne({
-      include: [{
-        model: Round,
-        required: false,
-        attributes: ['id', 'round', 'created_at'],
-      }, { model: User }],
-      attributes: ['id', 'code', 'round', 'phase'],
+      attributes: ['phase', 'code'],
       where: {
         code: req.params.code,
         game: game.title,
-      },
+      }
     });
 
     const portal = portalData.get({ plain: true });
 
     if (portal.phase !== req.params.phase) {
-      console.log('redirecting to phase');
+      console.log('redirecting to phase ' + portal.phase);
       res.redirect(`/liarliar/${portal.code}/${portal.phase}`);
     } else {
       console.log('next checkPhase');

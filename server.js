@@ -24,6 +24,7 @@ const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const app = express();
 const PORT = process.env.PORT || 3001;
 const hbs = exphbs.create({ helpers });
+const socket = require('socket.io');
 const sess = {
   secret: 'ivory-smelt',
   cookie: {},
@@ -42,5 +43,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`Now listening on PORT: ${PORT}`));
+  const server = app.listen(PORT, () => console.log(`Now listening on PORT: ${PORT}`));
+  const io = socket(server);
+  app.set('socketio', io);
+  io.sockets.on('connection', newConnection);
+
+  function newConnection(socket) {
+    console.log('new connection: ' + socket.id);
+  }
 });
