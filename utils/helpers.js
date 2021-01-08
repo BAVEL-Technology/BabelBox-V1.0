@@ -33,7 +33,7 @@ module.exports = {
   },
 
   stringify: function (data) {
-    return JSON.stringify(data);
+    return JSON.stringify(data).replace(/[\/\(\)\']/g, '\\$&');
   },
 
   randomize: function (array) {
