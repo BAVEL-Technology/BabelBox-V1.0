@@ -402,8 +402,6 @@ const bb = require('../api/index');
 const { toast } = require('tailwind-toast');
 
 /*
-<<<<<<< HEAD
-=======
  * Handle errors from the server
  */
 const urlParams = new URLSearchParams(window.location.search);
@@ -413,7 +411,6 @@ if (error) {
 }
 
 /*
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
  * Assign a user as the portal leader
  */
 window.logout = async function (portalCode) {
@@ -427,8 +424,6 @@ window.logout = async function (portalCode) {
 };
 
 /*
-<<<<<<< HEAD
-=======
 * If sockets work we wont use
 */
 window.checkPortalStatus = async function (id) {
@@ -438,7 +433,6 @@ window.checkPortalStatus = async function (id) {
 };
 
 /*
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
  * Assign a user as the portal leader
  */
 window.makeLeader = async function (event, id, currentUserId) {
@@ -463,13 +457,8 @@ window.makeLeader = async function (event, id, currentUserId) {
 };
 
 /*
-<<<<<<< HEAD
-* Copy the code to clipboard!
-*/
-=======
  * Copy the code to clipboard!
  */
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
 window.copyCode = function () {
   const code = document.querySelector('#portal-code').innerHTML.trim();
   const elem = document.createElement('textarea');
@@ -478,27 +467,16 @@ window.copyCode = function () {
   elem.select();
   document.execCommand('copy');
   document.body.removeChild(elem);
-<<<<<<< HEAD
-  toast().success(' ', 'Copied to clipboard!').with({shape: 'pill'}).show();
-=======
   toast().success(' ', 'Copied to clipboard!').with({ shape: 'pill' }).show();
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
 };
 
 /*
  * Delete a user
-<<<<<<< HEAD
- */
-window.deleteUser = async function (event, id) {
-  try {
-    const user = await bb.read('user', { id });
-=======
  * We said you cannot delete yourself, and only the leader can delete
  */
 window.deleteUser = async function (event, id) {
   try {
     // const user = await bb.read('user', { id });
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
     await bb.delete('user', { id });
 
     if (user.leader) {
@@ -527,16 +505,10 @@ window.joinPortal = async function (game) {
   try {
     const portalCode = document.querySelector('#portal-name').value;
 
-<<<<<<< HEAD
-    const portal = await bb.read('portal', { id: portalCode });
-
-    window.location.href = `/${game}/${portal.code}/${portal.phase}`;
-=======
     // const portal = await bb.read('portal', { id: portalCode });
     // If it trys to go to the portal it'll just send you back,
     // But it is nice to see that shake
     window.location.href = `/${game}/${portalCode}/waiting`;
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
   } catch (error) {
     const button = document.querySelector('#join-portal-button');
 
@@ -593,22 +565,10 @@ window.changeUserName = async function (id) {
  * Start a new game by creating a new Round
  */
 window.startGame = async function (game, portal_id, roundNum) {
-<<<<<<< HEAD
-  const portal = await bb.update('portal', {
-    id: portal_id,
-    phase: 'question',
-  });
-
-=======
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
   const question_start_time = Date.now();
 
   const answer_start_time = question_start_time + 20000;
 
-<<<<<<< HEAD
-  await bb.create('round', { portal_id, round: roundNum, question_start_time, answer_start_time });
-
-=======
   const round = await bb.create('round', {
     portal_id,
     round: roundNum,
@@ -620,7 +580,6 @@ window.startGame = async function (game, portal_id, roundNum) {
     phase: 'question',
   });
   console.log(round);
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
   window.location.href = `/${game}/${portal.code}/question`;
 };
 
@@ -631,10 +590,7 @@ window.submitAnswer = async function (user_id, round_id) {
   const submission = document.querySelector('#user-answer').value;
 
   const button = document.querySelector('#submit-answer-button');
-<<<<<<< HEAD
-=======
   const input = document.querySelector('#user-answer');
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
   await bb.update('user', { id: user_id, question_lock: true });
   await bb.create('answer', {
     round_id,
@@ -643,10 +599,7 @@ window.submitAnswer = async function (user_id, round_id) {
   });
 
   button.disabled = true;
-<<<<<<< HEAD
-=======
   input.disabled = true;
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
   button.innerHTML = 'Answer Locked In!';
 };
 
@@ -654,37 +607,25 @@ window.submitAnswer = async function (user_id, round_id) {
  * Select an answer for a certain round
  */
 window.selectAnswer = async function (currentUserId, round_id, user_id) {
-<<<<<<< HEAD
-  const currentUser = await bb.update('user', { id: currentUserId, answer_lock: true });
-=======
   const currentUser = await bb.update('user', {
     id: currentUserId,
     answer_lock: true,
   });
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
 
   if (!user_id) {
     await bb.update('user', {
       id: currentUser.id,
       points: currentUser.points + 100,
     });
-<<<<<<< HEAD
-    toast().success('Great!', 'You got the right answer!').with({shape: 'pill'}).show();
-=======
     toast()
       .success('Great!', 'You got the right answer!')
       .with({ shape: 'pill' })
       .show();
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
   } else {
     const user = await bb.read('user', { id: user_id });
 
     await bb.update('user', { id: user_id, points: user.points + 25 });
-<<<<<<< HEAD
-    toast().danger('Doh!', 'You were fooled!').with({shape: 'pill'}).show();
-=======
     toast().danger('Doh!', 'You were fooled!').with({ shape: 'pill' }).show();
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
   }
 
   const buttons = document.getElementsByClassName('answer');

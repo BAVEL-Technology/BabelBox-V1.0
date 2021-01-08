@@ -4,8 +4,6 @@
  */
 twemoji.parse(document.body);
 
-<<<<<<< HEAD
-=======
 function pushNewUser(data) {
   console.log(data);
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -65,7 +63,6 @@ function changePortalPhase(data) {
   window.location.href = `/liarliar/${data.code}/${data.phase}`;
 }
 
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
 // ====================================================
 // GSAP AND BARBA PAGE TRANSITION ANIMATION PROPERTIES
 // // ====================================================
@@ -89,8 +86,4 @@ function changePortalPhase(data) {
 //       },
 //     ],
 //   });
-<<<<<<< HEAD
 // });
-=======
-// });
->>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
