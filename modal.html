@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Outline&family=Nerko+One&display=swap" rel="stylesheet">
+  <script src="https://twemoji.maxcdn.com/v/latest/twemoji.min.js" crossorigin="anonymous"></script>
+  <title>Fibbage</title>
+  <style>
+  #charecters img.emoji {
+    height: 3em;
+    width: 3em;
+    margin: 0 .05em 0 .1em;
+    vertical-align: -0.1em;
+    display: inline-block;
+  }
+  </style>
+</head>
+<body>
+  <div id="modal" class="fixed z-10 inset-0 overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 bg-gray-800 bg-opacity-75">
+      <div class="fixed inset-x-0 bottom-0 transition-opacity" aria-hidden="true">
+        <div class="absolute inset-x-0 bottom-0 bg-gray-500 opacity-75"></div>
+      </div>
+      <!-- This element is to trick the browser into centering the modal contents. -->
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+        <p class="text-2xl text-center pt-4">Pick an avatar!</p>
+        <div id="charecters" class="h-full flex-wrap flex items-center justify-center">
+          <p onclick="" class="m-4 flex flex-col justify-center items-center ">
+            <span class="my-1 sm:text-2xl md:text-3xl lg:text-4xl rounded-full p-2 hover:bg-blue-100 cursor-pointer transform duration-150 hover:-translate-y-1">🐵</span>
+            <span class="text-xl my-1">George</span>
+          </p>
+          <p class="m-4 flex flex-col justify-center items-center">
+            <span class="my-1 sm:text-2xl md:text-3xl lg:text-4xl">🦊</span>
+            <span class="text-xl my-1">Mr. Fox</span>
+          </p>
+          <p class="m-4 flex flex-col justify-center items-center">
+            <span class="my-1 sm:text-2xl md:text-3xl lg:text-4xl">🐨</span>
+            <span class="text-xl my-1">Sydney</span>
+          </p>
+          <p class="m-4 flex flex-col justify-center items-center">
+            <span class="my-1 sm:text-2xl md:text-3xl lg:text-4xl">🐲</span>
+            <span class="text-xl my-1">Mushu</span>
+          </p>
+          <p class="m-4 flex flex-col justify-center items-center">
+            <span class="my-1 sm:text-2xl md:text-3xl lg:text-4xl">🥸</span>
+            <span class="text-xl my-1">Sherlock</span>
+          </p>
+          <p class="m-4 flex flex-col justify-center items-center">
+            <span class="my-1 sm:text-2xl md:text-3xl lg:text-4xl">🤓</span>
+            <span class="text-xl my-1">Christian</span>
+          </p>
+          <p class="m-4 flex flex-col justify-center items-center">
+            <span class="my-1 sm:text-2xl md:text-3xl lg:text-4xl">🤖</span>
+            <span class="text-xl my-1">Bender</span>
+          </p>
+          <p class="m-4 flex flex-col justify-center items-center">
+            <span class="my-1 sm:text-2xl md:text-3xl lg:text-4xl">👺</span>
+            <span class="text-xl my-1">Oni</span>
+          </p>
+          <p class="m-4 flex flex-col justify-center items-center">
+            <span class="my-1 sm:text-2xl md:text-3xl lg:text-4xl">🤡</span>
+            <span class="text-xl my-1">Pennywise</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-blue-200 flex w-1/4">
+      <p>🐵</p>
+      <p>🦊</p>
+  </div>
+  <script>
+    twemoji.parse(document.body);
+  </script>
+</body>
+
+</html>

@@ -149,6 +149,12 @@ router.put('/:id', async (req, res) => {
       });
     }
 
+    if(req.body.avatar){
+      userData = await userData.update({
+        avatar: req.body.avatar,
+      });
+    }
+
     const io = req.app.get('socketio');
     io.emit('updated user', userData);
 

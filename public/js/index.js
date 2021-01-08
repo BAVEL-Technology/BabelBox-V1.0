@@ -30,7 +30,7 @@ function pushNewUser(data) {
   newUser.id = 'user-' + data.id;
   newUser.innerHTML =
   `
-    <div class="emoji">${data.avatar}</div>
+    <div class="emoji cursor-pointer rounded-full hover:bg-blue-300 p-2">${data.avatar}</div>
       <p class="user-name">${data.name}</p>
     <div class="flex flex-col text-sm justify-between">
       <div ${currentUser.leader ? `onclick="makeLeader(${data.id}, ${currentUser.id})"` : ''} class="make-leader w-8 h-8 rounded-full hover:bg-blue-300 flex items-center justify-center pl-1 cursor-pointer">
@@ -62,8 +62,9 @@ function toastToFoolingSomeone (data) {
 }
 
 function pushUpdatedUser(data) {
+  console.log(data);
   const currentPortal = JSON.parse(localStorage.getItem('currentPortal'));
-  if (currentPortal.id !== data.portal_id) {
+  if (currentPortal.id !== data.portal.id) {
     return;
   }
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -71,6 +72,7 @@ function pushUpdatedUser(data) {
   const updatedUser = document.querySelector('#user-' + data.id);
   if (currentUser.id === data.id) {
     updatedUser.querySelector('.user-points').innerHTML = '$' + data.points;
+    updatedUser.querySelector('.emoji').innerHTML = data.avatar;
     if (data.leader == 1 || data.leader == true) {
       console.log('Change Leader!')
       updatedUser.querySelector('.gold-star').classList.remove('hidden');
@@ -89,9 +91,9 @@ function pushUpdatedUser(data) {
   } else {
     updatedUser.querySelector('.user-name').innerHTML = data.name;
     updatedUser.querySelector('.user-points').innerHTML = '$' + data.points;
+    updatedUser.querySelector('.emoji').innerHTML = data.avatar;
   }
-  // updatedUser.querySelector('.user-trash').classList.remove('hidden');
-
+  twemoji.parse(document.body);
 }
 
 function pushDeletedUser(data) {

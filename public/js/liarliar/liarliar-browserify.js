@@ -413,6 +413,59 @@ if (error) {
 }
 
 /*
+* Show modal to select a new avatar
+*/
+
+let showModal = false;
+
+window.showAvatars = function (id) {
+  const avatars = [{img: "🐵", name: 'George'},{img: "🦊", name: 'Mr. Fox'},
+  {img: "🐨", name: 'Sydney'},{img: "🐲", name: 'Mushu'},{img: "🥸", name: 'Sherlock'},
+  {img: "🤓", name: 'Christian'},{img: "🤖", name: 'Bender'},{img: "👺", name: 'Oni'},
+  {img: "🤡", name: 'Pennywise'}];
+  if (!showModal) {
+    let modal = document.createElement('DIV');
+    modal.classList = 'fixed z-10 inset-0 overflow-y-auto';
+    modal.id = 'modal';
+    modal.innerHTML = `
+    <div style="font-family: 'Sniglet', cursive;" class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0 bg-gray-800 bg-opacity-75">
+      <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+        <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+      </div>
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      <div class="inline-block align-bottom bg-green-100 text-gray-700 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
+        <p class="text-2xl text-center pt-4">Pick an avatar!</p>
+        <div id="charecters" class="h-full flex-wrap flex items-center justify-center">
+        </div>
+      </div>
+    </div>
+    `
+    avatars.forEach((a) => {
+      modal.querySelector('#charecters').innerHTML += `
+      <p onclick="changeAvatar('${a.img}', ${id})" class="m-4 flex flex-col justify-center items-center ">
+        <span class="my-1 rounded-full p-2 hover:bg-blue-100 cursor-pointer transform duration-150 hover:-translate-y-1 text-6xl md:text-7xl lg:text-8xl">${a.img}</span>
+        <span class="text-xl my-1">${a.name}</span>
+      </p>
+      `
+    })
+    twemoji.parse(modal);
+    document.body.prepend(modal);
+  } else {
+    document.querySelector('#modal').remove();
+  }
+  showModal = !showModal;
+};
+
+/*
+* Change user Avatar
+*/
+
+window.changeAvatar = async function (avatar, id) {
+  await bb.update('user', {id, avatar});
+  document.querySelector('#modal').remove();
+  showModal = !showModal;
+}
+/*
  * Assign a user as the portal leader
  */
 window.logout = async function (portalCode) {
@@ -444,7 +497,7 @@ window.makeLeader = async function (id, currentUserId) {
       leader: '0',
     });
     const newLeader = await bb.update('user', { id, leader: '1' });
-    
+
     const newLeaderCard = document.querySelector('#user-' + id);
     console.log(newLeaderCard)
     const target = newLeaderCard.querySelector('.user-leader');

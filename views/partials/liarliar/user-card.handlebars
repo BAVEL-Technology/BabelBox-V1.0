@@ -1,5 +1,5 @@
 <div id="user-{{id}}" class="card my-6 flex items-center justify-between bg-green-400 w-full text-gray-700 p-4 text-xl lg:text-4xl md:text-3xl text-center rounded-xl tracking-widest shadow-lg hover:shadow-xl transform hover:-translate-y-2" style="font-family: 'Sniglet', cursive;">
-  <div class="emoji">{{avatar}}</div>
+  <div {{#if (q id '==' @root.currentUser.id)}} onclick="showAvatars({{id}})" {{/if}} class="emoji cursor-pointer rounded-full hover:bg-blue-300 p-2">{{avatar}}</div>
   {{#if (q id '==' @root.currentUser.id)}}
     <input onkeyup="changeUserName({{id}})" type="text" id="user-name-change" value="{{name}}" class="appearance-none text-center bg-green-400 focus:outline-none">
   {{else}}
