@@ -50,5 +50,11 @@ sequelize.sync({ force: false }).then(() => {
 
   function newConnection(socket) {
     console.log('new connection: ' + socket.id);
+    socket.on('I got it wrong', callback);
+
+    function callback (data) {
+      console.log('Got it yall');
+      socket.broadcast.emit('You fooled someone', data);
+    }
   }
 });
