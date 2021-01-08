@@ -380,6 +380,10 @@ function toastToFoolingSomeone (data) {
 }
 
 function pushUpdatedUser(data) {
+  const currentPortal = JSON.parse(localStorage.getItem('currentPortal'));
+  if (currentPortal.id !== data.portal_id) {
+    return;
+  }
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   console.log(data);
   const updatedUser = document.querySelector('#user-' + data.id);
@@ -409,7 +413,14 @@ function pushUpdatedUser(data) {
 }
 
 function pushDeletedUser(data) {
-
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  const currentPortal = JSON.parse(localStorage.getItem('currentPortal'));
+  console.log(data);
+  const updatedUser = document.querySelector('#user-' + data.id);
+  if (currentUser.id == data.id) {
+    window.location.href = `/liarliar/${currentPortal.code}/waiting`;
+  }
+  updatedUser.remove();
 }
 
 function changePortalPhase(data) {
