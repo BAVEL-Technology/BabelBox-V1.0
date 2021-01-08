@@ -47,15 +47,15 @@ router.get(
               { model: Question },
               {
                 model: Answer,
-                order: [['answer', 'DESC']]
-              }
-            ]
+                order: [['answer', 'DESC']],
+              },
+            ],
           },
           {
             model: User,
             required: false,
-            where: { id: { [Op.not]: req.session.user }, }
-          }
+            where: { id: { [Op.not]: req.session.user } },
+          },
         ],
         attributes: ['id', 'code', 'round', 'phase'],
         where: {
@@ -76,12 +76,24 @@ router.get(
 
       if (req.session.user) {
         currentUserData = await User.findOne({
-          include: [{
-            model: Answer,
-            required: false,
-            where: { round_id: portal.rounds.length > 0 ? portal.rounds[0].id : 0}
-          }],
-          attributes: ['id', 'name', 'leader', 'avatar', 'points', 'answer_lock', 'question_lock'],
+          include: [
+            {
+              model: Answer,
+              required: false,
+              where: {
+                round_id: portal.rounds.length > 0 ? portal.rounds[0].id : 0,
+              },
+            },
+          ],
+          attributes: [
+            'id',
+            'name',
+            'leader',
+            'avatar',
+            'points',
+            'answer_lock',
+            'question_lock',
+          ],
           where: {
             id: req.session.user,
             // eslint-disable-next-line camelcase
@@ -105,9 +117,7 @@ router.get(
     } catch (err) {
       console.log(err);
       res.status(500);
-      res.redirect(
-        `/liarliar?error=${encodeURIComponent(err)}`
-      );
+      res.redirect(`/liarliar?error=${encodeURIComponent(err)}`);
     }
   }
 );
@@ -143,8 +153,8 @@ router.get(
           {
             model: User,
             required: false,
-            where: { id: { [Op.not]: req.session.user }, }
-          }
+            where: { id: { [Op.not]: req.session.user } },
+          },
         ],
         attributes: ['id', 'code', 'round', 'phase'],
         where: {
@@ -165,8 +175,8 @@ router.get(
         include: [{ model: Question }, { model: Answer }],
         where: {
           portal_id: portal.id,
-          round: portal.round
-        }
+          round: portal.round,
+        },
       });
 
       let round;
@@ -179,12 +189,24 @@ router.get(
 
       if (req.session.user) {
         currentUserData = await User.findOne({
-          include: [{
-            model: Answer,
-            required: false,
-            where: { round_id: portal.rounds.length > 0 ? portal.rounds[0].id : 0}
-          }],
-          attributes: ['id', 'name', 'leader', 'avatar', 'points', 'answer_lock', 'question_lock'],
+          include: [
+            {
+              model: Answer,
+              required: false,
+              where: {
+                round_id: portal.rounds.length > 0 ? portal.rounds[0].id : 0,
+              },
+            },
+          ],
+          attributes: [
+            'id',
+            'name',
+            'leader',
+            'avatar',
+            'points',
+            'answer_lock',
+            'question_lock',
+          ],
           where: {
             id: req.session.user,
             // eslint-disable-next-line camelcase
@@ -213,11 +235,21 @@ router.get(
     } catch (err) {
       console.log(err);
       res.status(500);
-      res.redirect(
-        `/liarliar?error=${encodeURIComponent(err)}`
-      );
+      res.redirect(`/liarliar?error=${encodeURIComponent(err)}`);
     }
   }
 );
+
+// GET how-to-play
+router.get('/how-to-play', async (req, res) => {
+  try {
+    res.render('liarliar/how-to-play', {
+      game,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+});
 
 module.exports = router;
