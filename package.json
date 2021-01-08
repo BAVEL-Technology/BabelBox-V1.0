@@ -5,10 +5,10 @@
   "main": "server.js",
   "scripts": {
     "lint": "eslint \"**/*.js\"",
-    "build": "...",
     "test": "...",
     "start": "node server.js",
     "questions": "node seeds/seed.js",
+    "tailwind": "npx tailwindcss-cli@latest build public/css/style.css -o public/css/tailwind.css",
     "ll-browserify": "browserify public/js/liarliar/index.js -o public/js/liarliar/liarliar-browserify.js"
   },
   "keywords": [],
@@ -25,6 +25,7 @@
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "gsap": "^3.5.1",
     "figlet": "^1.5.0",
 =======
@@ -34,6 +35,14 @@
     "mysql2": "^2.2.5",
     "postcss": "^8.2.1",
     "sequelize": "^6.3.5",
+=======
+    "figlet": "^1.5.0",
+    "gsap": "^3.5.1",
+    "mysql2": "^2.2.5",
+    "postcss": "^8.2.1",
+    "sequelize": "^6.3.5",
+    "socket.io": "^3.0.5",
+>>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
     "tailwind-toast": "^1.0.3",
     "tailwindcss": "^2.0.2",
     "twemoji": "^13.0.1"

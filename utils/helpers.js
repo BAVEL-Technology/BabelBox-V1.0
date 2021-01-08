@@ -32,6 +32,13 @@ module.exports = {
     return string.replace('<BLANK>', '_____');
   },
 
+<<<<<<< HEAD
+=======
+  stringify: function (data) {
+    return JSON.stringify(data);
+  },
+
+>>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
   countDown: function (startTime, timeAllowed) {
     return Math.ceil((timeAllowed - (Date.now() - startTime) / 1000));
   }

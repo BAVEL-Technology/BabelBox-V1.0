@@ -21,7 +21,6 @@ const colorCodes = {
 let timePassed = 0;
 let timeLeft = timeLimit;
 let timerInterval = null;
-let remainingPathColor = colorCodes.info.color;
 
 document.getElementById("timer").innerHTML = `
 <div class="timer w-16 h-16 lg:w-32 md:w-28 lg:h-28 md:h-28">
@@ -30,8 +29,8 @@ document.getElementById("timer").innerHTML = `
       <circle class="timer-path-elapsed" cx="50" cy="50" r="45" style="stroke-width: {{strokeWidth}};"></circle>
       <path
         id="timer-path-remaining"
-        stroke-dasharray="283"
-        class="timer-path-remaining ${remainingPathColor}"
+        stroke-dasharray="${findCircleDashArray()}"
+        class="timer-path-remaining ${findRemainingPathColor()}"
         style="stroke-width: {{strokeWidth}};"
         d="
           M 50, 50
@@ -54,6 +53,10 @@ function startTimer() {
   timerInterval = setInterval(() => {
     timePassed = timePassed += 1;
     timeLeft = timeLimit - timePassed;
+    if(timeLeft < 0)
+    {
+      timeLeft = 0;
+    }
     document.getElementById("timer-label").innerHTML = formatTime(
       timeLeft
     );
@@ -95,6 +98,17 @@ function setRemainingPathColor(timeLeft) {
   }
 }
 
+function findRemainingPathColor(timeLeft) {
+  const { alert, warning, info } = colorCodes;
+  if (timeLeft <= alert.threshold) {
+    return alert.color
+  } else if (timeLeft <= warning.threshold) {
+    return warning.color
+  } else {
+    return info.color
+  }
+}
+
 function calculateTimeFraction() {
   const rawTimeFraction = timeLeft / totalTime;
   return rawTimeFraction - (1 / timeLimit) * (1 - rawTimeFraction);
@@ -107,4 +121,12 @@ function setCircleDasharray() {
   document
     .getElementById("timer-path-remaining")
     .setAttribute("stroke-dasharray", circleDasharray);
+}
+
+function findCircleDashArray() {
+  const circleDasharray = `${(
+    calculateTimeFraction() * fullCircle
+  ).toFixed(0)} 283`;
+
+  return circleDasharray;
 }

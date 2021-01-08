@@ -25,6 +25,10 @@ router.post('/', async (req, res) => {
 
     res.json(portalData);
   } catch (err) {
+<<<<<<< HEAD
+=======
+    console.log(err);
+>>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
     res.status(400).json(err);
   }
 });
@@ -92,6 +96,12 @@ router.put('/:id', async (req, res) => {
       });
     }
 
+<<<<<<< HEAD
+=======
+    const io = req.app.get('socketio');
+    io.emit('phase changed', portalData);
+
+>>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
     res.json(portalData);
   } catch (err) {
     res.status(400).json(err);

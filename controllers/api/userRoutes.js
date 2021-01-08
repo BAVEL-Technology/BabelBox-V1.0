@@ -62,12 +62,22 @@ router.post('/', async (req, res) => {
         attributes: ['id', 'name', 'points', 'leader', 'avatar'],
       }
     );
+<<<<<<< HEAD
+=======
+
+    const io = req.app.get('socketio');
+    io.emit('new user', userData);
+>>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
 
     req.session.save(() => {
       req.session.user = userData.dataValues.id;
       res.status(200).json(userData);
     });
   } catch (err) {
+<<<<<<< HEAD
+=======
+    console.log(err);
+>>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
     res.status(400).json(err);
   }
 });
@@ -138,12 +148,24 @@ router.put('/:id', async (req, res) => {
         answer_lock: req.body.answer_lock,
       });
     }
+<<<<<<< HEAD
 
     if(req.body.question_lock){
       userData = await userData.update({
         question_lock: req.body.question_lock,
       });
     }
+=======
+
+    if(req.body.question_lock){
+      userData = await userData.update({
+        question_lock: req.body.question_lock,
+      });
+    }
+
+    const io = req.app.get('socketio');
+    io.emit('updated user', userData);
+>>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
 
     res.json(userData);
   } catch (err) {
@@ -184,6 +206,12 @@ router.delete('/:id', async (req, res) => {
       return;
     }
 
+<<<<<<< HEAD
+=======
+    const io = req.app.get('socketio');
+    io.emit('deleted user', userData);
+
+>>>>>>> 8d978df8ade19cfa7fcd8463fd9b1c6a9700907e
     res.status(200).json(userData);
   } catch (err) {
     res.status(500).json(err);
