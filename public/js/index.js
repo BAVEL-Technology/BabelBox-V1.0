@@ -102,7 +102,9 @@ function pushDeletedUser(data) {
   if (currentUser.id == data.id) {
     window.location.href = `/liarliar/${currentPortal.code}/waiting`;
   }
-  updatedUser.remove();
+  if (updatedUser) {
+    updatedUser.remove();
+  }
 }
 
 function changePortalPhase(data) {
