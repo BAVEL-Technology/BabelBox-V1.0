@@ -9,7 +9,8 @@
     "start": "node server.js",
     "questions": "node seeds/seed.js",
     "tailwind": "npx tailwindcss-cli@latest build public/css/style.css -o public/css/tailwind.css",
-    "ll-browserify": "browserify public/js/liarliar/index.js -o public/js/liarliar/liarliar-browserify.js"
+    "ll-browserify": "browserify public/js/liarliar/index.js -o public/js/liarliar/liarliar-browserify.js",
+    "index-browserify": "browserify public/js/index.js -o public/js/index-browserify.js"
   },
   "keywords": [],
   "author": "",

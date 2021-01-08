@@ -402,7 +402,6 @@ const bb = require('../api/index');
 const { toast } = require('tailwind-toast');
 
 const anotherSocket = io();
-console.log(anotherSocket);
 
 /*
  * Handle errors from the server
@@ -438,22 +437,33 @@ window.checkPortalStatus = async function (id) {
 /*
  * Assign a user as the portal leader
  */
-window.makeLeader = async function (event, id, currentUserId) {
+window.makeLeader = async function (id, currentUserId) {
   try {
-    await bb.update('user', {
+    const oldLeader = await bb.update('user', {
       id: currentUserId,
       leader: '0',
     });
-    await bb.update('user', { id, leader: '1' });
-    const curretGoldStar = document.querySelector('.gold-star');
-    curretGoldStar.remove();
+    const newLeader = await bb.update('user', { id, leader: '1' });
+    
+    const newLeaderCard = document.querySelector('#user-' + id);
+    console.log(newLeaderCard)
+    const target = newLeaderCard.querySelector('.user-leader');
+    console.log(target)
+    const goldStar = target.querySelector('.gold-star');
+    goldStar.classList.remove('hidden')
 
-    const elem = event.srcElement;
-    const target = elem.parentElement.parentElement;
-    const goldStar = document.createElement('SPAN');
-    goldStar.classList = 'text-yellow-500 gold-star';
-    goldStar.innerHTML = '<i class="fas fa-star fa-stack-1x"></i>';
-    target.prepend(goldStar);
+    const currentUserCard = document.querySelector('#user-' + currentUserId);
+    console.log(currentUserCard)
+    const curretGoldStar = currentUserCard.querySelector('.gold-star');
+    console.log(curretGoldStar)
+    curretGoldStar.classList.add('hidden')
+    console.log('removed')
+    const userCards = document.querySelectorAll('.card');
+    userCards.forEach((card) => {
+      const userId = card.id.split('-')[1];
+      card.querySelector('.user-trash').classList.add('hidden');
+      card.querySelector('.make-leader').onclick = '';
+    })
   } catch (error) {
     console.log(error);
   }
@@ -479,16 +489,7 @@ window.copyCode = function () {
  */
 window.deleteUser = async function (event, id) {
   try {
-    // const user = await bb.read('user', { id });
     await bb.delete('user', { id });
-
-    if (user.leader) {
-      const portal = await bb.read('portal', { id: user.portal.id });
-      await bb.update('user', {
-        id: portal.users[0].id,
-        leader: '1',
-      });
-    }
 
     const elem = event.srcElement;
     const target =
