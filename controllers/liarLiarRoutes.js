@@ -136,7 +136,7 @@ router.get(
               { model: Question },
               {
                 model: Answer,
-                order: [['answer', 'DESC']]
+                order: ['answer', 'ASC']
               }
             ]
           },
