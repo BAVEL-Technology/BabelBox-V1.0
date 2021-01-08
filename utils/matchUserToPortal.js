@@ -5,7 +5,7 @@ const { Portal, Round, User } = require('../models');
 const matchUserToPortal = async (req, res, next) => {
   try {
     const portalData = await Portal.findOne({
-      include: [{ model: Round }, { model: User }],
+      include: [{ model: User }],
       attributes: ['id', 'code', 'round', 'phase'],
       where: {
         code: req.params.code,

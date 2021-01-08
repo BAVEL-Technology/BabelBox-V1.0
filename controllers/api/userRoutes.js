@@ -63,11 +63,15 @@ router.post('/', async (req, res) => {
       }
     );
 
+    const io = req.app.get('socketio');
+    io.emit('new user', userData);
+
     req.session.save(() => {
       req.session.user = userData.dataValues.id;
       res.status(200).json(userData);
     });
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 });
@@ -145,6 +149,9 @@ router.put('/:id', async (req, res) => {
       });
     }
 
+    const io = req.app.get('socketio');
+    io.emit('updated user', userData);
+
     res.json(userData);
   } catch (err) {
     res.status(400).json(err);
@@ -183,6 +190,9 @@ router.delete('/:id', async (req, res) => {
       res.status(404).json({ message: 'Could not find that user!' });
       return;
     }
+
+    const io = req.app.get('socketio');
+    io.emit('deleted user', userData);
 
     res.status(200).json(userData);
   } catch (err) {

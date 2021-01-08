@@ -19,6 +19,7 @@ router.get('/', async (req, res) => {
       game,
     });
   } catch (err) {
+    console.log(err);
     res.status(500).json(err);
   }
 });
@@ -199,6 +200,8 @@ router.get(
       }
 
       console.log(currentUser);
+
+      console.log(round);
 
       res.render(`liarliar/${req.params.phase}`, {
         portal,

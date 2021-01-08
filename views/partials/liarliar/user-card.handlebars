@@ -1,13 +1,13 @@
-<div class="card my-6 flex items-center justify-between bg-green-400 w-full text-gray-700 p-4 text-xl lg:text-4xl md:text-3xl text-center rounded-xl tracking-widest shadow-lg hover:shadow-xl transform hover:-translate-y-2" style="font-family: 'Sniglet', cursive;">
+<div id="user-{{id}}" class="card my-6 flex items-center justify-between bg-green-400 w-full text-gray-700 p-4 text-xl lg:text-4xl md:text-3xl text-center rounded-xl tracking-widest shadow-lg hover:shadow-xl transform hover:-translate-y-2" style="font-family: 'Sniglet', cursive;">
   <div class="emoji">{{avatar}}</div>
   {{#if (q id '==' @root.currentUser.id)}}
     <input onkeyup="changeUserName({{id}})" type="text" id="user-name-change" value="{{name}}" class="appearance-none text-center bg-green-400 focus:outline-none">
   {{else}}
-    <p>{{name}}</p>
+    <p class="user-name">{{name}}</p>
   {{/if}}
   <div class="flex flex-col text-sm justify-between">
     <div {{#if @root.currentUser.leader}} onclick="makeLeader(event, {{id}}, {{@root.currentUser.id}})" {{/if}} class="w-8 h-8 rounded-full hover:bg-blue-300 flex items-center justify-center pl-1 cursor-pointer">
-      <span class="fa-stack fa-1x">
+      <span class="fa-stack fa-1x user-leader">
         {{#if leader}}
           <span class="text-yellow-500 gold-star"><i class="fas fa-star fa-stack-1x"></i></span>
         {{/if}}
@@ -25,5 +25,5 @@
       {{/unless}}
     {{/if}}
   </div>
-  <div class="text-sm p-2 text-green-200 bg-green-600 h-8 rounded absolute -top-4 -right-4">${{points}}</div>
+  <div class="user-points text-sm p-2 text-green-200 bg-green-600 h-8 rounded absolute -top-4 -right-4">${{points}}</div>
 </div>

@@ -29,6 +29,7 @@
     "mysql2": "^2.2.5",
     "postcss": "^8.2.1",
     "sequelize": "^6.3.5",
+    "socket.io": "^3.0.5",
     "tailwind-toast": "^1.0.3",
     "tailwindcss": "^2.0.2",
     "twemoji": "^13.0.1"

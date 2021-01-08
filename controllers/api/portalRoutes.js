@@ -25,6 +25,7 @@ router.post('/', async (req, res) => {
 
     res.json(portalData);
   } catch (err) {
+    console.log(err);
     res.status(400).json(err);
   }
 });
@@ -91,6 +92,9 @@ router.put('/:id', async (req, res) => {
         phase: req.body.phase,
       });
     }
+
+    const io = req.app.get('socketio');
+    io.emit('phase changed', portalData);
 
     res.json(portalData);
   } catch (err) {
