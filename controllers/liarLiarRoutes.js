@@ -1,21 +1,21 @@
-const router = require("express").Router();
-const games = require("../jsonDB/games.json");
-const game = games.filter((g) => g.title === "LIAR LIAR")[0];
-const { Portal, User, Round, Question, Answer } = require("../models");
-const checkPhase = require("../utils/checkPhase");
-const checkPortal = require("../utils/checkPortal");
-const matchUserToPortal = require("../utils/matchUserToPortal");
-const checkWhenUserJoinedPortal = require("../utils/checkWhenUserJoinedPortal");
-const { Op } = require("sequelize");
-const Sequelize = require("sequelize");
+const router = require('express').Router();
+const games = require('../jsonDB/games.json');
+const game = games.filter((g) => g.title === 'LIAR LIAR')[0];
+const { Portal, User, Round, Question, Answer } = require('../models');
+const checkPhase = require('../utils/checkPhase');
+const checkPortal = require('../utils/checkPortal');
+const matchUserToPortal = require('../utils/matchUserToPortal');
+const checkWhenUserJoinedPortal = require('../utils/checkWhenUserJoinedPortal');
+const { Op } = require('sequelize');
+const Sequelize = require('sequelize');
 /**
  * Prompt user to create new portal or join current portal with code
  * @param  {}
  * @return {game}
  */
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    res.render("liarliar/game", {
+    res.render('liarliar/game', {
       game,
     });
   } catch (err) {
@@ -32,7 +32,7 @@ router.get("/", async (req, res) => {
  * @return {game, portal, portalLeader, currentUser, loggedIn, round, answers}
  */
 router.get(
-  "/:code/waiting/hard",
+  '/:code/waiting/hard',
   checkPortal,
   matchUserToPortal,
   async (req, res) => {
@@ -42,12 +42,12 @@ router.get(
           {
             model: Round,
             required: false,
-            order: [["id", "ASC"]],
+            order: [['id', 'ASC']],
             include: [
               { model: Question },
               {
                 model: Answer,
-                order: [["answer", "DESC"]],
+                order: [['answer', 'DESC']],
               },
             ],
           },
@@ -57,7 +57,7 @@ router.get(
             where: { id: { [Op.not]: req.session.user } },
           },
         ],
-        attributes: ["id", "code", "round", "phase"],
+        attributes: ['id', 'code', 'round', 'phase'],
         where: {
           code: req.params.code,
           game: game.title,
@@ -86,13 +86,13 @@ router.get(
             },
           ],
           attributes: [
-            "id",
-            "name",
-            "leader",
-            "avatar",
-            "points",
-            "answer_lock",
-            "question_lock",
+            'id',
+            'name',
+            'leader',
+            'avatar',
+            'points',
+            'answer_lock',
+            'question_lock',
           ],
           where: {
             id: req.session.user,
@@ -108,7 +108,7 @@ router.get(
         currentUser = currentUserData.get({ plain: true });
       }
 
-      res.render("liarliar/waiting", {
+      res.render('liarliar/waiting', {
         portal,
         game,
         currentUser,
@@ -130,7 +130,7 @@ router.get(
  * @return {game, portal, portalLeader, currentUser, loggedIn, round, answers}
  */
 router.get(
-  "/:code/:phase",
+  '/:code/:phase',
   checkPortal,
   checkPhase,
   matchUserToPortal,
@@ -141,14 +141,14 @@ router.get(
           {
             model: Round,
             required: false,
-            order: [["id", "DESC"]],
+            order: [['id', 'DESC']],
             include: [
               { model: Question },
               {
                 model: Answer,
-                order: [["answer", "DESC"]],
-              },
-            ],
+                order: ['answer', 'ASC']
+              }
+            ]
           },
           {
             model: User,
@@ -156,7 +156,7 @@ router.get(
             where: { id: { [Op.not]: req.session.user } },
           },
         ],
-        attributes: ["id", "code", "round", "phase"],
+        attributes: ['id', 'code', 'round', 'phase'],
         where: {
           code: req.params.code,
           game: game.title,
@@ -199,13 +199,13 @@ router.get(
             },
           ],
           attributes: [
-            "id",
-            "name",
-            "leader",
-            "avatar",
-            "points",
-            "answer_lock",
-            "question_lock",
+            'id',
+            'name',
+            'leader',
+            'avatar',
+            'points',
+            'answer_lock',
+            'question_lock',
           ],
           where: {
             id: req.session.user,
@@ -241,9 +241,9 @@ router.get(
 );
 
 // GET how-to-play
-router.get("/how-to-play", async (req, res) => {
+router.get('/how-to-play', async (req, res) => {
   try {
-    res.render("liarliar/how-to-play", {
+    res.render('liarliar/how-to-play', {
       game,
     });
   } catch (err) {

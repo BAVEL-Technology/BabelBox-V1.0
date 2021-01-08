@@ -18,7 +18,7 @@
         style="font-family: {{game.font}};">
         {{{blankify round.question.question}}}
       </div>
-      {{#each round.answers}}
+      {{#each (randomize round.answers)}}
       {{#if user_id}}
       {{#unless (q user_id '==' @root.currentUser.id)}}
       <button {{#if @root.currentUser.answer_lock}} disabled {{/if}} onclick="selectAnswer({{@root.currentUser.id}}, {{@root.round.id}}, {{user_id}})" class="answer place-self-center my-12 bg-blue-400 h-12 text-gray-100 p-4 rounded-xl flex
