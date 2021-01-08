@@ -1,14 +1,14 @@
 module.exports = {
   purge: [],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: media,
   theme: {
     extend: {},
   },
   variants: {
     extend: {
-      backgroundColor: ['active'],
-      opacity: ['disabled'],
-    }
+      backgroundColor: ["active"],
+      opacity: ["disabled"],
+    },
   },
   plugins: [],
-}
+};

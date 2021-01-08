@@ -1,54 +1,64 @@
 {{> nav tinyLogo=true centerText=false}}
-<div class="flex flex-col w-full items-center justify-center min-h-screen">
+{{!-- barba namespace for game --}}
+<div data-barba="container" data-barba-namespace="game"
+  class="flex flex-col w-full items-center justify-center min-h-screen">
+  {{!-- ul for animation --}}
+  <ul class="transition">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
   <div class="h-full w-11/12 md:w-3/4 lg:w-1/3 rounded-xl p-4">
-    <p class="text-{{game.color}} lg:text-7xl md:text-7xl text-5xl text-center font-semibold mb-4" style="font-family: {{game.font}};">{{game.title}}</p>
-    <p id="tag-line" class="lg:text-3xl md:text-3xl text-2xl text-{{game.color}} text-center mb-4" style="font-family: {{game.font}};">{{game.tagline}}</p>
+    <p class="text-{{game.color}} lg:text-7xl md:text-7xl text-5xl text-center font-semibold mb-4"
+      style="font-family: {{game.font}};">{{game.title}}</p>
+    <p id="tag-line" class="lg:text-3xl md:text-3xl text-2xl text-{{game.color}} text-center mb-4"
+      style="font-family: {{game.font}};">{{game.tagline}}</p>
     {{> liarliar/enter-portal-card}}
     {{> liarliar/create-portal-card}}
   </div>
 </div>
 
 {{#section 'styles'}}
-  <style>
-    input:focus-within ~ label,
-    input:not(:placeholder-shown) ~ label {
-      transform: scale(.75) translateY(-1.5rem);
-    }
+<style>
+  input:focus-within~label,
+  input:not(:placeholder-shown)~label {
+    transform: scale(.75) translateY(-1.5rem);
+  }
 
-    label {
-      transform-origin: 0%;
-    }
+  label {
+    transform-origin: 0%;
+  }
 
-    #tag-line img.emoji {
-     height: 1em;
-     width: 1em;
-     margin: 0 .05em 0 .1em;
-     vertical-align: -0.1em;
-     display: inline-block;
-    }
-  </style>
+  #tag-line img.emoji {
+    height: 1em;
+    width: 1em;
+    margin: 0 .05em 0 .1em;
+    vertical-align: -0.1em;
+    display: inline-block;
+  }
+</style>
 {{/section}}
 
 {{#section 'script'}}
-  <script src="/js/liarliar/liarliar.js"></script>
-  <script type="application/javascript">
-    /*
-    * When users type into the portal input, display how close they are to
-    * getting to the proper 10 letter code
-    */
-    if (document.querySelector('#portal-name')) {
-      setInterval(() => {
-        let letters = document.querySelector('#portal-name').value.length;
-        let width = letters >= 11 ? ' w-full' : ' w-' + letters + '/12';
-        let classes = 'status-bar border-b-4 border-blue-400 absolute top-7';
-        document.querySelector('.status-bar').classList = classes + width;
-      }, 100)
-    }
-    /*
-    * Console error if user tries to go to unknown portal
-    */
-    const urlParams = new URLSearchParams(window.location.search);
-    const error = urlParams.get('error');
-    console.error(error)
-  </script>
+<script src="/js/liarliar/liarliar-browserify.js"></script>
+<script type="application/javascript">
+  /*
+  * When users type into the portal input, display how close they are to
+  * getting to the proper 10 letter code
+  */
+  if (document.querySelector('#portal-name')) {
+    setInterval(() => {
+      let letters = document.querySelector('#portal-name').value.length;
+      let width = letters >= 11 ? ' w-full' : ' w-' + letters + '/12';
+      let classes = 'status-bar border-b-4 border-blue-400 absolute top-7';
+      document.querySelector('.status-bar').classList = classes + width;
+    }, 100)
+  }
+  /*
+  * Console error if user tries to go to unknown portal
+  */
+  const urlParams = new URLSearchParams(window.location.search);
+  const error = urlParams.get('error');
+  console.error(error)
+</script>
 {{/section}}

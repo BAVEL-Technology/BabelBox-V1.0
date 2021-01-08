@@ -4,11 +4,12 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "lint": "./node_modules/.bin/eslint **/*.js",
+    "lint": "eslint \"**/*.js\"",
     "build": "...",
     "test": "...",
     "start": "node server.js",
-    "questions": "node seeds/seed.js"
+    "questions": "node seeds/seed.js",
+    "ll-browserify": "browserify public/js/liarliar/index.js -o public/js/liarliar/liarliar-browserify.js"
   },
   "keywords": [],
   "author": "",
@@ -16,17 +17,24 @@
   "dependencies": {
     "autoprefixer": "^10.1.0",
     "bcrypt": "^5.0.0",
+    "browserify": "^17.0.0",
     "chalk": "^4.1.0",
     "connect-session-sequelize": "^7.0.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-handlebars": "^5.2.0",
     "express-session": "^1.17.1",
+<<<<<<< HEAD
     "gsap": "^3.5.1",
     "figlet": "^1.5.0",
+=======
+    "figlet": "^1.5.0",
+    "gsap": "^3.5.1",
+>>>>>>> 2d272915fda6c7cba033bd3f0f897c8ba05ce0d6
     "mysql2": "^2.2.5",
     "postcss": "^8.2.1",
     "sequelize": "^6.3.5",
+    "tailwind-toast": "^1.0.3",
     "tailwindcss": "^2.0.2",
     "twemoji": "^13.0.1"
   },
@@ -34,6 +42,7 @@
     "@barba/core": "^2.9.7",
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.3.0",
     "prettier": "^2.1.2"
   }
 }
