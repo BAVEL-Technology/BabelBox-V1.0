@@ -43,7 +43,7 @@
     };
     console.log(localStorage.getItem('currentUser'))
     const socket = io();
-    socket.io.connect('http://localhost:3001')
+    socket.io.connect(window.location.hostname)
     socket.on('new user', pushNewUser)
     socket.on('updated user', pushUpdatedUser)
     socket.on('deleted user', pushDeletedUser)
