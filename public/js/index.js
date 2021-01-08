@@ -1,3 +1,13 @@
+const { toast } = require('tailwind-toast');
+
+const socket = io();
+socket.io.connect(window.location.hostname);
+socket.on('new user', pushNewUser);
+socket.on('updated user', pushUpdatedUser);
+socket.on('deleted user', pushDeletedUser);
+socket.on('phase changed', changePortalPhase);
+socket.on('You fooled someone', toastToFoolingSomeone);
+
 /*
  * Parse DOM for twemojis
  * use npm twemoji to convert from emoji to twemoij
@@ -39,6 +49,13 @@ function pushNewUser(data) {
   twemoji.parse(newUser);
 
   document.querySelector('#cards-wrapper').append(newUser);
+}
+
+function toastToFoolingSomeone (data) {
+  const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  if(data.id === currentUser.id) {
+    toast().success(' ', 'You fooled someone! + $25!').with({ shape: 'pill' }).show();
+  }
 }
 
 function pushUpdatedUser(data) {

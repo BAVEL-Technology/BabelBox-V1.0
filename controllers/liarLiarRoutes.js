@@ -153,6 +153,7 @@ router.get(
           {
             model: User,
             required: false,
+            order: ['points', 'DESC'],
             where: { id: { [Op.not]: req.session.user } },
           },
         ],

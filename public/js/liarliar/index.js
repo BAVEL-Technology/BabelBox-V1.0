@@ -1,6 +1,9 @@
 const bb = require('../api/index');
 const { toast } = require('tailwind-toast');
 
+const anotherSocket = io();
+console.log(anotherSocket);
+
 /*
  * Handle errors from the server
  */
@@ -223,8 +226,8 @@ window.selectAnswer = async function (currentUserId, round_id, user_id) {
       .show();
   } else {
     const user = await bb.read('user', { id: user_id });
-
-    await bb.update('user', { id: user_id, points: user.points + 25 });
+    const liar = await bb.update('user', { id: user_id, points: user.points + 25 });
+    anotherSocket.emit('I got it wrong', liar);
     toast().danger('Doh!', 'You were fooled!').with({ shape: 'pill' }).show();
   }
 
