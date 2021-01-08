@@ -2,7 +2,6 @@ const bb = require('../api/index');
 const { toast } = require('tailwind-toast');
 
 const anotherSocket = io();
-console.log(anotherSocket);
 
 /*
  * Handle errors from the server
