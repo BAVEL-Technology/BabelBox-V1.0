@@ -626,6 +626,16 @@ video {
   background-color: rgba(96, 165, 250, var(--tw-bg-opacity));
 }
 
+.bg-indigo-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(79, 70, 229, var(--tw-bg-opacity));
+}
+
+.bg-pink-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgba(219, 39, 119, var(--tw-bg-opacity));
+}
+
 .hover\:bg-gray-100:hover {
   --tw-bg-opacity: 1;
   background-color: rgba(243, 244, 246, var(--tw-bg-opacity));

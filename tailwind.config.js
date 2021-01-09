@@ -32,7 +32,9 @@ module.exports = {
         '-translate-y-36',
         'translate-y-36',
         'duration-500',
-        '-top-24'
+        '-top-24',
+        'bg-indigo-600',
+        'bg-pink-600'
       ],
     }
   },
