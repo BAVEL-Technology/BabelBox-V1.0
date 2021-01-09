@@ -1,5 +1,5 @@
 const bb = require('../api/index');
-const { toast } = require('tailwind-toast');
+const { toast } = require('../tailwind-toast/twtoast.js');
 
 const anotherSocket = io();
 
@@ -9,7 +9,7 @@ const anotherSocket = io();
 const urlParams = new URLSearchParams(window.location.search);
 const error = urlParams.get('error');
 if (error) {
-  toast().danger(' ', error).with({ shape: 'pill' }).show();
+  toast().danger(' ', ' ' + error).with({ shape: 'pill', icon: '✋' }).show();
 }
 
 /*
@@ -133,7 +133,7 @@ window.copyCode = function () {
   elem.select();
   document.execCommand('copy');
   document.body.removeChild(elem);
-  toast().success(' ', 'Copied to clipboard!').with({ shape: 'pill' }).show();
+  toast().success(' ', ' Copied to clipboard!').with({ shape: 'pill', icon: '🎉' }).show();
 };
 
 /*
@@ -275,14 +275,14 @@ window.selectAnswer = async function (currentUserId, round_id, user_id) {
       points: currentUser.points + 100,
     });
     toast()
-      .success('Great!', 'You got the right answer!')
-      .with({ shape: 'pill' })
+      .success('', 'Great! You got the right answer!')
+      .with({ shape: 'pill', icon: '🎉' })
       .show();
   } else {
     const user = await bb.read('user', { id: user_id });
     const liar = await bb.update('user', { id: user_id, points: user.points + 25 });
     anotherSocket.emit('I got it wrong', liar);
-    toast().danger('Doh!', 'You were fooled!').with({ shape: 'pill' }).show();
+    toast().danger('', 'Doh! You were fooled!').with({ shape: 'pill', icon: '🤦' }).show();
   }
 
   const buttons = document.getElementsByClassName('answer');

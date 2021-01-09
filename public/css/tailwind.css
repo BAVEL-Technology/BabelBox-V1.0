@@ -1080,6 +1080,10 @@ video {
   top: -3rem;
 }
 
+.-top-24 {
+  top: -6rem;
+}
+
 * {
   --tw-shadow: 0 0 #0000;
 }
@@ -1323,6 +1327,14 @@ video {
   --tw-scale-y: 1.25;
 }
 
+.translate-y-36 {
+  --tw-translate-y: 9rem;
+}
+
+.-translate-y-36 {
+  --tw-translate-y: -9rem;
+}
+
 .hover\:-translate-y-1:hover {
   --tw-translate-y: -0.25rem;
 }
@@ -1367,6 +1379,10 @@ video {
 
 .duration-300 {
   transition-duration: 300ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
 }
 
 @-webkit-keyframes spin {

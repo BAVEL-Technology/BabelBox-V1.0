@@ -25,7 +25,15 @@ module.exports = {
       './public/js/index.js'
     ],
     options: {
-      safelist: ['bg-green-500', 'bg-red-500'],
+      safelist: [
+        'bg-green-500',
+        'bg-red-500',
+        'z-50',
+        '-translate-y-36',
+        'translate-y-36',
+        'duration-500',
+        '-top-24'
+      ],
     }
   },
   theme: {

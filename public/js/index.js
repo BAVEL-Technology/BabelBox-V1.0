@@ -1,4 +1,4 @@
-const { toast } = require('tailwind-toast');
+const { toast } = require('./tailwind-toast/twtoast.js');
 
 const socket = io();
 socket.io.connect(window.location.hostname);
@@ -57,7 +57,7 @@ function pushNewUser(data) {
 function toastToFoolingSomeone (data) {
   const currentUser = JSON.parse(localStorage.getItem('currentUser'));
   if(data.id === currentUser.id) {
-    toast().success(' ', 'You fooled someone! + $25!').with({ shape: 'pill' }).show();
+    toast().success(' ', ' You fooled someone! + $25!').with({ shape: 'pill', icon: '🤑' }).show();
   }
 }
 
