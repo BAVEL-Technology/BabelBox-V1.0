@@ -8,6 +8,7 @@
     "test": "...",
     "start": "node server.js",
     "questions": "node seeds/seed.js",
+    "tailwind-pro": "NODE_ENV=production npx tailwindcss-cli@latest build public/css/style.css -o public/css/tailwind.css",
     "tailwind": "npx tailwindcss-cli@latest build public/css/style.css -o public/css/tailwind.css",
     "ll-browserify": "browserify public/js/liarliar/index.js -o public/js/liarliar/liarliar-browserify.js",
     "index-browserify": "browserify public/js/index.js -o public/js/index-browserify.js"
