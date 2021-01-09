@@ -1,0 +1,8 @@
+<div class="twthis mx-4 text-${this.fontColor}-${this.fontTone} px-6 py-4 border-0 ${this.shape} relative mb-4 bg-${this.color}-${this.tone}">
+  <span id="charecters" class="text-xl inline-block mr-5 align-middle">
+    ${this.icon}
+  </span>
+  <span class="inline-block align-middle mr-8">
+    <b class="title">${this.title}</b> ${this.message}
+  </span>
+</div>

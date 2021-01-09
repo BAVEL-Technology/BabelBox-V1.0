@@ -62,3 +62,21 @@
   </div>
 </body>
 </html>
+
+const j = schedule.scheduleJob({hour: 20, minute: 19}, async function(){
+  console.log('👷 Hey! I\'m starting garbage collection!')
+  console.log('⛏️     (0%)\r');
+  const portalData = await Portal.findAll();
+  let deleteablePortals = [];
+  portalData.forEach((portal, index) => {
+    let date = moment(portal.dataValues.updatedAt, 'YYYY-MM-DD HH:MM:SS').unix()
+    if (date < ((Date.now() / 1000) - 86400)) {
+      deleteablePortals.push(portal.dataValues.id)
+    }
+    let percent = Math.floor(index / portalData.length);
+    let hashes = Math.floor(20 * percent)
+    console.log(hashes)
+    let hash = '#'
+    console.log(`⛏️${hash.repeat(hashes)}     (${percent}%)\r`)
+  })
+});

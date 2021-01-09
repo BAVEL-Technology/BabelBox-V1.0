@@ -13,6 +13,8 @@
 */
 // const chalk = require('chalk');
 // const figlet = require('figlet');
+const schedule = require('node-schedule');
+const moment = require('moment')
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
@@ -25,6 +27,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const hbs = exphbs.create({ helpers });
 const socket = require('socket.io');
+const { Portal } = require('./models');
 const sess = {
   secret: 'ivory-smelt',
   cookie: {},

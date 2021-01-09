@@ -149,6 +149,12 @@ router.put('/:id', async (req, res) => {
       });
     }
 
+    if(req.body.avatar){
+      userData = await userData.update({
+        avatar: req.body.avatar,
+      });
+    }
+
     const io = req.app.get('socketio');
     io.emit('updated user', userData);
 
@@ -192,10 +198,11 @@ router.delete('/:id', async (req, res) => {
     }
 
     const io = req.app.get('socketio');
-    io.emit('deleted user', userData);
+    io.emit('deleted user', {id: req.params.id});
 
     res.status(200).json(userData);
   } catch (err) {
+    console.log(err)
     res.status(500).json(err);
   }
 });

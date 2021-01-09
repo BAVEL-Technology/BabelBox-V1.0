@@ -8,8 +8,10 @@
     "test": "...",
     "start": "node server.js",
     "questions": "node seeds/seed.js",
+    "tailwind-pro": "NODE_ENV=production npx tailwindcss-cli@latest build public/css/style.css -o public/css/tailwind.css",
     "tailwind": "npx tailwindcss-cli@latest build public/css/style.css -o public/css/tailwind.css",
-    "ll-browserify": "browserify public/js/liarliar/index.js -o public/js/liarliar/liarliar-browserify.js"
+    "ll-browserify": "browserify public/js/liarliar/index.js -o public/js/liarliar/liarliar-browserify.js",
+    "index-browserify": "browserify public/js/index.js -o public/js/index-browserify.js"
   },
   "keywords": [],
   "author": "",
@@ -26,7 +28,9 @@
     "express-session": "^1.17.1",
     "figlet": "^1.5.0",
     "gsap": "^3.5.1",
+    "moment": "^2.29.1",
     "mysql2": "^2.2.5",
+    "node-schedule": "^1.3.2",
     "postcss": "^8.2.1",
     "sequelize": "^6.3.5",
     "socket.io": "^3.0.5",
