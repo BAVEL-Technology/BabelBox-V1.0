@@ -2,6 +2,9 @@
 <html lang="en">
 
 <head>
+  <script type="text/javascript">
+      var timerStart = Date.now();
+  </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -42,17 +45,21 @@
   {{{_sections.script}}}
   <script src="/js/index-browserify.js"></script>
   <script>
-  window.onload = (event) => {
-    document.querySelector('#loader').remove()
-    {{#if currentUser}}
-      localStorage.setItem('currentUser', '{{{ stringify currentUser }}}');
-    {{/if}}
-    {{#if portal}}
-      localStorage.setItem('currentPortal', '{{{ stringify portal }}}');
-    {{/if}}
-  };
-  console.log(localStorage.getItem('currentUser'))
-  console.log(localStorage.getItem('currentPortal'))
+    window.onload = (event) => {
+      let pageLoad = Date.now() - timerStart;
+      let locationArray = window.location.href.split('/')
+      let phase = locationArray[locationArray.length - 1]
+      socket.emit('statistics', {loadTime: pageLoad, message: 'entering ' + phase});
+      document.querySelector('#loader').remove()
+      {{#if currentUser}}
+        localStorage.setItem('currentUser', '{{{ stringify currentUser }}}');
+      {{/if}}
+      {{#if portal}}
+        localStorage.setItem('currentPortal', '{{{ stringify portal }}}');
+      {{/if}}
+    };
+    console.log(localStorage.getItem('currentUser'))
+    console.log(localStorage.getItem('currentPortal'))
   </script>
 </body>
 

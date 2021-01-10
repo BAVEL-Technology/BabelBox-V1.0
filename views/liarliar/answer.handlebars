@@ -43,6 +43,10 @@
 {{#section 'script'}}
 <script src="/js/liarliar/liarliar-browserify.js"></script>
 <script type="application/javascript">
+  const socket = io();
+  window.onbeforeunload = function (e) {
+    socket.emit('statistics', {loadTime: 0, message: "leaving answer"});
+  };
   function next() {
     setTimeout(() => {
       window.location.href = `/{{game.url}}/{{portal.code}}/waiting`

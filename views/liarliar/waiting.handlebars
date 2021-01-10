@@ -74,4 +74,10 @@
 
 {{#section 'script'}}
 <script src="/js/liarliar/liarliar-browserify.js"></script>
+<script>
+  const socket = io();
+  window.onbeforeunload = function (e) {
+    socket.emit('statistics', {loadTime: 0, message: "leaving waiting"});
+  };
+</script>
 {{/section}}

@@ -14,7 +14,8 @@
 // const chalk = require('chalk');
 // const figlet = require('figlet');
 const schedule = require('node-schedule');
-const moment = require('moment')
+const moment = require('moment');
+const statistics = require('./utils/statistics.js');
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
@@ -54,7 +55,11 @@ sequelize.sync({ force: false }).then(() => {
   function newConnection(socket) {
     console.log('new connection: ' + socket.id);
     socket.on('I got it wrong', callback);
-
+    
+    socket.on('statistics', (data) => {
+      console.log('page load: ' + data.loadTime)
+      statistics.record(socket.handshake.address, Date.now(), socket.handshake.headers.referer, data.message, socket.request.headers['user-agent'], data.loadTime)
+    })
     function callback (data) {
       console.log('Got it yall');
       socket.broadcast.emit('You fooled someone', data);

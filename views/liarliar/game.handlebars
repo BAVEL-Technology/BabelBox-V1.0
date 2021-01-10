@@ -42,6 +42,11 @@
 {{#section 'script'}}
 <script src="/js/liarliar/liarliar-browserify.js"></script>
 <script type="application/javascript">
+  const socket = io();
+  window.onbeforeunload = function (e) {
+    socket.emit('statistics', {loadTime: 0, message: "leaving liarliar"});
+  };
+
   /*
   * When users type into the portal input, display how close they are to
   * getting to the proper 10 letter code

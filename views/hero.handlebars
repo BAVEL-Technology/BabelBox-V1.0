@@ -17,6 +17,12 @@
 </div>
 
 {{#section 'script'}}
+<script>
+  const socket = io();
+  window.onbeforeunload = function (e) {
+    socket.emit('statistics', {loadTime: 0, message: "leaving homepage"});
+  };
+</script>
 <script type="application/javascript">
   /*
   * Hover effect on "BABELBOX"
