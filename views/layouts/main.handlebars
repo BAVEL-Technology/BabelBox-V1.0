@@ -14,18 +14,22 @@
   <script src="https://kit.fontawesome.com/7652f157a9.js" crossorigin="anonymous"></script>
   <title>BABELbox</title>
   <style>
-  #charecters img.emoji {
-    height: 1em;
-    width: 1em;
-    margin: 0 .05em 0 .1em;
-    vertical-align: -0.1em;
-    display: inline-block;
-  }
+    #charecters img.emoji {
+      height: 1em;
+      width: 1em;
+      margin: 0 .05em 0 .1em;
+      vertical-align: -0.1em;
+      display: inline-block;
+    }
   </style>
   {{{_sections.styles}}}
+  <!-- Fathom - beautiful, simple website analytics -->
+  <script src="https://cdn.usefathom.com/script.js" data-site="ZUYZUBUE" defer></script>
+  <!-- / Fathom -->
 </head>
 
 {{!-- barba main wrapper --}}
+
 <body data-barba="wrapper" class="bg-blue-200">
   <div id="loader" class="fixed flex items-center justify-center h-full w-full bg-blue-200 z-50">
     <div class="loader1">
@@ -42,17 +46,21 @@
   {{{_sections.script}}}
   <script src="/js/index-browserify.js"></script>
   <script>
-  window.onload = (event) => {
-    document.querySelector('#loader').remove()
-    {{#if currentUser}}
+    window.onload = (event) => {
+      document.querySelector('#loader').remove()
+      { {#if currentUser } }
       localStorage.setItem('currentUser', '{{{ stringify currentUser }}}');
-    {{/if}}
-    {{#if portal}}
-      localStorage.setItem('currentPortal', '{{{ stringify portal }}}');
-    {{/if}}
-  };
-  console.log(localStorage.getItem('currentUser'))
-  console.log(localStorage.getItem('currentPortal'))
+      {
+        {
+          /if}}
+          { {#if portal } }
+          localStorage.setItem('currentPortal', '{{{ stringify portal }}}');
+          {
+            {
+              /if}}
+            };
+            console.log(localStorage.getItem('currentUser'))
+            console.log(localStorage.getItem('currentPortal'))
   </script>
 </body>
 
