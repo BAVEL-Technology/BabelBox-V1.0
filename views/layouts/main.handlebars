@@ -48,19 +48,15 @@
   <script>
     window.onload = (event) => {
       document.querySelector('#loader').remove()
-      { {#if currentUser } }
-      localStorage.setItem('currentUser', '{{{ stringify currentUser }}}');
-      {
-        {
-          /if}}
-          { {#if portal } }
-          localStorage.setItem('currentPortal', '{{{ stringify portal }}}');
-          {
-            {
-              /if}}
-            };
-            console.log(localStorage.getItem('currentUser'))
-            console.log(localStorage.getItem('currentPortal'))
+      {{#if currentUser }}
+        localStorage.setItem('currentUser', '{{{ stringify currentUser }}}');
+      {{/if}}
+      {{#if portal }}
+        localStorage.setItem('currentPortal', '{{{ stringify portal }}}');
+      {{/if}}
+    };
+    console.log(localStorage.getItem('currentUser'))
+    console.log(localStorage.getItem('currentPortal'))
   </script>
 </body>
 
